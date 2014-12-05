@@ -61,6 +61,10 @@ namespace System.Data.Linq.SqlClient {
             return this.connection;
         }
 
+		/// <summary>
+		/// Removes the specified connection using object from this connection.
+		/// </summary>
+		/// <param name="user"></param>
         private void BootUser(IConnectionUser user) {
             bool saveAutoClose = this.autoClose;
             this.autoClose = false;

@@ -11,6 +11,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace System.Data.Linq.SqlClient {
 
+	/// <summary>
+	/// Class which produces SQL Server specific SQL fragments for SqlNode instances.
+	/// </summary>
     internal class SqlFormatter : DbFormatter {
         private Visitor visitor;
 
