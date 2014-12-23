@@ -410,9 +410,9 @@ namespace System.Data.Linq.SqlClient {
 #endif
 
 
-#warning REFERENCE SOURCE DOESN'T CONTAIN OBJECTREADERBUILDER, SO #IFDEF HAS BEEN REVERSED. SHIPPED DLL IN .NET REFERS TO OBJECTREADERCOMPILER.
+#warning [FB] REFERENCE SOURCE DOESN'T CONTAIN OBJECTREADERBUILDER, SO #IFDEF HAS BEEN REVERSED. SHIPPED DLL IN .NET REFERS TO OBJECTREADERCOMPILER.
 #if !ILGEN
-            Type readerType;
+			Type readerType;
             if (this.mode == ProviderMode.SqlCE) {
                 readerType = con.GetType().Module.GetType(SqlCeDataReaderTypeName);
             }
@@ -1172,9 +1172,9 @@ namespace System.Data.Linq.SqlClient {
                         prec, 
                         scale, 
                         sp == null ? p.Value : sp.SqlValue);
-                }
-#warning IMPLEMENT FILE VERSION RETRIEVAL HERE AND REPLACE "1.0"
-                writer.WriteLine("-- Context: {0}({1}) Model: {2} Build: {3}", this.GetType().Name, this.Mode, this.services.Model.GetType().Name, "1.0 (placeholder)");
+				}
+#warning [FB] IMPLEMENT FILE VERSION RETRIEVAL HERE AND REPLACE "1.0"
+				writer.WriteLine("-- Context: {0}({1}) Model: {2} Build: {3}", this.GetType().Name, this.Mode, this.services.Model.GetType().Name, "1.0 (placeholder)");
                 writer.WriteLine();
             }
         }
