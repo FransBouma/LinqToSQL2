@@ -21,7 +21,13 @@ using Me = System.Data.Linq.SqlClient;
 using System.Runtime.Versioning;
 using System.Runtime.CompilerServices;
 
+#warning [FB] REFACTOR INTO SEPARATE ASSEMBLY SO OTHER DBs CAN BE SUPPORTED AS WELL
+
+
 namespace System.Data.Linq.SqlClient {
+	using System.Data.Linq.BindingLists;
+
+
     public sealed class Sql2000Provider : SqlProvider {
         public Sql2000Provider()
             : base(ProviderMode.Sql2000) {
@@ -1372,7 +1378,7 @@ namespace System.Data.Linq.SqlClient {
                         }
                     }
                 }
-                else if (mce.Method.DeclaringType == typeof(DataManipulation) && mce.Method.ReturnType == typeof(int)) {
+                else if (mce.Method.DeclaringType == typeof(DMLMethodPlaceholders) && mce.Method.ReturnType == typeof(int)) {
                     return ResultShape.Return;
                 }
             }

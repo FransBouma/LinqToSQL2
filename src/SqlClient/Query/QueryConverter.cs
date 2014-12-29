@@ -2317,7 +2317,7 @@ namespace System.Data.Linq.SqlClient {
         }
 
         private static bool IsDataManipulationCall(MethodCallExpression mc) {
-            return mc.Method.IsStatic && mc.Method.DeclaringType == typeof(DataManipulation);
+            return mc.Method.IsStatic && mc.Method.DeclaringType == typeof(DMLMethodPlaceholders);
         }
 
         private SqlNode VisitDataManipulationCall(MethodCallExpression mc) {

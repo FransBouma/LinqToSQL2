@@ -130,7 +130,7 @@ namespace System.Data.Linq.SqlClient {
             }
             internal override Expression VisitMethodCall(MethodCallExpression m) {
                 base.VisitMethodCall(m);
-                this.isRemote |= m.Method.DeclaringType == typeof(System.Data.Linq.Provider.DataManipulation)
+                this.isRemote |= m.Method.DeclaringType == typeof(DMLMethodPlaceholders)
                               || Attribute.IsDefined(m.Method, typeof(FunctionAttribute));
                 return m;
             }
