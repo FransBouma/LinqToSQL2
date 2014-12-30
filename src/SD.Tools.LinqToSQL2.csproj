@@ -251,9 +251,9 @@
     <None Include="SD.Tools.LinqToDB.snk" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="System.Data.Linq.Mapping.resources" />
-    <EmbeddedResource Include="System.Data.Linq.resources" />
-    <EmbeddedResource Include="System.Data.Linq.SqlClient.resources" />
+    <EmbeddedResource Include="Mapping.resources" />
+    <EmbeddedResource Include="Main.resources" />
+    <EmbeddedResource Include="SqlClient.resources" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

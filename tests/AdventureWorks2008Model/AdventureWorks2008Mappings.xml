@@ -1,0 +1,976 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="AdventureWorks" xmlns="http://schemas.microsoft.com/linqtosql/mapping/2007">
+	<Table Name="[Person].[Address]" Member="Addresses">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Address">
+			<Column Name="AddressLine1" Member="AddressLine1" Storage="_addressLine1" DbType="nvarchar(60) NOT NULL" CanBeNull="false"/>
+			<Column Name="AddressLine2" Member="AddressLine2" Storage="_addressLine2" DbType="nvarchar(60) NULL" CanBeNull="true"/>
+			<Column Name="City" Member="City" Storage="_city" DbType="nvarchar(30) NOT NULL" CanBeNull="false"/>
+			<Column Name="AddressID" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PostalCode" Member="PostalCode" Storage="_postalCode" DbType="nvarchar(15) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SpatialLocation" Member="SpatialLocation" Storage="_spatialLocation" DbType="Microsoft.SqlServer.Types.SqlGeography NULL" CanBeNull="true"/>
+			<Column Name="StateProvinceID" Member="StateProvinceId" Storage="_stateProvinceId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Association Name="BusinessEntityAddress_Address26013524b6af44f0a01f5d22827973ca" Member="BusinessEntityAddresses" ThisKey="Id" OtherKey="AddressId" Storage="_businessEntityAddresses"/>
+			<Association Name="SalesOrderHeader_Address0bd5384a935a4c1dbb4ce8f9dd53acb9" Member="SalesOrderHeaders" ThisKey="Id" OtherKey="BillToAddressId" Storage="_salesOrderHeaders"/>
+			<Association Name="SalesOrderHeader_Addressfb2b5170eead4ee99bee382b657276df" Member="SalesOrderHeaders1" ThisKey="Id" OtherKey="ShipToAddressId" Storage="_salesOrderHeaders1"/>
+			<Association Name="Address_StateProvince917500053b054de1abe51f8eb01b245e" Member="StateProvince" ThisKey="StateProvinceId" OtherKey="StateProvinceId" Storage="_stateProvince" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[AddressType]" Member="AddressTypes">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.AddressType">
+			<Column Name="AddressTypeID" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="BusinessEntityAddress_AddressType50a1e580943c40ab8a0626b62cb58239" Member="BusinessEntityAddresses" ThisKey="Id" OtherKey="AddressTypeId" Storage="_businessEntityAddresses"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[AWBuildVersion]" Member="AwbuildVersions">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.AwbuildVersion">
+			<Column Name="Database Version" Member="DatabaseVersion" Storage="_databaseVersion" DbType="nvarchar(25) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="SystemInformationID" Member="SystemInformationId" Storage="_systemInformationId" DbType="tinyint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="VersionDate" Member="VersionDate" Storage="_versionDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[BillOfMaterials]" Member="BillOfMaterials">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.BillOfMaterial">
+			<Column Name="BillOfMaterialsID" Member="BillOfMaterialsId" Storage="_billOfMaterialsId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="BOMLevel" Member="Bomlevel" Storage="_bomlevel" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="ComponentID" Member="ComponentId" Storage="_componentId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PerAssemblyQty" Member="PerAssemblyQty" Storage="_perAssemblyQty" DbType="decimal(8,2) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductAssemblyID" Member="ProductAssemblyId" Storage="_productAssemblyId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="UnitMeasureCode" Member="UnitMeasureCode" Storage="_unitMeasureCode" DbType="nchar(3) NOT NULL" CanBeNull="false"/>
+			<Association Name="BillOfMaterial_Product094140823bd04d6f9b2bf2a35763cb7a" Member="Product" ThisKey="ComponentId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="BillOfMaterial_Product85b2597d1d7c42e693198b9396319aa2" Member="Product1" ThisKey="ProductAssemblyId" OtherKey="ProductId" Storage="_product1" IsForeignKey="true"/>
+			<Association Name="BillOfMaterial_UnitMeasure072840b602ae4643accb83fdfb313f5f" Member="UnitMeasure" ThisKey="UnitMeasureCode" OtherKey="UnitMeasureCode" Storage="_unitMeasure" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[BusinessEntity]" Member="BusinessEntities">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.BusinessEntity">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="BusinessEntityAddress_BusinessEntitycd024dd2ef6a4768b19dd7fbbd7c9276" Member="BusinessEntityAddresses" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntityAddresses"/>
+			<Association Name="BusinessEntityContact_BusinessEntity55e775551f3a4a0fa505ae249bf862f7" Member="BusinessEntityContacts" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntityContacts"/>
+			<Association Name="Person_BusinessEntity03296cc5deac4778857396ce020e61a4" Member="Person" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_person"/>
+			<Association Name="Store_BusinessEntity5bf9397e4c0a41cc97e0f453e4166059" Member="Store" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_store"/>
+			<Association Name="Vendor_BusinessEntity77c7987b6abf4bfb82ab264cc04b4a8f" Member="Vendor" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_vendor"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[BusinessEntityAddress]" Member="BusinessEntityAddresses">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.BusinessEntityAddress">
+			<Column Name="AddressID" Member="AddressId" Storage="_addressId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="AddressTypeID" Member="AddressTypeId" Storage="_addressTypeId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="BusinessEntityAddress_Address26013524b6af44f0a01f5d22827973ca" Member="Address" ThisKey="AddressId" OtherKey="Id" Storage="_address" IsForeignKey="true"/>
+			<Association Name="BusinessEntityAddress_AddressType50a1e580943c40ab8a0626b62cb58239" Member="AddressType" ThisKey="AddressTypeId" OtherKey="Id" Storage="_addressType" IsForeignKey="true"/>
+			<Association Name="BusinessEntityAddress_BusinessEntitycd024dd2ef6a4768b19dd7fbbd7c9276" Member="BusinessEntity" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntity" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[BusinessEntityContact]" Member="BusinessEntityContacts">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.BusinessEntityContact">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ContactTypeID" Member="ContactTypeId" Storage="_contactTypeId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PersonID" Member="PersonId" Storage="_personId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="BusinessEntityContact_BusinessEntity55e775551f3a4a0fa505ae249bf862f7" Member="BusinessEntity" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntity" IsForeignKey="true"/>
+			<Association Name="BusinessEntityContact_ContactType407d32506f684e39a83ed2386d75d059" Member="ContactType" ThisKey="ContactTypeId" OtherKey="ContactTypeId" Storage="_contactType" IsForeignKey="true"/>
+			<Association Name="BusinessEntityContact_Person5443b668e2a2482eb758e862422b580f" Member="Person" ThisKey="PersonId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[ContactType]" Member="ContactTypes">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ContactType">
+			<Column Name="ContactTypeID" Member="ContactTypeId" Storage="_contactTypeId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="BusinessEntityContact_ContactType407d32506f684e39a83ed2386d75d059" Member="BusinessEntityContacts" ThisKey="ContactTypeId" OtherKey="ContactTypeId" Storage="_businessEntityContacts"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[CountryRegion]" Member="CountryRegions">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.CountryRegion">
+			<Column Name="CountryRegionCode" Member="CountryRegionCode" Storage="_countryRegionCode" DbType="nvarchar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="CountryRegionCurrency_CountryRegionc09731cfad0245d6a840baa4966ae7ec" Member="CountryRegionCurrencies" ThisKey="CountryRegionCode" OtherKey="CountryRegionCode" Storage="_countryRegionCurrencies"/>
+			<Association Name="SalesTerritory_CountryRegion2eae2cc6cc5643efbe000cfb06596d77" Member="SalesTerritories" ThisKey="CountryRegionCode" OtherKey="CountryRegionCode" Storage="_salesTerritories"/>
+			<Association Name="StateProvince_CountryRegion2590707fb9bc488682a2439cd889fa89" Member="StateProvinces" ThisKey="CountryRegionCode" OtherKey="CountryRegionCode" Storage="_stateProvinces"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[CountryRegionCurrency]" Member="CountryRegionCurrencies">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.CountryRegionCurrency">
+			<Column Name="CountryRegionCode" Member="CountryRegionCode" Storage="_countryRegionCode" DbType="nvarchar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="CurrencyCode" Member="CurrencyCode" Storage="_currencyCode" DbType="nchar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Association Name="CountryRegionCurrency_CountryRegionc09731cfad0245d6a840baa4966ae7ec" Member="CountryRegion" ThisKey="CountryRegionCode" OtherKey="CountryRegionCode" Storage="_countryRegion" IsForeignKey="true"/>
+			<Association Name="CountryRegionCurrency_Currencye274f57fd42b4e38b750cde437fa21e8" Member="Currency" ThisKey="CurrencyCode" OtherKey="CurrencyCode" Storage="_currency" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[CreditCard]" Member="CreditCards">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.CreditCard">
+			<Column Name="CardNumber" Member="CardNumber" Storage="_cardNumber" DbType="nvarchar(25) NOT NULL" CanBeNull="false"/>
+			<Column Name="CardType" Member="CardType" Storage="_cardType" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="CreditCardID" Member="CreditCardId" Storage="_creditCardId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ExpMonth" Member="ExpMonth" Storage="_expMonth" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="ExpYear" Member="ExpYear" Storage="_expYear" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Association Name="PersonCreditCard_CreditCardb3240c4a7f0641e48e96f953dd725173" Member="PersonCreditCards" ThisKey="CreditCardId" OtherKey="CreditCardId" Storage="_personCreditCards"/>
+			<Association Name="SalesOrderHeader_CreditCard3dad9b42779648a19464064d03fd88c0" Member="SalesOrderHeaders" ThisKey="CreditCardId" OtherKey="CreditCardId" Storage="_salesOrderHeaders"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[Culture]" Member="Cultures">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Culture">
+			<Column Name="CultureID" Member="CultureId" Storage="_cultureId" DbType="nchar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="ProductModelProductDescriptionCulture_Culture4695c8d1543f4530a51ab54f3789f5db" Member="ProductModelProductDescriptionCultures" ThisKey="CultureId" OtherKey="CultureId" Storage="_productModelProductDescriptionCultures"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[Currency]" Member="Currencies">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Currency">
+			<Column Name="CurrencyCode" Member="CurrencyCode" Storage="_currencyCode" DbType="nchar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="CountryRegionCurrency_Currencye274f57fd42b4e38b750cde437fa21e8" Member="CountryRegionCurrencies" ThisKey="CurrencyCode" OtherKey="CurrencyCode" Storage="_countryRegionCurrencies"/>
+			<Association Name="CurrencyRate_Currency8f6593b32b744bb3a46aaccff8e36b5f" Member="CurrencyRates" ThisKey="CurrencyCode" OtherKey="FromCurrencyCode" Storage="_currencyRates"/>
+			<Association Name="CurrencyRate_Currencye0e5f9a0eb0f423a84fb033ebf3ec0f0" Member="CurrencyRates1" ThisKey="CurrencyCode" OtherKey="ToCurrencyCode" Storage="_currencyRates1"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[CurrencyRate]" Member="CurrencyRates">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.CurrencyRate">
+			<Column Name="AverageRate" Member="AverageRate" Storage="_averageRate" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="CurrencyRateDate" Member="CurrencyRateDate" Storage="_currencyRateDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="CurrencyRateID" Member="CurrencyRateId" Storage="_currencyRateId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="EndOfDayRate" Member="EndOfDayRate" Storage="_endOfDayRate" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="FromCurrencyCode" Member="FromCurrencyCode" Storage="_fromCurrencyCode" DbType="nchar(3) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ToCurrencyCode" Member="ToCurrencyCode" Storage="_toCurrencyCode" DbType="nchar(3) NOT NULL" CanBeNull="false"/>
+			<Association Name="CurrencyRate_Currency8f6593b32b744bb3a46aaccff8e36b5f" Member="Currency" ThisKey="FromCurrencyCode" OtherKey="CurrencyCode" Storage="_currency" IsForeignKey="true"/>
+			<Association Name="CurrencyRate_Currencye0e5f9a0eb0f423a84fb033ebf3ec0f0" Member="Currency1" ThisKey="ToCurrencyCode" OtherKey="CurrencyCode" Storage="_currency1" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_CurrencyRate1b4e7f9b80564395a7b3fffd8738624c" Member="SalesOrderHeaders" ThisKey="CurrencyRateId" OtherKey="CurrencyRateId" Storage="_salesOrderHeaders"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[Customer]" Member="Customers">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Customer">
+			<Column Name="AccountNumber" Member="AccountNumber" Storage="_accountNumber" DbType="varchar(10) NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="CustomerID" Member="CustomerId" Storage="_customerId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PersonID" Member="PersonId" Storage="_personId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StoreID" Member="StoreId" Storage="_storeId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="TerritoryID" Member="TerritoryId" Storage="_territoryId" DbType="int NULL" CanBeNull="true"/>
+			<Association Name="Customer_Person8078ccc89fcc4b5ba18bcea0863b2088" Member="Person" ThisKey="PersonId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_Customer9b640c07d4624bba85bae01a49a5d0b4" Member="SalesOrderHeaders" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_salesOrderHeaders"/>
+			<Association Name="Customer_SalesTerritory10140401be8349b0acb71c2fdfd15886" Member="SalesTerritory" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesTerritory" IsForeignKey="true"/>
+			<Association Name="Customer_Store9afb2c7c5613495ca2628c9282c5bde5" Member="Store" ThisKey="StoreId" OtherKey="BusinessEntityId" Storage="_store" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[DatabaseLog]" Member="DatabaseLogs">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.DatabaseLog">
+			<Column Name="DatabaseLogID" Member="DatabaseLogId" Storage="_databaseLogId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="DatabaseUser" Member="DatabaseUser" Storage="_databaseUser" DbType="nvarchar(128) NOT NULL" CanBeNull="false"/>
+			<Column Name="Event" Member="Event" Storage="_event" DbType="nvarchar(128) NOT NULL" CanBeNull="false"/>
+			<Column Name="Object" Member="Object" Storage="_object" DbType="nvarchar(128) NULL" CanBeNull="true"/>
+			<Column Name="PostTime" Member="PostTime" Storage="_postTime" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Schema" Member="Schema" Storage="_schema" DbType="nvarchar(128) NULL" CanBeNull="true"/>
+			<Column Name="TSQL" Member="Tsql" Storage="_tsql" DbType="nvarchar(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="XmlEvent" Member="XmlEvent" Storage="_xmlEvent" DbType="xml NOT NULL" CanBeNull="false" UpdateCheck="Never"/>
+		</Type>
+	</Table>
+	<Table Name="[HumanResources].[Department]" Member="Departments">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Department">
+			<Column Name="DepartmentID" Member="DepartmentId" Storage="_departmentId" DbType="smallint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="GroupName" Member="GroupName" Storage="_groupName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="EmployeeDepartmentHistory_Departmente72811aa85f34f6f8cfa34eae0d6fd2f" Member="EmployeeDepartmentHistories" ThisKey="DepartmentId" OtherKey="DepartmentId" Storage="_employeeDepartmentHistories"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[Document]" Member="Documents">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Document">
+			<Column Name="ChangeNumber" Member="ChangeNumber" Storage="_changeNumber" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Document" Member="DocumentData" Storage="_documentData" DbType="varbinary(MAX) NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="DocumentLevel" Member="DocumentLevel" Storage="_documentLevel" DbType="smallint NULL" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="DocumentNode" Member="DocumentNode" Storage="_documentNode" DbType="varchar(892) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="DocumentSummary" Member="DocumentSummary" Storage="_documentSummary" DbType="nvarchar(MAX) NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="FileExtension" Member="FileExtension" Storage="_fileExtension" DbType="nvarchar(8) NOT NULL" CanBeNull="false"/>
+			<Column Name="FileName" Member="FileName" Storage="_fileName" DbType="nvarchar(400) NOT NULL" CanBeNull="false"/>
+			<Column Name="FolderFlag" Member="FolderFlag" Storage="_folderFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Owner" Member="Owner" Storage="_owner" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Revision" Member="Revision" Storage="_revision" DbType="nchar(5) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="Status" Member="Status" Storage="_status" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="Title" Member="Title" Storage="_title" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="Document_Employee6eb2d9ffccff409f9b652af39f0d4337" Member="Employee" ThisKey="Owner" OtherKey="BusinessEntityId" Storage="_employee" IsForeignKey="true"/>
+			<Association Name="ProductDocument_Document80ed3cb79503443dbe10e47e1315e371" Member="ProductDocuments" ThisKey="DocumentNode" OtherKey="DocumentNode" Storage="_productDocuments"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[EmailAddress]" Member="EmailAddresses">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.EmailAddress">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="EmailAddress" Member="EmailAddressData" Storage="_emailAddressData" DbType="nvarchar(50) NULL" CanBeNull="true"/>
+			<Column Name="EmailAddressID" Member="EmailAddressId" Storage="_emailAddressId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="EmailAddress_Person0a26df33b5c6420787d7001aa742d488" Member="Person" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[HumanResources].[Employee]" Member="Employees">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Employee">
+			<Column Name="BirthDate" Member="BirthDate" Storage="_birthDate" DbType="date NOT NULL" CanBeNull="false"/>
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="CurrentFlag" Member="CurrentFlag" Storage="_currentFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="Gender" Member="Gender" Storage="_gender" DbType="nchar(1) NOT NULL" CanBeNull="false"/>
+			<Column Name="HireDate" Member="HireDate" Storage="_hireDate" DbType="date NOT NULL" CanBeNull="false"/>
+			<Column Name="JobTitle" Member="JobTitle" Storage="_jobTitle" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="LoginID" Member="LoginId" Storage="_loginId" DbType="nvarchar(256) NOT NULL" CanBeNull="false"/>
+			<Column Name="MaritalStatus" Member="MaritalStatus" Storage="_maritalStatus" DbType="nchar(1) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="NationalIDNumber" Member="NationalIdnumber" Storage="_nationalIdnumber" DbType="nvarchar(15) NOT NULL" CanBeNull="false"/>
+			<Column Name="OrganizationLevel" Member="OrganizationLevel" Storage="_organizationLevel" DbType="smallint NULL" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="OrganizationNode" Member="OrganizationNode" Storage="_organizationNode" DbType="varchar(892) NULL" CanBeNull="true"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalariedFlag" Member="SalariedFlag" Storage="_salariedFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="SickLeaveHours" Member="SickLeaveHours" Storage="_sickLeaveHours" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="VacationHours" Member="VacationHours" Storage="_vacationHours" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Association Name="Document_Employee6eb2d9ffccff409f9b652af39f0d4337" Member="Documents" ThisKey="BusinessEntityId" OtherKey="Owner" Storage="_documents"/>
+			<Association Name="EmployeeDepartmentHistory_Employeef6c359e55dc0478d80eaa97d80e9c255" Member="EmployeeDepartmentHistories" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employeeDepartmentHistories"/>
+			<Association Name="EmployeePayHistory_Employee0a4596b730b848caa00e262b9d858c3c" Member="EmployeePayHistories" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employeePayHistories"/>
+			<Association Name="JobCandidate_Employee3e906592e20345879793565590e696d3" Member="JobCandidates" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_jobCandidates"/>
+			<Association Name="Employee_Person93f15a1f2dc542f688c953156a95aa83" Member="Person" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+			<Association Name="PurchaseOrderHeader_Employee0ed0a00cb5354d26a76055082ff6f16a" Member="PurchaseOrderHeaders" ThisKey="BusinessEntityId" OtherKey="EmployeeId" Storage="_purchaseOrderHeaders"/>
+			<Association Name="SalesPerson_Employeec5ef308809d747c9b15e6a29a073e901" Member="SalesPerson" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_salesPerson"/>
+		</Type>
+	</Table>
+	<Table Name="[HumanResources].[EmployeeDepartmentHistory]" Member="EmployeeDepartmentHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.EmployeeDepartmentHistory">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="DepartmentID" Member="DepartmentId" Storage="_departmentId" DbType="smallint NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="date NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ShiftID" Member="ShiftId" Storage="_shiftId" DbType="tinyint NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="date NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="EmployeeDepartmentHistory_Departmente72811aa85f34f6f8cfa34eae0d6fd2f" Member="Department" ThisKey="DepartmentId" OtherKey="DepartmentId" Storage="_department" IsForeignKey="true"/>
+			<Association Name="EmployeeDepartmentHistory_Employeef6c359e55dc0478d80eaa97d80e9c255" Member="Employee" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employee" IsForeignKey="true"/>
+			<Association Name="EmployeeDepartmentHistory_Shift822dff94d3394a978161fdef3882b258" Member="Shift" ThisKey="ShiftId" OtherKey="ShiftId" Storage="_shift" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[HumanResources].[EmployeePayHistory]" Member="EmployeePayHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.EmployeePayHistory">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PayFrequency" Member="PayFrequency" Storage="_payFrequency" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="Rate" Member="Rate" Storage="_rate" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="RateChangeDate" Member="RateChangeDate" Storage="_rateChangeDate" DbType="datetime NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="EmployeePayHistory_Employee0a4596b730b848caa00e262b9d858c3c" Member="Employee" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employee" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[ErrorLog]" Member="ErrorLogs">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ErrorLog">
+			<Column Name="ErrorLine" Member="ErrorLine" Storage="_errorLine" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ErrorLogID" Member="ErrorLogId" Storage="_errorLogId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ErrorMessage" Member="ErrorMessage" Storage="_errorMessage" DbType="nvarchar(4000) NOT NULL" CanBeNull="false"/>
+			<Column Name="ErrorNumber" Member="ErrorNumber" Storage="_errorNumber" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ErrorProcedure" Member="ErrorProcedure" Storage="_errorProcedure" DbType="nvarchar(126) NULL" CanBeNull="true"/>
+			<Column Name="ErrorSeverity" Member="ErrorSeverity" Storage="_errorSeverity" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ErrorState" Member="ErrorState" Storage="_errorState" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ErrorTime" Member="ErrorTime" Storage="_errorTime" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="UserName" Member="UserName" Storage="_userName" DbType="nvarchar(128) NOT NULL" CanBeNull="false"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[Illustration]" Member="Illustrations">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Illustration">
+			<Column Name="Diagram" Member="Diagram" Storage="_diagram" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="IllustrationID" Member="IllustrationId" Storage="_illustrationId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Association Name="ProductModelIllustration_Illustration7d6084b09bff40099077ef355fbaece4" Member="ProductModelIllustrations" ThisKey="IllustrationId" OtherKey="IllustrationId" Storage="_productModelIllustrations"/>
+		</Type>
+	</Table>
+	<Table Name="[HumanResources].[JobCandidate]" Member="JobCandidates">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.JobCandidate">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="JobCandidateID" Member="JobCandidateId" Storage="_jobCandidateId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Resume" Member="Resume" Storage="_resume" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Association Name="JobCandidate_Employee3e906592e20345879793565590e696d3" Member="Employee" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employee" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[Location]" Member="Locations">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Location">
+			<Column Name="Availability" Member="Availability" Storage="_availability" DbType="decimal(8,2) NOT NULL" CanBeNull="false"/>
+			<Column Name="CostRate" Member="CostRate" Storage="_costRate" DbType="smallmoney NOT NULL" CanBeNull="false"/>
+			<Column Name="LocationID" Member="LocationId" Storage="_locationId" DbType="smallint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="ProductInventory_Location859d7dd7a4d64deca5497f8468008ce9" Member="ProductInventories" ThisKey="LocationId" OtherKey="LocationId" Storage="_productInventories"/>
+			<Association Name="WorkOrderRouting_Locationda5d47271cba4ab8a36b86bf4b3c7d1d" Member="WorkOrderRoutings" ThisKey="LocationId" OtherKey="LocationId" Storage="_workOrderRoutings"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[Password]" Member="Passwords">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Password">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PasswordHash" Member="PasswordHash" Storage="_passwordHash" DbType="varchar(128) NOT NULL" CanBeNull="false"/>
+			<Column Name="PasswordSalt" Member="PasswordSalt" Storage="_passwordSalt" DbType="varchar(10) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="Password_Person71470931463c4f909a1a8d51dc090a68" Member="Person" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[Person]" Member="People">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Person">
+			<Column Name="AdditionalContactInfo" Member="AdditionalContactInfo" Storage="_additionalContactInfo" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="Demographics" Member="Demographics" Storage="_demographics" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="EmailPromotion" Member="EmailPromotion" Storage="_emailPromotion" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="FirstName" Member="FirstName" Storage="_firstName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="LastName" Member="LastName" Storage="_lastName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="MiddleName" Member="MiddleName" Storage="_middleName" DbType="nvarchar(50) NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="NameStyle" Member="NameStyle" Storage="_nameStyle" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="PersonType" Member="PersonType" Storage="_personType" DbType="nchar(2) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="Suffix" Member="Suffix" Storage="_suffix" DbType="nvarchar(10) NULL" CanBeNull="true"/>
+			<Column Name="Title" Member="Title" Storage="_title" DbType="nvarchar(8) NULL" CanBeNull="true"/>
+			<Association Name="Person_BusinessEntity03296cc5deac4778857396ce020e61a4" Member="BusinessEntity" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntity" IsForeignKey="true"/>
+			<Association Name="BusinessEntityContact_Person5443b668e2a2482eb758e862422b580f" Member="BusinessEntityContacts" ThisKey="BusinessEntityId" OtherKey="PersonId" Storage="_businessEntityContacts"/>
+			<Association Name="Customer_Person8078ccc89fcc4b5ba18bcea0863b2088" Member="Customers" ThisKey="BusinessEntityId" OtherKey="PersonId" Storage="_customers"/>
+			<Association Name="EmailAddress_Person0a26df33b5c6420787d7001aa742d488" Member="EmailAddresses" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_emailAddresses"/>
+			<Association Name="Employee_Person93f15a1f2dc542f688c953156a95aa83" Member="Employee" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employee"/>
+			<Association Name="Password_Person71470931463c4f909a1a8d51dc090a68" Member="Password" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_password"/>
+			<Association Name="PersonCreditCard_Person262701435c7e4dd49f3e60d1f7cbc4d5" Member="PersonCreditCards" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_personCreditCards"/>
+			<Association Name="PersonPhone_Persond2da7f2f34834c4e999b67b0eebf22eb" Member="PersonPhones" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_personPhones"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[PersonCreditCard]" Member="PersonCreditCards">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.PersonCreditCard">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="CreditCardID" Member="CreditCardId" Storage="_creditCardId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Association Name="PersonCreditCard_CreditCardb3240c4a7f0641e48e96f953dd725173" Member="CreditCard" ThisKey="CreditCardId" OtherKey="CreditCardId" Storage="_creditCard" IsForeignKey="true"/>
+			<Association Name="PersonCreditCard_Person262701435c7e4dd49f3e60d1f7cbc4d5" Member="Person" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[PersonPhone]" Member="PersonPhones">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.PersonPhone">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PhoneNumber" Member="PhoneNumber" Storage="_phoneNumber" DbType="nvarchar(25) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="PhoneNumberTypeID" Member="PhoneNumberTypeId" Storage="_phoneNumberTypeId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="PersonPhone_Persond2da7f2f34834c4e999b67b0eebf22eb" Member="Person" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_person" IsForeignKey="true"/>
+			<Association Name="PersonPhone_PhoneNumberType040579e5ef9d4c5590f43eca6796cc0e" Member="PhoneNumberType" ThisKey="PhoneNumberTypeId" OtherKey="PhoneNumberTypeId" Storage="_phoneNumberType" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[PhoneNumberType]" Member="PhoneNumberTypes">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.PhoneNumberType">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="PhoneNumberTypeID" Member="PhoneNumberTypeId" Storage="_phoneNumberTypeId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="PersonPhone_PhoneNumberType040579e5ef9d4c5590f43eca6796cc0e" Member="PersonPhones" ThisKey="PhoneNumberTypeId" OtherKey="PhoneNumberTypeId" Storage="_personPhones"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[Product]" Member="Products">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Product">
+			<Column Name="Class" Member="Class" Storage="_class" DbType="nchar(2) NULL" CanBeNull="true"/>
+			<Column Name="Color" Member="Color" Storage="_color" DbType="nvarchar(15) NULL" CanBeNull="true"/>
+			<Column Name="DaysToManufacture" Member="DaysToManufacture" Storage="_daysToManufacture" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="DiscontinuedDate" Member="DiscontinuedDate" Storage="_discontinuedDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="FinishedGoodsFlag" Member="FinishedGoodsFlag" Storage="_finishedGoodsFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="ListPrice" Member="ListPrice" Storage="_listPrice" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="MakeFlag" Member="MakeFlag" Storage="_makeFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ProductLine" Member="ProductLine" Storage="_productLine" DbType="nchar(2) NULL" CanBeNull="true"/>
+			<Column Name="ProductModelID" Member="ProductModelId" Storage="_productModelId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ProductNumber" Member="ProductNumber" Storage="_productNumber" DbType="nvarchar(25) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductSubcategoryID" Member="ProductSubcategoryId" Storage="_productSubcategoryId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ReorderPoint" Member="ReorderPoint" Storage="_reorderPoint" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SafetyStockLevel" Member="SafetyStockLevel" Storage="_safetyStockLevel" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="SellEndDate" Member="SellEndDate" Storage="_sellEndDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="SellStartDate" Member="SellStartDate" Storage="_sellStartDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Size" Member="Size" Storage="_size" DbType="nvarchar(5) NULL" CanBeNull="true"/>
+			<Column Name="SizeUnitMeasureCode" Member="SizeUnitMeasureCode" Storage="_sizeUnitMeasureCode" DbType="nchar(3) NULL" CanBeNull="true"/>
+			<Column Name="StandardCost" Member="StandardCost" Storage="_standardCost" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="Style" Member="Style" Storage="_style" DbType="nchar(2) NULL" CanBeNull="true"/>
+			<Column Name="Weight" Member="Weight" Storage="_weight" DbType="decimal(8,2) NULL" CanBeNull="true"/>
+			<Column Name="WeightUnitMeasureCode" Member="WeightUnitMeasureCode" Storage="_weightUnitMeasureCode" DbType="nchar(3) NULL" CanBeNull="true"/>
+			<Association Name="BillOfMaterial_Product094140823bd04d6f9b2bf2a35763cb7a" Member="BillOfMaterials" ThisKey="ProductId" OtherKey="ComponentId" Storage="_billOfMaterials"/>
+			<Association Name="BillOfMaterial_Product85b2597d1d7c42e693198b9396319aa2" Member="BillOfMaterials1" ThisKey="ProductId" OtherKey="ProductAssemblyId" Storage="_billOfMaterials1"/>
+			<Association Name="ProductCostHistory_Product70535855d5464a9ab1932e011778bfd1" Member="ProductCostHistories" ThisKey="ProductId" OtherKey="ProductId" Storage="_productCostHistories"/>
+			<Association Name="ProductDocument_Productd754b3c8910348b885c9f7f734f91519" Member="ProductDocuments" ThisKey="ProductId" OtherKey="ProductId" Storage="_productDocuments"/>
+			<Association Name="ProductInventory_Product9fa164528e2c42d89791b53ad2505c30" Member="ProductInventories" ThisKey="ProductId" OtherKey="ProductId" Storage="_productInventories"/>
+			<Association Name="ProductListPriceHistory_Product0421df90e74b4f7883b83d8342894a95" Member="ProductListPriceHistories" ThisKey="ProductId" OtherKey="ProductId" Storage="_productListPriceHistories"/>
+			<Association Name="Product_ProductModel46ab695f208443dfab76635ea2d49af2" Member="ProductModel" ThisKey="ProductModelId" OtherKey="ProductModelId" Storage="_productModel" IsForeignKey="true"/>
+			<Association Name="ProductProductPhoto_Product1dd300c316a046d8937801d7886cd429" Member="ProductProductPhotos" ThisKey="ProductId" OtherKey="ProductId" Storage="_productProductPhotos"/>
+			<Association Name="ProductReview_Productd76a5e8ec39e40c282d2c9e96c70809b" Member="ProductReviews" ThisKey="ProductId" OtherKey="ProductId" Storage="_productReviews"/>
+			<Association Name="Product_ProductSubcategory8c9662ca910541e59a6cbe626f441db8" Member="ProductSubcategory" ThisKey="ProductSubcategoryId" OtherKey="ProductSubcategoryId" Storage="_productSubcategory" IsForeignKey="true"/>
+			<Association Name="ProductVendor_Productf3b3c5daee3f4820b6a1122625964ada" Member="ProductVendors" ThisKey="ProductId" OtherKey="ProductId" Storage="_productVendors"/>
+			<Association Name="PurchaseOrderDetail_Productec163abd5a6149468d5db40c285551cd" Member="PurchaseOrderDetails" ThisKey="ProductId" OtherKey="ProductId" Storage="_purchaseOrderDetails"/>
+			<Association Name="ShoppingCartItem_Product28d3fe8523bd4c2e96326b37180cb778" Member="ShoppingCartItems" ThisKey="ProductId" OtherKey="ProductId" Storage="_shoppingCartItems"/>
+			<Association Name="SpecialOfferProduct_Product702d5d68c14f439eb27f46f18c988200" Member="SpecialOfferProducts" ThisKey="ProductId" OtherKey="ProductId" Storage="_specialOfferProducts"/>
+			<Association Name="TransactionHistory_Product9650f1d97c5c47daa703cf599fe0862e" Member="TransactionHistories" ThisKey="ProductId" OtherKey="ProductId" Storage="_transactionHistories"/>
+			<Association Name="Product_UnitMeasureb1aff5598e43471fb250b8b560bff436" Member="UnitMeasure" ThisKey="SizeUnitMeasureCode" OtherKey="UnitMeasureCode" Storage="_unitMeasure" IsForeignKey="true"/>
+			<Association Name="Product_UnitMeasureb4c7a02d2b9942cab00b128f99cf6688" Member="UnitMeasure1" ThisKey="WeightUnitMeasureCode" OtherKey="UnitMeasureCode" Storage="_unitMeasure1" IsForeignKey="true"/>
+			<Association Name="WorkOrder_Product86ff12da8bf547858d81589c14a3a8dc" Member="WorkOrders" ThisKey="ProductId" OtherKey="ProductId" Storage="_workOrders"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductCategory]" Member="ProductCategories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductCategory">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductCategoryID" Member="ProductCategoryId" Storage="_productCategoryId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="ProductSubcategory_ProductCategory3d1c266a365349858120fe7f838cd744" Member="ProductSubcategories" ThisKey="ProductCategoryId" OtherKey="ProductCategoryId" Storage="_productSubcategories"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductCostHistory]" Member="ProductCostHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductCostHistory">
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="StandardCost" Member="StandardCost" Storage="_standardCost" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="datetime NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="ProductCostHistory_Product70535855d5464a9ab1932e011778bfd1" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductDescription]" Member="ProductDescriptions">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductDescription">
+			<Column Name="Description" Member="Description" Storage="_description" DbType="nvarchar(400) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductDescriptionID" Member="ProductDescriptionId" Storage="_productDescriptionId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="ProductModelProductDescriptionCulture_ProductDescription39f579df881c490f9df6334ce474ee5c" Member="ProductModelProductDescriptionCultures" ThisKey="ProductDescriptionId" OtherKey="ProductDescriptionId" Storage="_productModelProductDescriptionCultures"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductDocument]" Member="ProductDocuments">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductDocument">
+			<Column Name="DocumentNode" Member="DocumentNode" Storage="_documentNode" DbType="varchar(892) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="ProductDocument_Document80ed3cb79503443dbe10e47e1315e371" Member="Document" ThisKey="DocumentNode" OtherKey="DocumentNode" Storage="_document" IsForeignKey="true"/>
+			<Association Name="ProductDocument_Productd754b3c8910348b885c9f7f734f91519" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductInventory]" Member="ProductInventories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductInventory">
+			<Column Name="Bin" Member="Bin" Storage="_bin" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="LocationID" Member="LocationId" Storage="_locationId" DbType="smallint NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="Quantity" Member="Quantity" Storage="_quantity" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="Shelf" Member="Shelf" Storage="_shelf" DbType="nvarchar(10) NOT NULL" CanBeNull="false"/>
+			<Association Name="ProductInventory_Location859d7dd7a4d64deca5497f8468008ce9" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Storage="_location" IsForeignKey="true"/>
+			<Association Name="ProductInventory_Product9fa164528e2c42d89791b53ad2505c30" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductListPriceHistory]" Member="ProductListPriceHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductListPriceHistory">
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ListPrice" Member="ListPrice" Storage="_listPrice" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="datetime NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="ProductListPriceHistory_Product0421df90e74b4f7883b83d8342894a95" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductModel]" Member="ProductModels">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductModel">
+			<Column Name="CatalogDescription" Member="CatalogDescription" Storage="_catalogDescription" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="Instructions" Member="Instructions" Storage="_instructions" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductModelID" Member="ProductModelId" Storage="_productModelId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="Product_ProductModel46ab695f208443dfab76635ea2d49af2" Member="Products" ThisKey="ProductModelId" OtherKey="ProductModelId" Storage="_products"/>
+			<Association Name="ProductModelIllustration_ProductModel5853910c169f46329772b73b5328f4a5" Member="ProductModelIllustrations" ThisKey="ProductModelId" OtherKey="ProductModelId" Storage="_productModelIllustrations"/>
+			<Association Name="ProductModelProductDescriptionCulture_ProductModel10c56b5dc7bd4b7eb18709efec29216d" Member="ProductModelProductDescriptionCultures" ThisKey="ProductModelId" OtherKey="ProductModelId" Storage="_productModelProductDescriptionCultures"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductModelIllustration]" Member="ProductModelIllustrations">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductModelIllustration">
+			<Column Name="IllustrationID" Member="IllustrationId" Storage="_illustrationId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductModelID" Member="ProductModelId" Storage="_productModelId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="ProductModelIllustration_Illustration7d6084b09bff40099077ef355fbaece4" Member="Illustration" ThisKey="IllustrationId" OtherKey="IllustrationId" Storage="_illustration" IsForeignKey="true"/>
+			<Association Name="ProductModelIllustration_ProductModel5853910c169f46329772b73b5328f4a5" Member="ProductModel" ThisKey="ProductModelId" OtherKey="ProductModelId" Storage="_productModel" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductModelProductDescriptionCulture]" Member="ProductModelProductDescriptionCultures">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductModelProductDescriptionCulture">
+			<Column Name="CultureID" Member="CultureId" Storage="_cultureId" DbType="nchar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductDescriptionID" Member="ProductDescriptionId" Storage="_productDescriptionId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ProductModelID" Member="ProductModelId" Storage="_productModelId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="ProductModelProductDescriptionCulture_Culture4695c8d1543f4530a51ab54f3789f5db" Member="Culture" ThisKey="CultureId" OtherKey="CultureId" Storage="_culture" IsForeignKey="true"/>
+			<Association Name="ProductModelProductDescriptionCulture_ProductDescription39f579df881c490f9df6334ce474ee5c" Member="ProductDescription" ThisKey="ProductDescriptionId" OtherKey="ProductDescriptionId" Storage="_productDescription" IsForeignKey="true"/>
+			<Association Name="ProductModelProductDescriptionCulture_ProductModel10c56b5dc7bd4b7eb18709efec29216d" Member="ProductModel" ThisKey="ProductModelId" OtherKey="ProductModelId" Storage="_productModel" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductPhoto]" Member="ProductPhotos">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductPhoto">
+			<Column Name="LargePhoto" Member="LargePhoto" Storage="_largePhoto" DbType="varbinary(MAX) NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="LargePhotoFileName" Member="LargePhotoFileName" Storage="_largePhotoFileName" DbType="nvarchar(50) NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductPhotoID" Member="ProductPhotoId" Storage="_productPhotoId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ThumbNailPhoto" Member="ThumbNailPhoto" Storage="_thumbNailPhoto" DbType="varbinary(MAX) NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="ThumbnailPhotoFileName" Member="ThumbnailPhotoFileName" Storage="_thumbnailPhotoFileName" DbType="nvarchar(50) NULL" CanBeNull="true"/>
+			<Association Name="ProductProductPhoto_ProductPhoto194af8bab29b4b56bb01916f0325aaaa" Member="ProductProductPhotos" ThisKey="ProductPhotoId" OtherKey="ProductPhotoId" Storage="_productProductPhotos"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductProductPhoto]" Member="ProductProductPhotos">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductProductPhoto">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Primary" Member="Primary" Storage="_primary" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ProductPhotoID" Member="ProductPhotoId" Storage="_productPhotoId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="ProductProductPhoto_Product1dd300c316a046d8937801d7886cd429" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="ProductProductPhoto_ProductPhoto194af8bab29b4b56bb01916f0325aaaa" Member="ProductPhoto" ThisKey="ProductPhotoId" OtherKey="ProductPhotoId" Storage="_productPhoto" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductReview]" Member="ProductReviews">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductReview">
+			<Column Name="Comments" Member="Comments" Storage="_comments" DbType="nvarchar(3850) NULL" CanBeNull="true"/>
+			<Column Name="EmailAddress" Member="EmailAddress" Storage="_emailAddress" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductReviewID" Member="ProductReviewId" Storage="_productReviewId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="Rating" Member="Rating" Storage="_rating" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ReviewDate" Member="ReviewDate" Storage="_reviewDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ReviewerName" Member="ReviewerName" Storage="_reviewerName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="ProductReview_Productd76a5e8ec39e40c282d2c9e96c70809b" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ProductSubcategory]" Member="ProductSubcategories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductSubcategory">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductCategoryID" Member="ProductCategoryId" Storage="_productCategoryId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductSubcategoryID" Member="ProductSubcategoryId" Storage="_productSubcategoryId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="Product_ProductSubcategory8c9662ca910541e59a6cbe626f441db8" Member="Products" ThisKey="ProductSubcategoryId" OtherKey="ProductSubcategoryId" Storage="_products"/>
+			<Association Name="ProductSubcategory_ProductCategory3d1c266a365349858120fe7f838cd744" Member="ProductCategory" ThisKey="ProductCategoryId" OtherKey="ProductCategoryId" Storage="_productCategory" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Purchasing].[ProductVendor]" Member="ProductVendors">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ProductVendor">
+			<Column Name="AverageLeadTime" Member="AverageLeadTime" Storage="_averageLeadTime" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="LastReceiptCost" Member="LastReceiptCost" Storage="_lastReceiptCost" DbType="money NULL" CanBeNull="true"/>
+			<Column Name="LastReceiptDate" Member="LastReceiptDate" Storage="_lastReceiptDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="MaxOrderQty" Member="MaxOrderQty" Storage="_maxOrderQty" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="MinOrderQty" Member="MinOrderQty" Storage="_minOrderQty" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OnOrderQty" Member="OnOrderQty" Storage="_onOrderQty" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="StandardPrice" Member="StandardPrice" Storage="_standardPrice" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="UnitMeasureCode" Member="UnitMeasureCode" Storage="_unitMeasureCode" DbType="nchar(3) NOT NULL" CanBeNull="false"/>
+			<Association Name="ProductVendor_Productf3b3c5daee3f4820b6a1122625964ada" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="ProductVendor_UnitMeasurec101e7fd3803431fbc342ad9a438a854" Member="UnitMeasure" ThisKey="UnitMeasureCode" OtherKey="UnitMeasureCode" Storage="_unitMeasure" IsForeignKey="true"/>
+			<Association Name="ProductVendor_Vendor98d49a2bd8f648c993e4249a6a3fddfe" Member="Vendor" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_vendor" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Purchasing].[PurchaseOrderDetail]" Member="PurchaseOrderDetails">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.PurchaseOrderDetail">
+			<Column Name="DueDate" Member="DueDate" Storage="_dueDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="LineTotal" Member="LineTotal" Storage="_lineTotal" DbType="money NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OrderQty" Member="OrderQty" Storage="_orderQty" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="PurchaseOrderDetailID" Member="PurchaseOrderDetailId" Storage="_purchaseOrderDetailId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="PurchaseOrderID" Member="PurchaseOrderId" Storage="_purchaseOrderId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ReceivedQty" Member="ReceivedQty" Storage="_receivedQty" DbType="decimal(8,2) NOT NULL" CanBeNull="false"/>
+			<Column Name="RejectedQty" Member="RejectedQty" Storage="_rejectedQty" DbType="decimal(8,2) NOT NULL" CanBeNull="false"/>
+			<Column Name="StockedQty" Member="StockedQty" Storage="_stockedQty" DbType="decimal(9,2) NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="UnitPrice" Member="UnitPrice" Storage="_unitPrice" DbType="money NOT NULL" CanBeNull="false"/>
+			<Association Name="PurchaseOrderDetail_Productec163abd5a6149468d5db40c285551cd" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="PurchaseOrderDetail_PurchaseOrderHeader1a4c11ddc4bd486dbfa5695e69b95519" Member="PurchaseOrderHeader" ThisKey="PurchaseOrderId" OtherKey="PurchaseOrderId" Storage="_purchaseOrderHeader" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Purchasing].[PurchaseOrderHeader]" Member="PurchaseOrderHeaders">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.PurchaseOrderHeader">
+			<Column Name="EmployeeID" Member="EmployeeId" Storage="_employeeId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Freight" Member="Freight" Storage="_freight" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OrderDate" Member="OrderDate" Storage="_orderDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PurchaseOrderID" Member="PurchaseOrderId" Storage="_purchaseOrderId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="RevisionNumber" Member="RevisionNumber" Storage="_revisionNumber" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="ShipDate" Member="ShipDate" Storage="_shipDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ShipMethodID" Member="ShipMethodId" Storage="_shipMethodId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Status" Member="Status" Storage="_status" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="SubTotal" Member="SubTotal" Storage="_subTotal" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="TaxAmt" Member="TaxAmt" Storage="_taxAmt" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="TotalDue" Member="TotalDue" Storage="_totalDue" DbType="money NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="VendorID" Member="VendorId" Storage="_vendorId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Association Name="PurchaseOrderHeader_Employee0ed0a00cb5354d26a76055082ff6f16a" Member="Employee" ThisKey="EmployeeId" OtherKey="BusinessEntityId" Storage="_employee" IsForeignKey="true"/>
+			<Association Name="PurchaseOrderDetail_PurchaseOrderHeader1a4c11ddc4bd486dbfa5695e69b95519" Member="PurchaseOrderDetails" ThisKey="PurchaseOrderId" OtherKey="PurchaseOrderId" Storage="_purchaseOrderDetails"/>
+			<Association Name="PurchaseOrderHeader_ShipMethod7b4cefe64036440fa58fcdc23db84ecf" Member="ShipMethod" ThisKey="ShipMethodId" OtherKey="ShipMethodId" Storage="_shipMethod" IsForeignKey="true"/>
+			<Association Name="PurchaseOrderHeader_Vendor8e1acd99b35c4e9489485fa98510b83d" Member="Vendor" ThisKey="VendorId" OtherKey="BusinessEntityId" Storage="_vendor" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesOrderDetail]" Member="SalesOrderDetails">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesOrderDetail">
+			<Column Name="CarrierTrackingNumber" Member="CarrierTrackingNumber" Storage="_carrierTrackingNumber" DbType="nvarchar(25) NULL" CanBeNull="true"/>
+			<Column Name="LineTotal" Member="LineTotal" Storage="_lineTotal" DbType="numeric NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OrderQty" Member="OrderQty" Storage="_orderQty" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesOrderDetailID" Member="SalesOrderDetailId" Storage="_salesOrderDetailId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesOrderID" Member="SalesOrderId" Storage="_salesOrderId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="SpecialOfferID" Member="SpecialOfferId" Storage="_specialOfferId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="UnitPrice" Member="UnitPrice" Storage="_unitPrice" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="UnitPriceDiscount" Member="UnitPriceDiscount" Storage="_unitPriceDiscount" DbType="money NOT NULL" CanBeNull="false"/>
+			<Association Name="SalesOrderDetail_SalesOrderHeader367e6e92f9b24f2aa75b3fc0f3d18d9f" Member="SalesOrderHeader" ThisKey="SalesOrderId" OtherKey="SalesOrderId" Storage="_salesOrderHeader" IsForeignKey="true"/>
+			<Association Name="SalesOrderDetail_SpecialOfferProduct902a9489af2f46be88d5b32b17d74f06" Member="SpecialOfferProduct" ThisKey="ProductId, SpecialOfferId" OtherKey="ProductId, SpecialOfferId" Storage="_specialOfferProduct" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesOrderHeader]" Member="SalesOrderHeaders">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesOrderHeader">
+			<Column Name="AccountNumber" Member="AccountNumber" Storage="_accountNumber" DbType="nvarchar(15) NULL" CanBeNull="true"/>
+			<Column Name="BillToAddressID" Member="BillToAddressId" Storage="_billToAddressId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Comment" Member="Comment" Storage="_comment" DbType="nvarchar(128) NULL" CanBeNull="true"/>
+			<Column Name="CreditCardApprovalCode" Member="CreditCardApprovalCode" Storage="_creditCardApprovalCode" DbType="varchar(15) NULL" CanBeNull="true"/>
+			<Column Name="CreditCardID" Member="CreditCardId" Storage="_creditCardId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="CurrencyRateID" Member="CurrencyRateId" Storage="_currencyRateId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="CustomerID" Member="CustomerId" Storage="_customerId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="DueDate" Member="DueDate" Storage="_dueDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Freight" Member="Freight" Storage="_freight" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OnlineOrderFlag" Member="OnlineOrderFlag" Storage="_onlineOrderFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="OrderDate" Member="OrderDate" Storage="_orderDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="PurchaseOrderNumber" Member="PurchaseOrderNumber" Storage="_purchaseOrderNumber" DbType="nvarchar(25) NULL" CanBeNull="true"/>
+			<Column Name="RevisionNumber" Member="RevisionNumber" Storage="_revisionNumber" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesOrderID" Member="SalesOrderId" Storage="_salesOrderId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesOrderNumber" Member="SalesOrderNumber" Storage="_salesOrderNumber" DbType="nvarchar(25) NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesPersonID" Member="SalesPersonId" Storage="_salesPersonId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="ShipDate" Member="ShipDate" Storage="_shipDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ShipMethodID" Member="ShipMethodId" Storage="_shipMethodId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ShipToAddressID" Member="ShipToAddressId" Storage="_shipToAddressId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Status" Member="Status" Storage="_status" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="SubTotal" Member="SubTotal" Storage="_subTotal" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="TaxAmt" Member="TaxAmt" Storage="_taxAmt" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="TerritoryID" Member="TerritoryId" Storage="_territoryId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="TotalDue" Member="TotalDue" Storage="_totalDue" DbType="money NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="SalesOrderHeader_Address0bd5384a935a4c1dbb4ce8f9dd53acb9" Member="Address" ThisKey="BillToAddressId" OtherKey="Id" Storage="_address" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_Addressfb2b5170eead4ee99bee382b657276df" Member="Address1" ThisKey="ShipToAddressId" OtherKey="Id" Storage="_address1" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_CreditCard3dad9b42779648a19464064d03fd88c0" Member="CreditCard" ThisKey="CreditCardId" OtherKey="CreditCardId" Storage="_creditCard" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_CurrencyRate1b4e7f9b80564395a7b3fffd8738624c" Member="CurrencyRate" ThisKey="CurrencyRateId" OtherKey="CurrencyRateId" Storage="_currencyRate" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_Customer9b640c07d4624bba85bae01a49a5d0b4" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
+			<Association Name="SalesOrderDetail_SalesOrderHeader367e6e92f9b24f2aa75b3fc0f3d18d9f" Member="SalesOrderDetails" ThisKey="SalesOrderId" OtherKey="SalesOrderId" Storage="_salesOrderDetails"/>
+			<Association Name="SalesOrderHeaderSalesReason_SalesOrderHeader33e239e0fe424f6991f1fcc16c22ff4a" Member="SalesOrderHeaderSalesReasons" ThisKey="SalesOrderId" OtherKey="SalesOrderId" Storage="_salesOrderHeaderSalesReasons"/>
+			<Association Name="SalesOrderHeader_SalesPersonabca70c06b3f489d9b661492b00ba4de" Member="SalesPerson" ThisKey="SalesPersonId" OtherKey="BusinessEntityId" Storage="_salesPerson" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_SalesTerritory67ebb80b05b14be0b28342026d7b1b18" Member="SalesTerritory" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesTerritory" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_ShipMethoda6318c6793aa41b2884941a5303aaf74" Member="ShipMethod" ThisKey="ShipMethodId" OtherKey="ShipMethodId" Storage="_shipMethod" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesOrderHeaderSalesReason]" Member="SalesOrderHeaderSalesReasons">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesOrderHeaderSalesReason">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="SalesOrderID" Member="SalesOrderId" Storage="_salesOrderId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="SalesReasonID" Member="SalesReasonId" Storage="_salesReasonId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="SalesOrderHeaderSalesReason_SalesOrderHeader33e239e0fe424f6991f1fcc16c22ff4a" Member="SalesOrderHeader" ThisKey="SalesOrderId" OtherKey="SalesOrderId" Storage="_salesOrderHeader" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeaderSalesReason_SalesReasoneae9cf1fe6224ae8acede9e74864144b" Member="SalesReason" ThisKey="SalesReasonId" OtherKey="SalesReasonId" Storage="_salesReason" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesPerson]" Member="SalesPeople">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesPerson">
+			<Column Name="Bonus" Member="Bonus" Storage="_bonus" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="CommissionPct" Member="CommissionPct" Storage="_commissionPct" DbType="smallmoney NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesLastYear" Member="SalesLastYear" Storage="_salesLastYear" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="SalesQuota" Member="SalesQuota" Storage="_salesQuota" DbType="money NULL" CanBeNull="true"/>
+			<Column Name="SalesYTD" Member="SalesYtd" Storage="_salesYtd" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="TerritoryID" Member="TerritoryId" Storage="_territoryId" DbType="int NULL" CanBeNull="true"/>
+			<Association Name="SalesPerson_Employeec5ef308809d747c9b15e6a29a073e901" Member="Employee" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_employee" IsForeignKey="true"/>
+			<Association Name="SalesOrderHeader_SalesPersonabca70c06b3f489d9b661492b00ba4de" Member="SalesOrderHeaders" ThisKey="BusinessEntityId" OtherKey="SalesPersonId" Storage="_salesOrderHeaders"/>
+			<Association Name="SalesPersonQuotaHistory_SalesPersonbdfa0692593a40598a24f92eafe268c1" Member="SalesPersonQuotaHistories" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_salesPersonQuotaHistories"/>
+			<Association Name="SalesPerson_SalesTerritory7a21b1eae68e406681b62aaa9976bdcd" Member="SalesTerritory" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesTerritory" IsForeignKey="true"/>
+			<Association Name="SalesTerritoryHistory_SalesPerson4915e5fe96e641f2abeff7cb7ecbc6fe" Member="SalesTerritoryHistories" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_salesTerritoryHistories"/>
+			<Association Name="Store_SalesPersonb3d019345ad74160a7103d5a4781b485" Member="Stores" ThisKey="BusinessEntityId" OtherKey="SalesPersonId" Storage="_stores"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesPersonQuotaHistory]" Member="SalesPersonQuotaHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesPersonQuotaHistory">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="QuotaDate" Member="QuotaDate" Storage="_quotaDate" DbType="datetime NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesQuota" Member="SalesQuota" Storage="_salesQuota" DbType="money NOT NULL" CanBeNull="false"/>
+			<Association Name="SalesPersonQuotaHistory_SalesPersonbdfa0692593a40598a24f92eafe268c1" Member="SalesPerson" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_salesPerson" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesReason]" Member="SalesReasons">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesReason">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ReasonType" Member="ReasonType" Storage="_reasonType" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="SalesReasonID" Member="SalesReasonId" Storage="_salesReasonId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="SalesOrderHeaderSalesReason_SalesReasoneae9cf1fe6224ae8acede9e74864144b" Member="SalesOrderHeaderSalesReasons" ThisKey="SalesReasonId" OtherKey="SalesReasonId" Storage="_salesOrderHeaderSalesReasons"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesTaxRate]" Member="SalesTaxRates">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesTaxRate">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesTaxRateID" Member="SalesTaxRateId" Storage="_salesTaxRateId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StateProvinceID" Member="StateProvinceId" Storage="_stateProvinceId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="TaxRate" Member="TaxRate" Storage="_taxRate" DbType="smallmoney NOT NULL" CanBeNull="false"/>
+			<Column Name="TaxType" Member="TaxType" Storage="_taxType" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Association Name="SalesTaxRate_StateProvincea2b69a9621094e4eb1e488bdd14f4b29" Member="StateProvince" ThisKey="StateProvinceId" OtherKey="StateProvinceId" Storage="_stateProvince" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesTerritory]" Member="SalesTerritories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesTerritory">
+			<Column Name="CostLastYear" Member="CostLastYear" Storage="_costLastYear" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="CostYTD" Member="CostYtd" Storage="_costYtd" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="CountryRegionCode" Member="CountryRegionCode" Storage="_countryRegionCode" DbType="nvarchar(3) NOT NULL" CanBeNull="false"/>
+			<Column Name="Group" Member="Group" Storage="_group" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesLastYear" Member="SalesLastYear" Storage="_salesLastYear" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="SalesYTD" Member="SalesYtd" Storage="_salesYtd" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="TerritoryID" Member="TerritoryId" Storage="_territoryId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="SalesTerritory_CountryRegion2eae2cc6cc5643efbe000cfb06596d77" Member="CountryRegion" ThisKey="CountryRegionCode" OtherKey="CountryRegionCode" Storage="_countryRegion" IsForeignKey="true"/>
+			<Association Name="Customer_SalesTerritory10140401be8349b0acb71c2fdfd15886" Member="Customers" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_customers"/>
+			<Association Name="SalesOrderHeader_SalesTerritory67ebb80b05b14be0b28342026d7b1b18" Member="SalesOrderHeaders" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesOrderHeaders"/>
+			<Association Name="SalesPerson_SalesTerritory7a21b1eae68e406681b62aaa9976bdcd" Member="SalesPeople" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesPeople"/>
+			<Association Name="SalesTerritoryHistory_SalesTerritorycaa7c8df94e54416b7c093006ee27d57" Member="SalesTerritoryHistories" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesTerritoryHistories"/>
+			<Association Name="StateProvince_SalesTerritory24a471d3cf274319b3870559acccc094" Member="StateProvinces" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_stateProvinces"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SalesTerritoryHistory]" Member="SalesTerritoryHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SalesTerritoryHistory">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="datetime NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="TerritoryID" Member="TerritoryId" Storage="_territoryId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="SalesTerritoryHistory_SalesPerson4915e5fe96e641f2abeff7cb7ecbc6fe" Member="SalesPerson" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_salesPerson" IsForeignKey="true"/>
+			<Association Name="SalesTerritoryHistory_SalesTerritorycaa7c8df94e54416b7c093006ee27d57" Member="SalesTerritory" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesTerritory" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[ScrapReason]" Member="ScrapReasons">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ScrapReason">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ScrapReasonID" Member="ScrapReasonId" Storage="_scrapReasonId" DbType="smallint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="WorkOrder_ScrapReason302d5ed202d249dd8d1ef62af6f10937" Member="WorkOrders" ThisKey="ScrapReasonId" OtherKey="ScrapReasonId" Storage="_workOrders"/>
+		</Type>
+	</Table>
+	<Table Name="[HumanResources].[Shift]" Member="Shifts">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Shift">
+			<Column Name="EndTime" Member="EndTime" Storage="_endTime" DbType="time NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ShiftID" Member="ShiftId" Storage="_shiftId" DbType="tinyint NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StartTime" Member="StartTime" Storage="_startTime" DbType="time NOT NULL" CanBeNull="false"/>
+			<Association Name="EmployeeDepartmentHistory_Shift822dff94d3394a978161fdef3882b258" Member="EmployeeDepartmentHistories" ThisKey="ShiftId" OtherKey="ShiftId" Storage="_employeeDepartmentHistories"/>
+		</Type>
+	</Table>
+	<Table Name="[Purchasing].[ShipMethod]" Member="ShipMethods">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ShipMethod">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ShipBase" Member="ShipBase" Storage="_shipBase" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ShipMethodID" Member="ShipMethodId" Storage="_shipMethodId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="ShipRate" Member="ShipRate" Storage="_shipRate" DbType="money NOT NULL" CanBeNull="false"/>
+			<Association Name="PurchaseOrderHeader_ShipMethod7b4cefe64036440fa58fcdc23db84ecf" Member="PurchaseOrderHeaders" ThisKey="ShipMethodId" OtherKey="ShipMethodId" Storage="_purchaseOrderHeaders"/>
+			<Association Name="SalesOrderHeader_ShipMethoda6318c6793aa41b2884941a5303aaf74" Member="SalesOrderHeaders" ThisKey="ShipMethodId" OtherKey="ShipMethodId" Storage="_salesOrderHeaders"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[ShoppingCartItem]" Member="ShoppingCartItems">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.ShoppingCartItem">
+			<Column Name="DateCreated" Member="DateCreated" Storage="_dateCreated" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Quantity" Member="Quantity" Storage="_quantity" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ShoppingCartID" Member="ShoppingCartId" Storage="_shoppingCartId" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="ShoppingCartItemID" Member="ShoppingCartItemId" Storage="_shoppingCartItemId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="ShoppingCartItem_Product28d3fe8523bd4c2e96326b37180cb778" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SpecialOffer]" Member="SpecialOffers">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SpecialOffer">
+			<Column Name="Category" Member="Category" Storage="_category" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="Description" Member="Description" Storage="_description" DbType="nvarchar(255) NOT NULL" CanBeNull="false"/>
+			<Column Name="DiscountPct" Member="DiscountPct" Storage="_discountPct" DbType="smallmoney NOT NULL" CanBeNull="false"/>
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="MaxQty" Member="MaxQty" Storage="_maxQty" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="MinQty" Member="MinQty" Storage="_minQty" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SpecialOfferID" Member="SpecialOfferId" Storage="_specialOfferId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Type" Member="Type" Storage="_type" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="SpecialOfferProduct_SpecialOffer153ca8afb0944600be1dbd23f734a1a8" Member="SpecialOfferProducts" ThisKey="SpecialOfferId" OtherKey="SpecialOfferId" Storage="_specialOfferProducts"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[SpecialOfferProduct]" Member="SpecialOfferProducts">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.SpecialOfferProduct">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SpecialOfferID" Member="SpecialOfferId" Storage="_specialOfferId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="SpecialOfferProduct_Product702d5d68c14f439eb27f46f18c988200" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="SalesOrderDetail_SpecialOfferProduct902a9489af2f46be88d5b32b17d74f06" Member="SalesOrderDetails" ThisKey="ProductId, SpecialOfferId" OtherKey="ProductId, SpecialOfferId" Storage="_salesOrderDetails"/>
+			<Association Name="SpecialOfferProduct_SpecialOffer153ca8afb0944600be1dbd23f734a1a8" Member="SpecialOffer" ThisKey="SpecialOfferId" OtherKey="SpecialOfferId" Storage="_specialOffer" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Person].[StateProvince]" Member="StateProvinces">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.StateProvince">
+			<Column Name="CountryRegionCode" Member="CountryRegionCode" Storage="_countryRegionCode" DbType="nvarchar(3) NOT NULL" CanBeNull="false"/>
+			<Column Name="IsOnlyStateProvinceFlag" Member="IsOnlyStateProvinceFlag" Storage="_isOnlyStateProvinceFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StateProvinceCode" Member="StateProvinceCode" Storage="_stateProvinceCode" DbType="nchar(3) NOT NULL" CanBeNull="false"/>
+			<Column Name="StateProvinceID" Member="StateProvinceId" Storage="_stateProvinceId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="TerritoryID" Member="TerritoryId" Storage="_territoryId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Association Name="Address_StateProvince917500053b054de1abe51f8eb01b245e" Member="Addresses" ThisKey="StateProvinceId" OtherKey="StateProvinceId" Storage="_addresses"/>
+			<Association Name="StateProvince_CountryRegion2590707fb9bc488682a2439cd889fa89" Member="CountryRegion" ThisKey="CountryRegionCode" OtherKey="CountryRegionCode" Storage="_countryRegion" IsForeignKey="true"/>
+			<Association Name="SalesTaxRate_StateProvincea2b69a9621094e4eb1e488bdd14f4b29" Member="SalesTaxRates" ThisKey="StateProvinceId" OtherKey="StateProvinceId" Storage="_salesTaxRates"/>
+			<Association Name="StateProvince_SalesTerritory24a471d3cf274319b3870559acccc094" Member="SalesTerritory" ThisKey="TerritoryId" OtherKey="TerritoryId" Storage="_salesTerritory" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Sales].[Store]" Member="Stores">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Store">
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="Demographics" Member="Demographics" Storage="_demographics" DbType="xml NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="rowguid" Member="Rowguid" Storage="_rowguid" DbType="uniqueidentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="SalesPersonID" Member="SalesPersonId" Storage="_salesPersonId" DbType="int NULL" CanBeNull="true"/>
+			<Association Name="Store_BusinessEntity5bf9397e4c0a41cc97e0f453e4166059" Member="BusinessEntity" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntity" IsForeignKey="true"/>
+			<Association Name="Customer_Store9afb2c7c5613495ca2628c9282c5bde5" Member="Customers" ThisKey="BusinessEntityId" OtherKey="StoreId" Storage="_customers"/>
+			<Association Name="Store_SalesPersonb3d019345ad74160a7103d5a4781b485" Member="SalesPerson" ThisKey="SalesPersonId" OtherKey="BusinessEntityId" Storage="_salesPerson" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[TransactionHistory]" Member="TransactionHistories">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.TransactionHistory">
+			<Column Name="ActualCost" Member="ActualCost" Storage="_actualCost" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Quantity" Member="Quantity" Storage="_quantity" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ReferenceOrderID" Member="ReferenceOrderId" Storage="_referenceOrderId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ReferenceOrderLineID" Member="ReferenceOrderLineId" Storage="_referenceOrderLineId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="TransactionDate" Member="TransactionDate" Storage="_transactionDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="TransactionID" Member="TransactionId" Storage="_transactionId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="TransactionType" Member="TransactionType" Storage="_transactionType" DbType="nchar(1) NOT NULL" CanBeNull="false"/>
+			<Association Name="TransactionHistory_Product9650f1d97c5c47daa703cf599fe0862e" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[TransactionHistoryArchive]" Member="TransactionHistoryArchives">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.TransactionHistoryArchive">
+			<Column Name="ActualCost" Member="ActualCost" Storage="_actualCost" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Quantity" Member="Quantity" Storage="_quantity" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ReferenceOrderID" Member="ReferenceOrderId" Storage="_referenceOrderId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ReferenceOrderLineID" Member="ReferenceOrderLineId" Storage="_referenceOrderLineId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="TransactionDate" Member="TransactionDate" Storage="_transactionDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="TransactionID" Member="TransactionId" Storage="_transactionId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="TransactionType" Member="TransactionType" Storage="_transactionType" DbType="nchar(1) NOT NULL" CanBeNull="false"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[UnitMeasure]" Member="UnitMeasures">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.UnitMeasure">
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="UnitMeasureCode" Member="UnitMeasureCode" Storage="_unitMeasureCode" DbType="nchar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="BillOfMaterial_UnitMeasure072840b602ae4643accb83fdfb313f5f" Member="BillOfMaterials" ThisKey="UnitMeasureCode" OtherKey="UnitMeasureCode" Storage="_billOfMaterials"/>
+			<Association Name="Product_UnitMeasureb1aff5598e43471fb250b8b560bff436" Member="Products" ThisKey="UnitMeasureCode" OtherKey="SizeUnitMeasureCode" Storage="_products"/>
+			<Association Name="Product_UnitMeasureb4c7a02d2b9942cab00b128f99cf6688" Member="Products1" ThisKey="UnitMeasureCode" OtherKey="WeightUnitMeasureCode" Storage="_products1"/>
+			<Association Name="ProductVendor_UnitMeasurec101e7fd3803431fbc342ad9a438a854" Member="ProductVendors" ThisKey="UnitMeasureCode" OtherKey="UnitMeasureCode" Storage="_productVendors"/>
+		</Type>
+	</Table>
+	<Table Name="[Purchasing].[Vendor]" Member="Vendors">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.Vendor">
+			<Column Name="AccountNumber" Member="AccountNumber" Storage="_accountNumber" DbType="nvarchar(15) NOT NULL" CanBeNull="false"/>
+			<Column Name="ActiveFlag" Member="ActiveFlag" Storage="_activeFlag" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="BusinessEntityID" Member="BusinessEntityId" Storage="_businessEntityId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="CreditRating" Member="CreditRating" Storage="_creditRating" DbType="tinyint NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="PreferredVendorStatus" Member="PreferredVendorStatus" Storage="_preferredVendorStatus" DbType="bit NOT NULL" CanBeNull="false"/>
+			<Column Name="PurchasingWebServiceURL" Member="PurchasingWebServiceUrl" Storage="_purchasingWebServiceUrl" DbType="nvarchar(1024) NULL" CanBeNull="true"/>
+			<Association Name="Vendor_BusinessEntity77c7987b6abf4bfb82ab264cc04b4a8f" Member="BusinessEntity" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_businessEntity" IsForeignKey="true"/>
+			<Association Name="ProductVendor_Vendor98d49a2bd8f648c993e4249a6a3fddfe" Member="ProductVendors" ThisKey="BusinessEntityId" OtherKey="BusinessEntityId" Storage="_productVendors"/>
+			<Association Name="PurchaseOrderHeader_Vendor8e1acd99b35c4e9489485fa98510b83d" Member="PurchaseOrderHeaders" ThisKey="BusinessEntityId" OtherKey="VendorId" Storage="_purchaseOrderHeaders"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[WorkOrder]" Member="WorkOrders">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.WorkOrder">
+			<Column Name="DueDate" Member="DueDate" Storage="_dueDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="EndDate" Member="EndDate" Storage="_endDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OrderQty" Member="OrderQty" Storage="_orderQty" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ScrappedQty" Member="ScrappedQty" Storage="_scrappedQty" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="ScrapReasonID" Member="ScrapReasonId" Storage="_scrapReasonId" DbType="smallint NULL" CanBeNull="true"/>
+			<Column Name="StartDate" Member="StartDate" Storage="_startDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="StockedQty" Member="StockedQty" Storage="_stockedQty" DbType="int NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="WorkOrderID" Member="WorkOrderId" Storage="_workOrderId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="WorkOrder_Product86ff12da8bf547858d81589c14a3a8dc" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="WorkOrder_ScrapReason302d5ed202d249dd8d1ef62af6f10937" Member="ScrapReason" ThisKey="ScrapReasonId" OtherKey="ScrapReasonId" Storage="_scrapReason" IsForeignKey="true"/>
+			<Association Name="WorkOrderRouting_WorkOrder95b6a6271e6f430c91f7b006011d7c83" Member="WorkOrderRoutings" ThisKey="WorkOrderId" OtherKey="WorkOrderId" Storage="_workOrderRoutings"/>
+		</Type>
+	</Table>
+	<Table Name="[Production].[WorkOrderRouting]" Member="WorkOrderRoutings">
+		<Type Name="ReadTestsAdventureWorks2008.EntityClasses.WorkOrderRouting">
+			<Column Name="ActualCost" Member="ActualCost" Storage="_actualCost" DbType="money NULL" CanBeNull="true"/>
+			<Column Name="ActualEndDate" Member="ActualEndDate" Storage="_actualEndDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ActualResourceHrs" Member="ActualResourceHrs" Storage="_actualResourceHrs" DbType="decimal(9,4) NULL" CanBeNull="true"/>
+			<Column Name="ActualStartDate" Member="ActualStartDate" Storage="_actualStartDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="LocationID" Member="LocationId" Storage="_locationId" DbType="smallint NOT NULL" CanBeNull="false"/>
+			<Column Name="ModifiedDate" Member="ModifiedDate" Storage="_modifiedDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OperationSequence" Member="OperationSequence" Storage="_operationSequence" DbType="smallint NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="PlannedCost" Member="PlannedCost" Storage="_plannedCost" DbType="money NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ScheduledEndDate" Member="ScheduledEndDate" Storage="_scheduledEndDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ScheduledStartDate" Member="ScheduledStartDate" Storage="_scheduledStartDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="WorkOrderID" Member="WorkOrderId" Storage="_workOrderId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="WorkOrderRouting_Locationda5d47271cba4ab8a36b86bf4b3c7d1d" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Storage="_location" IsForeignKey="true"/>
+			<Association Name="WorkOrderRouting_WorkOrder95b6a6271e6f430c91f7b006011d7c83" Member="WorkOrder" ThisKey="WorkOrderId" OtherKey="WorkOrderId" Storage="_workOrder" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Resultset1]" >
+		<Type Name="ReadTestsAdventureWorks2008.TypedViewClasses.BillOfRightsResultTypedViewRow">
+			<Column Name="BOMLevel" Member="Bomlevel" Storage="_bomlevel" DbType="smallint NULL" />
+			<Column Name="ComponentDesc" Member="ComponentDesc" Storage="_componentDesc" DbType="nvarchar(50) NULL" />
+			<Column Name="ComponentID" Member="ComponentId" Storage="_componentId" DbType="int NULL" />
+			<Column Name="ListPrice" Member="ListPrice" Storage="_listPrice" DbType="money NULL" />
+			<Column Name="ProductAssemblyID" Member="ProductAssemblyId" Storage="_productAssemblyId" DbType="int NULL" />
+			<Column Name="RecursionLevel" Member="RecursionLevel" Storage="_recursionLevel" DbType="int NULL" />
+			<Column Name="StandardCost" Member="StandardCost" Storage="_standardCost" DbType="money NULL" />
+			<Column Name="TotalQuantity" Member="TotalQuantity" Storage="_totalQuantity" DbType="decimal(38,2) NULL" />
+		</Type>
+	</Table>
+	<Function Name = "[dbo].[uspGetBillOfMaterials]" Method="GetBillOfRightsResult" >
+		<Parameter Name="StartProductID" Parameter="@StartProductID" DbType="int" Direction="In"/> 
+		<Parameter Name="CheckDate" Parameter="@CheckDate" DbType="datetime" Direction="In"/> 
+		<ElementType Name="ReadTestsAdventureWorks2008.TypedViewClasses.BillOfRightsResultTypedViewRow" />
+	</Function>		
+	<Function Name = "[dbo].[ufnGetContactInformation]" Method="UfnGetContactInformation" IsComposable="True" >
+		<Parameter Name="personId" Parameter="@PersonID" DbType="int"/> 
+		<ElementType Name="ReadTestsAdventureWorks2008.EntityClasses.UfnGetContactInformationResultTypedViewRow" />
+	</Function>
+
+</Database>
+
