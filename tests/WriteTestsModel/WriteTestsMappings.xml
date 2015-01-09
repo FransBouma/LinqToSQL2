@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="LLBLGenProUnitTest" xmlns="http://schemas.microsoft.com/linqtosql/mapping/2007">
+	<Table Name="[dbo].[Address]" Member="Addresses">
+		<Type Name="WriteTests.EntityClasses.Address">
+			<Column Name="AddressId" Member="AddressId" Storage="_addressId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="City" Member="City" Storage="_city" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="Country" Member="Country" Storage="_country" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="HouseNumber" Member="HouseNumber" Storage="_houseNumber" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="StreetName" Member="StreetName" Storage="_streetName" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NULL" CanBeNull="true"/>
+			<Column Name="Zipcode" Member="Zipcode" Storage="_zipcode" DbType="char(10) NULL" CanBeNull="true"/>
+			<Association Name="Customer_Addressc02777a79bd941cfbf433ea9fc718199" Member="CustomerBillingAddress" ThisKey="AddressId" OtherKey="BillingAddressId" Storage="_customerBillingAddress"/>
+			<Association Name="Customer_Address4f62f6f7317c4c1a90231f291ff594b8" Member="CustomerVisitingAddress" ThisKey="AddressId" OtherKey="VisitingAddressId" Storage="_customerVisitingAddress"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Address]" Member="AddressDuplicateFields">
+		<Type Name="WriteTests.EntityClasses.AddressDuplicateFields">
+			<Column Name="AddressId" Member="AddressId" Storage="_addressId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="City" Member="City" Storage="_city" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="Country" Member="Country" Storage="_country" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="HouseNumber" Member="HouseNumber" Storage="_houseNumber" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="StreetName" Member="StreetName" Storage="_streetName" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
+			<Column Name="StreetName" Member="StreetName2" Storage="_streetName2" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NULL" CanBeNull="true"/>
+			<Column Name="Zipcode" Member="Zipcode" Storage="_zipcode" DbType="char(10) NULL" CanBeNull="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Address]" Member="AddressSimples">
+		<Type Name="WriteTests.EntityClasses.AddressSimple">
+			<Column Name="City" Member="City" Storage="_city" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="Country" Member="Country" Storage="_country" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="HouseNumber" Member="HouseNumber" Storage="_houseNumber" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="AddressId" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="StreetName" Member="StreetName" Storage="_streetName" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NULL" CanBeNull="true"/>
+			<Column Name="Zipcode" Member="Zipcode" Storage="_zipcode" DbType="char(10) NULL" CanBeNull="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Ball]" Member="Balls">
+		<Type Name="WriteTests.EntityClasses.Ball">
+			<Column Name="Diameter" Member="Diameter" Storage="_diameter" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="BallColor_Ballc3f1808f618f4949becc6ca947f4ee86" Member="BallColor" ThisKey="Id" OtherKey="BallId" Storage="_ballColor"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[BallColor]" Member="BallColors">
+		<Type Name="WriteTests.EntityClasses.BallColor">
+			<Column Name="BallId" Member="BallId" Storage="_ballId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ColorId" Member="ColorId" Storage="_colorId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Association Name="BallColor_Ballc3f1808f618f4949becc6ca947f4ee86" Member="Ball" ThisKey="BallId" OtherKey="Id" Storage="_ball" IsForeignKey="true"/>
+			<Association Name="BallColor_Color98e695d71ac44a6cbe72343a7a3b7839" Member="Color" ThisKey="ColorId" OtherKey="Id" Storage="_color" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Color]" Member="Colors">
+		<Type Name="WriteTests.EntityClasses.Color">
+			<Column Name="Description" Member="Description" Storage="_description" DbType="nvarchar(100) NOT NULL" CanBeNull="false"/>
+			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Association Name="BallColor_Color98e695d71ac44a6cbe72343a7a3b7839" Member="BallColor" ThisKey="Id" OtherKey="ColorId" Storage="_ballColor"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Company]" Member="Companies">
+		<Type Name="WriteTests.EntityClasses.Company">
+			<Column Name="CompanyID" Member="CompanyId" Storage="_companyId" DbType="binary(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="CompanyName" Member="CompanyName" Storage="_companyName" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="TestrunID" Member="TestrunId" Storage="_testrunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="CompanyProperty_Companyf248303b878e453d8c298ca035f4b84e" Member="CompanyProperty" ThisKey="CompanyId" OtherKey="CompanyId" Storage="_companyProperty"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[CompanyProperty]" Member="CompanyProperties">
+		<Type Name="WriteTests.EntityClasses.CompanyProperty">
+			<Column Name="CompanyID" Member="CompanyId" Storage="_companyId" DbType="binary(16) NOT NULL" CanBeNull="false"/>
+			<Column Name="PropertyID" Member="PropertyId" Storage="_propertyId" DbType="binary(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="PropertyValue" Member="PropertyValue" Storage="_propertyValue" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="TestrunID" Member="TestrunId" Storage="_testrunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="CompanyProperty_Companyf248303b878e453d8c298ca035f4b84e" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Storage="_company" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Customer]" Member="Customers">
+		<Type Name="WriteTests.EntityClasses.Customer">
+			<Column Name="BillingAddressID" Member="BillingAddressId" Storage="_billingAddressId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="CompanyEmailAddress" Member="CompanyEmailAddress" Storage="_companyEmailAddress" DbType="varchar(150) NOT NULL" CanBeNull="false"/>
+			<Column Name="CompanyName" Member="CompanyName" Storage="_companyName" DbType="varchar(75) NOT NULL" CanBeNull="false"/>
+			<Column Name="ContactPerson" Member="ContactPerson" Storage="_contactPerson" DbType="varchar(75) NOT NULL" CanBeNull="false"/>
+			<Column Name="CustomerID" Member="CustomerId" Storage="_customerId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="CustomerSince" Member="CustomerSince" Storage="_customerSince" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Column Name="VisitingAddressID" Member="VisitingAddressId" Storage="_visitingAddressId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Association Name="Customer_Addressc02777a79bd941cfbf433ea9fc718199" Member="BillingAddress" ThisKey="BillingAddressId" OtherKey="AddressId" Storage="_billingAddress" IsForeignKey="true"/>
+			<Association Name="Customer_Address4f62f6f7317c4c1a90231f291ff594b8" Member="VisitingAddress" ThisKey="VisitingAddressId" OtherKey="AddressId" Storage="_visitingAddress" IsForeignKey="true"/>
+			<Association Name="Order_Customerc68db2f3c53046238c4a29425d0ff71e" Member="Orders" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_orders"/>
+			<Association Name="SpecialCustomer_Customer3706c7cc47c245d59d7bfedb09680c1d" Member="SpecialCustomer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_specialCustomer"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Employee]" Member="Employees">
+		<Type Name="WriteTests.EntityClasses.Employee">
+			<Column Name="EmployeeID" Member="EmployeeId" Storage="_employeeId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="EmployeeSince" Member="EmployeeSince" Storage="_employeeSince" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="ManagedBy" Member="ManagedBy" Storage="_managedBy" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="Name" Member="Name" Storage="_name" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
+			<Column Name="Photo" Member="Photo" Storage="_photo" DbType="image NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="Employee_Employeecd9270d8f8a247f1bcb4ebb90808a6bc" Member="ManagedByEmployee" ThisKey="ManagedBy" OtherKey="EmployeeId" Storage="_managedByEmployee" IsForeignKey="true"/>
+			<Association Name="Employee_Employeecd9270d8f8a247f1bcb4ebb90808a6bc" Member="ManagesEmployees" ThisKey="EmployeeId" OtherKey="ManagedBy" Storage="_managesEmployees"/>
+			<Association Name="Order_Employeec205d86f4cc4432c96d947f622bd0026" Member="Orders" ThisKey="EmployeeId" OtherKey="EmployeeId" Storage="_orders"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[GuidTPEHTester]" Member="GuidTpehTesters">
+		<Type Name="WriteTests.EntityClasses.GuidTpehTester" InheritanceCode="1" IsInheritanceDefault="true">
+			<Column Name="ID" Member="Id" Storage="_id" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ItemType" Member="ItemType" Storage="_itemType" DbType="int NOT NULL" CanBeNull="false" UpdateCheck="Never" IsDiscriminator="true"/>
+			<Column Name="TestrunID" Member="TestrunId" Storage="_testrunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Type Name="WriteTests.EntityClasses.DerivedType1" InheritanceCode="2">
+				<Column Name="Element2" Member="Element2" Storage="_element2" DbType="varchar(50) NULL" CanBeNull="true"/>
+			</Type>
+			<Type Name="WriteTests.EntityClasses.DerivedType2" InheritanceCode="3">
+				<Column Name="Element1" Member="Element1" Storage="_element1" DbType="int NULL" CanBeNull="true"/>
+			</Type>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Order]" Member="Orders">
+		<Type Name="WriteTests.EntityClasses.Order">
+			<Column Name="CustomerID" Member="CustomerId" Storage="_customerId" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="EmployeeID" Member="EmployeeId" Storage="_employeeId" DbType="int NULL" CanBeNull="true"/>
+			<Column Name="OrderDate" Member="OrderDate" Storage="_orderDate" DbType="datetime NOT NULL" CanBeNull="false"/>
+			<Column Name="OrderID" Member="OrderId" Storage="_orderId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="RequiredDate" Member="RequiredDate" Storage="_requiredDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ShippedDate" Member="ShippedDate" Storage="_shippedDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="Order_Customerc68db2f3c53046238c4a29425d0ff71e" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
+			<Association Name="Order_Employeec205d86f4cc4432c96d947f622bd0026" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Storage="_employee" IsForeignKey="true"/>
+			<Association Name="OrderRow_Orderf392a6d60c984df6aad91e0f81369bbf" Member="OrderRows" ThisKey="OrderId" OtherKey="OrderId" Storage="_orderRows"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[OrderRow]" Member="OrderRows">
+		<Type Name="WriteTests.EntityClasses.OrderRow">
+			<Column Name="OrderID" Member="OrderId" Storage="_orderId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="PriceInvoiced" Member="PriceInvoiced" Storage="_priceInvoiced" DbType="decimal(11,2) NOT NULL" CanBeNull="false"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="Quantity" Member="Quantity" Storage="_quantity" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="OrderRow_Orderf392a6d60c984df6aad91e0f81369bbf" Member="Order" ThisKey="OrderId" OtherKey="OrderId" Storage="_order" IsForeignKey="true"/>
+			<Association Name="OrderRow_Productd3176cd01eee4bdcbeee7e6002137b53" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[Product]" Member="Products">
+		<Type Name="WriteTests.EntityClasses.Product">
+			<Column Name="FullDescription" Member="FullDescription" Storage="_fullDescription" DbType="text NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="Price" Member="Price" Storage="_price" DbType="decimal(11,2) NULL" CanBeNull="true"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="ShortDescription" Member="ShortDescription" Storage="_shortDescription" DbType="varchar(150) NULL" CanBeNull="true"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="OrderRow_Productd3176cd01eee4bdcbeee7e6002137b53" Member="OrderRows" ThisKey="ProductId" OtherKey="ProductId" Storage="_orderRows"/>
+			<Association Name="SpecialProduct_Product477c46ccf9f04b2099bdd7f55a8f9038" Member="SpecialProduct" ThisKey="ProductId" OtherKey="ProductId" Storage="_specialProduct"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[SpecialCustomer]" Member="SpecialCustomers">
+		<Type Name="WriteTests.EntityClasses.SpecialCustomer">
+			<Column Name="CustomerID" Member="CustomerId" Storage="_customerId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="Discount" Member="Discount" Storage="_discount" DbType="real NOT NULL" CanBeNull="false"/>
+			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="SpecialCustomer_Customer3706c7cc47c245d59d7bfedb09680c1d" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[SpecialProduct]" Member="SpecialProducts">
+		<Type Name="WriteTests.EntityClasses.SpecialProduct">
+			<Column Name="ActionCode" Member="ActionCode" Storage="_actionCode" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="ActionDate" Member="ActionDate" Storage="_actionDate" DbType="datetime NULL" CanBeNull="true"/>
+			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
+			<Column Name="TestrunID" Member="SpTestRunId" Storage="_spTestRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
+			<Association Name="SpecialProduct_Product477c46ccf9f04b2099bdd7f55a8f9038" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[SplitOffTest]" Member="SplitOffBlobDatas">
+		<Type Name="WriteTests.EntityClasses.SplitOffBlobData">
+			<Column Name="Id" Member="MainDataId" Storage="_mainDataId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="Notes" Member="Notes" Storage="_notes" DbType="ntext NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Column Name="Photo" Member="Photo" Storage="_photo" DbType="image NULL" CanBeNull="true" UpdateCheck="Never"/>
+			<Association Name="SplitOffNoBlobData_SplitOffBlobDataa6ded705e9eb4313b67c257fd8b3bd9f" Member="MainData" ThisKey="MainDataId" OtherKey="Id" Storage="_mainData" IsForeignKey="true"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[SplitOffTest]" Member="SplitOffNoBlobDatas">
+		<Type Name="WriteTests.EntityClasses.SplitOffNoBlobData">
+			<Column Name="FirstName" Member="FirstName" Storage="_firstName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="LastName" Member="LastName" Storage="_lastName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
+			<Association Name="SplitOffNoBlobData_SplitOffBlobDataa6ded705e9eb4313b67c257fd8b3bd9f" Member="BlobData" ThisKey="Id" OtherKey="MainDataId" Storage="_blobData"/>
+		</Type>
+	</Table>
+	<Function Name = "[dbo].[pr_ClearAll]" Method="CallClearAll" >
+		<Return />
+	</Function>
+	<Function Name = "[dbo].[pr_ClearTestRunData]" Method="CallClearTestRunData" >
+		<Parameter Name="testRunID" Parameter="@testRunID" DbType="uniqueidentifier" Direction="In"/> 
+		<Return />
+	</Function>
+
+</Database>
+

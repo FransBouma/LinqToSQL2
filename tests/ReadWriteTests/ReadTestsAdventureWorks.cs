@@ -14,7 +14,7 @@ using SD.Tools.OrmProfiler.Interceptor;
 using System.Data.Common;
 using System.Configuration;
 
-namespace ReadTestsAdventureWorks2008
+namespace ReadWriteTests.SqlServer
 {
 	/// <summary>
 	/// Selection of tests ported from the LLBLGen Pro runtime framework Linq test library. As Linq to Sql doesn't support TPE inheritance, some tests aren't
@@ -31,7 +31,7 @@ namespace ReadTestsAdventureWorks2008
 		[TestFixtureSetUp]
 		public void SetupTests()
 		{
-			InterceptorCore.Initialize("AdventureWorksTests");
+			InterceptorCore.Initialize("Read tests, AdventureWorks 2008");
 		}
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReadTestsAdventureWorks2008
+namespace ReadWriteTests.SqlServer
 {
 	public class Pair<T1, T2>
 	{

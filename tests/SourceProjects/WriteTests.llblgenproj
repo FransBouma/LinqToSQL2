@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--LLBLGen Pro v4.2 project file. Do not manually edit this file. Incorrect references could lead to an unloadable project file.-->
-<Project Version="4.2" TargetFrameworkName="LLBLGen Pro Runtime Framework">
+<Project Version="4.2" TargetFrameworkName="Linq to Sql">
   <Properties>
     <Abbreviations />
     <Property Name="AdditionalTaskPerformerFolder" Value="" />
@@ -14,7 +14,7 @@
     <Property Name="AutoAssignSequencesToIntegerPks" Value="true" />
     <Property Name="AutoAssignTypeConverterToFieldMapping" Value="false" />
     <Property Name="CleanUpVsNetProjects" Value="true" />
-    <Property Name="ConnectionStringKeyNamePattern" Value="ConnectionString.{$ProviderName}" />
+    <Property Name="ConnectionStringKeyNamePattern" Value="WriteTestsConnectionString.{$ProviderName}" />
     <Property Name="DefaultDeleteRuleAction" Value="1" />
     <Property Name="DefaultUpdateRuleAction" Value="0" />
     <Property Name="EncodingToUse" Value="0" />
@@ -44,7 +44,7 @@
     <Property Name="PreferVariableLengthTypes" Value="true" />
     <Property Name="PrimaryKeyConstraintPattern" Value="PK_{$Guid}" />
     <Property Name="ProjectCreator" Value="FB" />
-    <Property Name="ProjectName" Value="UnitTester" />
+    <Property Name="ProjectName" Value="WriteTests" />
     <Property Name="ReflectNullabilityOfElementFieldInTargetField" Value="0" />
     <Property Name="RelationalModelDataElementNameCasingCaseInsensitiveDBs" Value="3" />
     <Property Name="RelationalModelDataElementNameCasingCaseSensitiveDBs" Value="3" />
@@ -83,16 +83,16 @@
     <OutputType Value="3">
       <LastUsedPreferences>
         <DestinationRootFolder Value="C:\temp\generatortest\test2" />
-        <FrameworkName Value="LLBLGen Pro Runtime Framework" />
+        <FrameworkName Value="Linq to Sql" />
         <LanguageName Value="VB.NET" />
-        <PlatformName Value=".NET 3.5" />
-        <PresetName Value="SD.Presets.SelfServicing.TwoClasses2008" />
+        <PlatformName Value=".NET 4.5" />
+        <PresetName Value="SD.LinqToSql" />
         <RootNamespace Value="UnitTests.Dal.Adapter" />
-        <TemplateGroup Value="SelfServicing" />
+        <TemplateGroup Value="General" />
         <TemplateBindings>
-          <Binding Name="SD.TemplateBindings.SqlServerSpecific.NET20" />
-          <Binding Name="SD.TemplateBindings.SharedTemplates.NET20" />
-          <Binding Name="SD.TemplateBindings.Linq" />
+          <Binding Name="SD.LinqToSql" />
+          <Binding Name="SD.LinqToSql.NET4x" />
+          <Binding Name="SD.TemplateBindings.General" />
         </TemplateBindings>
       </LastUsedPreferences>
     </OutputType>
@@ -105,6 +105,21 @@
         <PresetName Value="SD.Presets.DDLSQL.UpdateScript" />
         <RootNamespace Value="" />
         <TemplateGroup Value="Update DDL SQL" />
+        <TemplateBindings>
+          <Binding Name="SD.TemplateBindings.SqlServerSpecific.DDLSQL" />
+          <Binding Name="SD.TemplateBindings.SharedTemplates.DDLSQL" />
+        </TemplateBindings>
+      </LastUsedPreferences>
+    </OutputType>
+    <OutputType Value="1">
+      <LastUsedPreferences>
+        <DestinationRootFolder Value=".\" />
+        <FrameworkName Value="DDL SQL" />
+        <LanguageName Value="SQL" />
+        <PlatformName Value="RDBMS" />
+        <PresetName Value="SD.Presets.DDLSQL.CreateScript" />
+        <RootNamespace Value="" />
+        <TemplateGroup Value="Create DDL SQL" />
         <TemplateBindings>
           <Binding Name="SD.TemplateBindings.SqlServerSpecific.DDLSQL" />
           <Binding Name="SD.TemplateBindings.SharedTemplates.DDLSQL" />
@@ -127,66 +142,10 @@
       <SettingValue Name="1:TdlEmitTimeDateInOutputFiles" Value="true" Type="3" />
     </SettingValues>
   </OutputSettingValues>
-  <CodeGenerationMetaDataDefaults>
-    <TargetElement Type="256">
-      <Defaults>
-        <Attributes>
-          <Attribute Value="Browsable($true)" />
-        </Attributes>
-      </Defaults>
-    </TargetElement>
-  </CodeGenerationMetaDataDefaults>
+  <CodeGenerationMetaDataDefaults />
   <EntityModel>
     <ValueTypeDefinitions />
     <EntityDefinitions>
-      <EntityDefinition Name="ActionTestCR" ObjectID="2c76cdb3-9b1c-41fa-bd57-5f7964c58474">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestCRD" ObjectID="74dbb854-71f4-4f7b-b14c-127a5f369be6">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestCRU" ObjectID="71a1edff-26fe-4184-99a5-d487e18d26a3">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestCRUD" ObjectID="936d8365-95d1-427f-9f9a-fcbc1bf175c0">
-        <Fields>
-          <Field Name="Id" Type="int" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestR" ObjectID="a9c236f5-7a39-400b-a814-7988484cec26">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestRD" ObjectID="01b66218-6f85-473c-a20a-9d0a7135f346">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestRU" ObjectID="2ee59c1f-191c-4de0-8411-072ce358ba20">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="ActionTestRUD" ObjectID="e52e7073-5788-440d-aab1-4bc241fb5f83">
-        <Fields>
-          <Field Name="Id" Type="int" Precision="10" IsPrimaryKey="true" />
-          <Field Name="ValueField" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
       <EntityDefinition Name="Address" ObjectID="a54b453c-c2f2-4056-89ab-34d9b62281ac">
         <Fields>
           <Field Name="AddressId" Type="int" IsReadOnly="true" IsPrimaryKey="true" />
@@ -222,26 +181,6 @@
           <Field Name="StreetName" Type="string" MaxLength="100" />
           <Field Name="TestRunId" Type="guid" IsOptional="true" />
           <Field Name="Zipcode" Type="string" IsOptional="true" MaxLength="10" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="AddressSyncTest" ObjectID="86d57d6b-0e0f-4e91-a7a5-92cba0d78f5f">
-        <Fields>
-          <Field Name="AddressId" Type="int" IsReadOnly="true" IsPrimaryKey="true" />
-          <Field Name="City" Type="string" MaxLength="50" />
-          <Field Name="Country" Type="string" MaxLength="50" />
-          <Field Name="HouseNumber" Type="int" />
-          <Field Name="StreetName" Type="string" MaxLength="100" />
-          <Field Name="TestRunId" Type="guid" IsOptional="true" />
-          <Field Name="Zipcode" Type="string" IsOptional="true" MaxLength="10" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="AuditInfo" ObjectID="9d74f1f7-5191-4196-8595-53746e0a483a">
-        <Fields>
-          <Field Name="ActionData" Type="string" IsOptional="true" MaxLength="2000" />
-          <Field Name="ActionDateTime" Type="datetime" />
-          <Field Name="ActionType" Type="int" />
-          <Field Name="AffectedEntityName" Type="string" MaxLength="50" />
-          <Field Name="Id" Type="int" IsReadOnly="true" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="Ball" ObjectID="2c890145-47ea-4dc0-9129-4269378f1da2">
@@ -300,18 +239,6 @@
           <Forf Name="BillingAddressCountry" MappedField=":Address:Country" RelationshipName="Customer.BillingAddress-Address.CustomerBillingAddress" ViaStartNavigator="true" />
         </Forfs>
       </EntityDefinition>
-      <EntityDefinition Name="CustomerSyncTest" ObjectID="d7a91fd5-532a-4eb4-b010-abdf46b3e80f">
-        <Fields>
-          <Field Name="BillingAddressId" Type="int" IsAutoCreated="true" />
-          <Field Name="CompanyEmailAddress" Type="string" MaxLength="150" />
-          <Field Name="CompanyName" Type="string" MaxLength="75" />
-          <Field Name="ContactPerson" Type="string" MaxLength="75" />
-          <Field Name="CustomerId" Type="int" IsReadOnly="true" IsPrimaryKey="true" />
-          <Field Name="CustomerSince" Type="datetime" />
-          <Field Name="TestRunId" Type="guid" />
-          <Field Name="VisitingAddressId" Type="int" IsAutoCreated="true" />
-        </Fields>
-      </EntityDefinition>
       <EntityDefinition Name="DerivedType1" ObjectID="66da85f4-3cdf-4761-80b1-e1ab10cb91b7" InheritanceType="1" DiscriminatorValue="2" DiscriminatorValueType="2">
         <Fields>
           <Field Name="Element2" Type="string" IsOptional="true" MaxLength="50" />
@@ -330,13 +257,6 @@
           <Field Name="Name" Type="string" MaxLength="100" />
           <Field Name="Photo" Type="byte[]" IsOptional="true" MaxLength="2147483647" />
           <Field Name="TestRunId" Type="guid" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="EnumTester" ObjectID="b7a1f622-fde2-4ca8-bee0-ebcd7fa91f63">
-        <Fields>
-          <Field Name="EnumField" Type="ccolor" />
-          <Field Name="Id" Type="int" IsPrimaryKey="true" />
-          <Field Name="NullableEnumField" Type="ccolor" IsOptional="true" />
         </Fields>
       </EntityDefinition>
       <EntityDefinition Name="GuidTpehTester" ObjectID="a2adbeaa-97af-4b73-a7f3-86ace740571c" InheritanceType="1" DiscriminatorValue="1" DiscriminatorValueType="2">
@@ -376,30 +296,7 @@
           <Field Name="TestRunId" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="OrdersWithTotalsVw" ObjectID="72448a94-4bb2-47f8-a381-0816903ab436">
-        <Fields>
-          <Field Name="CustomerId" Type="int" IsReadOnly="true" />
-          <Field Name="EmployeeId" Type="int" IsReadOnly="true" />
-          <Field Name="OrderDate" Type="datetime" IsReadOnly="true" />
-          <Field Name="OrderId" Type="int" IsReadOnly="true" IsPrimaryKey="true" />
-          <Field Name="RequiredDate" Type="datetime" IsReadOnly="true" IsOptional="true" />
-          <Field Name="ShippedDate" Type="datetime" IsReadOnly="true" IsOptional="true" />
-          <Field Name="TestRunId" Type="guid" IsReadOnly="true" />
-          <Field Name="Total" Type="decimal" IsReadOnly="true" IsOptional="true" Precision="11" Scale="2" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="OrderSyncTest" ObjectID="5c7f2648-16b0-4967-9236-ac50f4ab68ad">
-        <Fields>
-          <Field Name="CustomerId" Type="int" IsAutoCreated="true" />
-          <Field Name="EmployeeId" Type="int" IsOptional="true" IsAutoCreated="true" />
-          <Field Name="OrderDate" Type="datetime" />
-          <Field Name="OrderId" Type="int" IsReadOnly="true" IsPrimaryKey="true" />
-          <Field Name="RequiredDate" Type="datetime" IsOptional="true" />
-          <Field Name="ShippedDate" Type="datetime" IsOptional="true" />
-          <Field Name="TestRunId" Type="guid" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="Product" ObjectID="c7ac2af9-d00c-41ef-b8e9-a8665a8dafd1" InheritanceType="2">
+      <EntityDefinition Name="Product" ObjectID="c7ac2af9-d00c-41ef-b8e9-a8665a8dafd1">
         <Fields>
           <Field Name="FullDescription" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="Price" Type="decimal" IsOptional="true" Precision="11" Scale="2" />
@@ -415,10 +312,11 @@
           <Field Name="TestRunId" Type="guid" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="SpecialProduct" ObjectID="3d6359c9-87f7-4017-9d07-4f460b9e4b67" InheritanceType="2">
+      <EntityDefinition Name="SpecialProduct" ObjectID="3d6359c9-87f7-4017-9d07-4f460b9e4b67">
         <Fields>
           <Field Name="ActionCode" Type="int" />
           <Field Name="ActionDate" Type="datetime" IsOptional="true" />
+          <Field Name="ProductId" Type="guid" IsPrimaryKey="true" />
           <Field Name="SpTestRunId" Type="guid" />
         </Fields>
       </EntityDefinition>
@@ -434,13 +332,6 @@
           <Field Name="FirstName" Type="string" MaxLength="50" />
           <Field Name="Id" Type="int" IsPrimaryKey="true" />
           <Field Name="LastName" Type="string" MaxLength="50" />
-        </Fields>
-      </EntityDefinition>
-      <EntityDefinition Name="TCTester" ObjectID="09e891cf-3fac-4d33-a42b-89c2f8de7b53">
-        <Fields>
-          <Field Name="IntFromDecimal" Type="int" IsOptional="true" Precision="11" Scale="2" />
-          <Field Name="ProductId" Type="guid" IsPrimaryKey="true" />
-          <Field Name="TestRunId" Type="guid" />
         </Fields>
       </EntityDefinition>
     </EntityDefinitions>
@@ -470,16 +361,6 @@
           <FieldFieldRelationship FkField="VisitingAddressId" PkField="AddressId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="CustomerSyncTest.BillingAddress-AddressSyncTest." Start=":CustomerSyncTest" End=":AddressSyncTest" StartNavigator="BillingAddress" Type="1">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="BillingAddressId" PkField="AddressId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="CustomerSyncTest.VisitingAddress-AddressSyncTest." Start=":CustomerSyncTest" End=":AddressSyncTest" StartNavigator="VisitingAddress" Type="1">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="VisitingAddressId" PkField="AddressId" />
-        </FieldRelationships>
-      </NormalRelationship>
       <NormalRelationship Name="Employee.ManagedByEmployee-Employee.ManagesEmployees" Start=":Employee" End=":Employee" StartNavigator="ManagedByEmployee" EndNavigator="ManagesEmployees" Type="4">
         <FieldRelationships>
           <FieldFieldRelationship FkField="ManagedBy" PkField="EmployeeId" />
@@ -505,19 +386,14 @@
           <FieldFieldRelationship FkField="ProductId" PkField="ProductId" />
         </FieldRelationships>
       </NormalRelationship>
-      <NormalRelationship Name="OrderSyncTest.CustomerSyncTest-CustomerSyncTest." Start=":OrderSyncTest" End=":CustomerSyncTest" StartNavigator="CustomerSyncTest" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="CustomerId" PkField="CustomerId" />
-        </FieldRelationships>
-      </NormalRelationship>
-      <NormalRelationship Name="OrderSyncTest.Employee-Employee.OrderSyncTest" Start=":OrderSyncTest" End=":Employee" StartNavigator="Employee" EndNavigator="OrderSyncTest" Type="4">
-        <FieldRelationships>
-          <FieldFieldRelationship FkField="EmployeeId" PkField="EmployeeId" />
-        </FieldRelationships>
-      </NormalRelationship>
       <NormalRelationship Name="SpecialCustomer.Customer-Customer.SpecialCustomer" Start=":SpecialCustomer" End=":Customer" StartNavigator="Customer" EndNavigator="SpecialCustomer" Type="1">
         <FieldRelationships>
           <FieldFieldRelationship FkField="CustomerId" PkField="CustomerId" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="SpecialProduct.Product-Product.SpecialProduct" Start=":SpecialProduct" End=":Product" StartNavigator="Product" EndNavigator="SpecialProduct" Type="1" StartIsOptional="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="ProductId" PkField="ProductId" />
         </FieldRelationships>
       </NormalRelationship>
       <NormalRelationship Name="SplitOffNoBlobData.BlobData-SplitOffBlobData.MainData" Start=":SplitOffNoBlobData" End=":SplitOffBlobData" StartNavigator="BlobData" EndNavigator="MainData" Type="1" StartIsOptional="true" EndIsOptional="true" StartIsPkSide="true">
@@ -532,7 +408,6 @@
     <InheritanceHierarchies>
       <InheritanceHierarchy SuperType=":GuidTpehTester" SubType=":DerivedType1" />
       <InheritanceHierarchy SuperType=":GuidTpehTester" SubType=":DerivedType2" />
-      <InheritanceHierarchy SuperType=":Product" SubType=":SpecialProduct" />
     </InheritanceHierarchies>
   </EntityModel>
   <TypedListDefinitions>
@@ -617,20 +492,6 @@
       </Relationships>
     </TypedListDefinition>
   </TypedListDefinitions>
-  <TypedViewDefinitions>
-    <TypedViewDefinition Name="OrdersWithTotals" ObjectID="628c193f-733b-47c1-bcd6-e9c058ceb6ee">
-      <Fields>
-        <Field Name="CustomerId" Type="int" />
-        <Field Name="EmployeeId" Type="int" />
-        <Field Name="OrderDate" Type="datetime" />
-        <Field Name="OrderId" Type="int" />
-        <Field Name="RequiredDate" Type="datetime" IsOptional="true" />
-        <Field Name="ShippedDate" Type="datetime" IsOptional="true" />
-        <Field Name="TestRunId" Type="guid" />
-        <Field Name="Total" Type="decimal" IsOptional="true" Precision="11" Scale="2" />
-      </Fields>
-    </TypedViewDefinition>
-  </TypedViewDefinitions>
   <SPCallDefinitions>
     <SPCallDefinition Name="ClearAll" ObjectID="cab32707-7e8d-443c-975d-f160c6427c84" />
     <SPCallDefinition Name="ClearTestRunData" ObjectID="dad1cf07-6aba-423b-83a3-3d2baf1e2514">
@@ -642,7 +503,7 @@
   <TargetDatabases>
     <TargetDatabase Type="2D18D138-1DD2-467E-86CC-4838250611AE">
       <ConnectionElements>
-        <ConnectionElement Name="ServerName" Value="geek" />
+        <ConnectionElement Name="ServerName" Value="thor.sd.local" />
         <ConnectionElement Name="CatalogName" Value="master" />
         <ConnectionElement Name="UseWindowsAuthentication" Value="true" />
         <ConnectionElement Name="UserID" Value="" />
@@ -657,13 +518,6 @@
           <Schemas>
             <Schema Name="dbo">
               <Tables>
-                <Table Name="ActionTestCrud">
-                  <PkConstraintName Name="PK_c6ef9dd47768ef19bbab33385b3" />
-                  <Fields>
-                    <Field Name="Id" Ordinal="1" IsPrimaryKey="true" DbType="8" Precision="10" />
-                    <Field Name="ValueField" Ordinal="2" DbType="12" Length="50" />
-                  </Fields>
-                </Table>
                 <Table Name="Address">
                   <PkConstraintName Name="PK_Address" />
                   <Fields>
@@ -734,7 +588,7 @@
                     <Field Name="ContactPerson" Ordinal="4" DbType="24" Length="75" />
                     <Field Name="CompanyEmailAddress" Ordinal="5" DbType="24" Length="150" />
                     <Field Name="VisitingAddressID" Ordinal="6" DbType="8" Precision="10" />
-                    <Field Name="BillingAddressID" Ordinal="7" HasDefaultValue="true" DefaultValue="(0)" DbType="8" Precision="10" />
+                    <Field Name="BillingAddressID" Ordinal="7" HasDefaultValue="true" DefaultValue="0" DbType="8" Precision="10" />
                     <Field Name="TestRunID" Ordinal="8" DbType="25" />
                   </Fields>
                   <UniqueConstraints>
@@ -809,7 +663,7 @@
                     <Field Name="ProductID" Ordinal="1" IsPrimaryKey="true" DbType="25" />
                     <Field Name="ShortDescription" Ordinal="2" IsOptional="true" DbType="24" Length="150" />
                     <Field Name="FullDescription" Ordinal="3" IsOptional="true" DbType="20" Length="2147483647" />
-                    <Field Name="Price" Ordinal="4" IsOptional="true" DbType="5" Precision="11" Scale="2" />
+                    <Field Name="Price" Ordinal="4" IsOptional="true" HasDefaultValue="true" DefaultValue="1.0" DbType="5" Precision="11" Scale="2" />
                     <Field Name="TestRunID" Ordinal="5" DbType="25" />
                   </Fields>
                 </Table>
@@ -841,20 +695,6 @@
                   </Fields>
                 </Table>
               </Tables>
-              <Views>
-                <View Name="vw_OrdersWithTotals">
-                  <Fields>
-                    <Field Name="OrderID" Ordinal="1" DbType="8" Precision="10" />
-                    <Field Name="CustomerID" Ordinal="2" DbType="8" Precision="10" />
-                    <Field Name="EmployeeID" Ordinal="3" DbType="8" Precision="10" />
-                    <Field Name="OrderDate" Ordinal="4" DbType="4" />
-                    <Field Name="RequiredDate" Ordinal="5" IsOptional="true" DbType="4" />
-                    <Field Name="ShippedDate" Ordinal="6" IsOptional="true" DbType="4" />
-                    <Field Name="TestRunID" Ordinal="7" DbType="25" />
-                    <Field Name="Total" Ordinal="8" IsOptional="true" DbType="5" Precision="11" Scale="2" />
-                  </Fields>
-                </View>
-              </Views>
               <StoredProcedures>
                 <StoredProcedure Name="pr_ClearAll" />
                 <StoredProcedure Name="pr_ClearTestRunData">
@@ -934,54 +774,6 @@
   <MappingStores>
     <MappingStore Type="2D18D138-1DD2-467E-86CC-4838250611AE">
       <EntityMappings>
-        <EntityMapping EntityName=":ActionTestCR" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="2">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestCRD" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="3">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestCRU" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="1">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestCRUD" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestR" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="4">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestRD" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="7">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestRU" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="5">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":ActionTestRUD" TargetName="LLBLGenProUnitTest:dbo:ActionTestCrud" ActionCombination="6">
-          <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" />
-            <FieldMapping FieldName="ValueField" TargetFieldName="ValueField" />
-          </FieldMappings>
-        </EntityMapping>
         <EntityMapping EntityName=":Address" TargetName="LLBLGenProUnitTest:dbo:Address">
           <FieldMappings>
             <FieldMapping FieldName="AddressId" TargetFieldName="AddressId" SequenceToUse="SCOPE_IDENTITY()" />
@@ -1014,26 +806,6 @@
             <FieldMapping FieldName="StreetName" TargetFieldName="StreetName" />
             <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
             <FieldMapping FieldName="Zipcode" TargetFieldName="Zipcode" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":AddressSyncTest" TargetName="LLBLGenProUnitTest:dbo:Address">
-          <FieldMappings>
-            <FieldMapping FieldName="AddressId" TargetFieldName="AddressId" SequenceToUse="SCOPE_IDENTITY()" />
-            <FieldMapping FieldName="City" TargetFieldName="City" />
-            <FieldMapping FieldName="Country" TargetFieldName="Country" />
-            <FieldMapping FieldName="HouseNumber" TargetFieldName="HouseNumber" />
-            <FieldMapping FieldName="StreetName" TargetFieldName="StreetName" />
-            <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-            <FieldMapping FieldName="Zipcode" TargetFieldName="Zipcode" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":AuditInfo" TargetName="LLBLGenProUnitTest:dbo:AuditInfo">
-          <FieldMappings>
-            <FieldMapping FieldName="ActionData" TargetFieldName="ActionData" />
-            <FieldMapping FieldName="ActionDateTime" TargetFieldName="ActionDateTime" />
-            <FieldMapping FieldName="ActionType" TargetFieldName="ActionType" />
-            <FieldMapping FieldName="AffectedEntityName" TargetFieldName="AffectedEntityName" />
-            <FieldMapping FieldName="Id" TargetFieldName="ID" SequenceToUse="SCOPE_IDENTITY()" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":Ball" TargetName="LLBLGenProUnitTest:dbo:Ball">
@@ -1082,18 +854,6 @@
             <FieldMapping FieldName="VisitingAddressId" TargetFieldName="VisitingAddressID" />
           </FieldMappings>
         </EntityMapping>
-        <EntityMapping EntityName=":CustomerSyncTest" TargetName="LLBLGenProUnitTest:dbo:Customer">
-          <FieldMappings>
-            <FieldMapping FieldName="BillingAddressId" TargetFieldName="BillingAddressID" />
-            <FieldMapping FieldName="CompanyEmailAddress" TargetFieldName="CompanyEmailAddress" />
-            <FieldMapping FieldName="CompanyName" TargetFieldName="CompanyName" />
-            <FieldMapping FieldName="ContactPerson" TargetFieldName="ContactPerson" />
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" SequenceToUse="SCOPE_IDENTITY()" />
-            <FieldMapping FieldName="CustomerSince" TargetFieldName="CustomerSince" />
-            <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-            <FieldMapping FieldName="VisitingAddressId" TargetFieldName="VisitingAddressID" />
-          </FieldMappings>
-        </EntityMapping>
         <EntityMapping EntityName=":DerivedType1" TargetName="LLBLGenProUnitTest:dbo:GuidTPEHTester">
           <FieldMappings>
             <FieldMapping FieldName="Element2" TargetFieldName="Element2" />
@@ -1112,13 +872,6 @@
             <FieldMapping FieldName="Name" TargetFieldName="Name" />
             <FieldMapping FieldName="Photo" TargetFieldName="Photo" />
             <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":EnumTester" TargetName="LLBLGenProUnitTest:dbo:EnumTester">
-          <FieldMappings>
-            <FieldMapping FieldName="EnumField" TargetFieldName="EnumField" />
-            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
-            <FieldMapping FieldName="NullableEnumField" TargetFieldName="NullableEnumField" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":GuidTpehTester" TargetName="LLBLGenProUnitTest:dbo:GuidTPEHTester">
@@ -1145,29 +898,6 @@
             <FieldMapping FieldName="PriceInvoiced" TargetFieldName="PriceInvoiced" />
             <FieldMapping FieldName="ProductId" TargetFieldName="ProductID" />
             <FieldMapping FieldName="Quantity" TargetFieldName="Quantity" />
-            <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":OrdersWithTotalsVw" TargetName="LLBLGenProUnitTest:dbo:vw_OrdersWithTotals">
-          <FieldMappings>
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
-            <FieldMapping FieldName="OrderDate" TargetFieldName="OrderDate" />
-            <FieldMapping FieldName="OrderId" TargetFieldName="OrderID" />
-            <FieldMapping FieldName="RequiredDate" TargetFieldName="RequiredDate" />
-            <FieldMapping FieldName="ShippedDate" TargetFieldName="ShippedDate" />
-            <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-            <FieldMapping FieldName="Total" TargetFieldName="Total" />
-          </FieldMappings>
-        </EntityMapping>
-        <EntityMapping EntityName=":OrderSyncTest" TargetName="LLBLGenProUnitTest:dbo:Order">
-          <FieldMappings>
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
-            <FieldMapping FieldName="OrderDate" TargetFieldName="OrderDate" />
-            <FieldMapping FieldName="OrderId" TargetFieldName="OrderID" SequenceToUse="SCOPE_IDENTITY()" />
-            <FieldMapping FieldName="RequiredDate" TargetFieldName="RequiredDate" />
-            <FieldMapping FieldName="ShippedDate" TargetFieldName="ShippedDate" />
             <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
           </FieldMappings>
         </EntityMapping>
@@ -1209,28 +939,8 @@
             <FieldMapping FieldName="LastName" TargetFieldName="LastName" />
           </FieldMappings>
         </EntityMapping>
-        <EntityMapping EntityName=":TCTester" TargetName="LLBLGenProUnitTest:dbo:Product">
-          <FieldMappings>
-            <FieldMapping FieldName="IntFromDecimal" TargetFieldName="Price" TypeConverterToUse="SD.LLBLGen.Pro.TypeConverters.Int32DecimalConverter" />
-            <FieldMapping FieldName="ProductId" TargetFieldName="ProductID" />
-            <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-          </FieldMappings>
-        </EntityMapping>
       </EntityMappings>
-      <TypedViewMappings>
-        <TypedViewMapping TypedViewName=":OrdersWithTotals" TargetName="LLBLGenProUnitTest:dbo:vw_OrdersWithTotals">
-          <FieldMappings>
-            <FieldMapping FieldName="CustomerId" TargetFieldName="CustomerID" />
-            <FieldMapping FieldName="EmployeeId" TargetFieldName="EmployeeID" />
-            <FieldMapping FieldName="OrderDate" TargetFieldName="OrderDate" />
-            <FieldMapping FieldName="OrderId" TargetFieldName="OrderID" />
-            <FieldMapping FieldName="RequiredDate" TargetFieldName="RequiredDate" />
-            <FieldMapping FieldName="ShippedDate" TargetFieldName="ShippedDate" />
-            <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
-            <FieldMapping FieldName="Total" TargetFieldName="Total" />
-          </FieldMappings>
-        </TypedViewMapping>
-      </TypedViewMappings>
+      <TypedViewMappings />
       <SPCallMappings>
         <SPCallMapping SPCallName=":ClearAll" TargetName="LLBLGenProUnitTest:dbo:pr_ClearAll">
           <FieldMappings />
