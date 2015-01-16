@@ -211,6 +211,12 @@ namespace WriteTests
 			get { return this.GetTable<Employee>(); }
 		}
 		
+		/// <summary>Gets the EnumTester Table definition. Mapped on table 'LLBLGenProUnitTest.dbo.EnumTester'.</summary>
+		public System.Data.Linq.Table<EnumTester> EnumTesters
+		{
+			get { return this.GetTable<EnumTester>(); }
+		}
+		
 		/// <summary>Gets the GuidTpehTester Table definition. Mapped on table 'LLBLGenProUnitTest.dbo.GuidTPEHTester'.</summary>
 		public System.Data.Linq.Table<GuidTpehTester> GuidTpehTesters
 		{

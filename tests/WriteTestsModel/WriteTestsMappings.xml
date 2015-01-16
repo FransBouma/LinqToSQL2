@@ -9,8 +9,8 @@
 			<Column Name="StreetName" Member="StreetName" Storage="_streetName" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NULL" CanBeNull="true"/>
 			<Column Name="Zipcode" Member="Zipcode" Storage="_zipcode" DbType="char(10) NULL" CanBeNull="true"/>
-			<Association Name="Customer_Addressc02777a79bd941cfbf433ea9fc718199" Member="CustomerBillingAddress" ThisKey="AddressId" OtherKey="BillingAddressId" Storage="_customerBillingAddress"/>
-			<Association Name="Customer_Address4f62f6f7317c4c1a90231f291ff594b8" Member="CustomerVisitingAddress" ThisKey="AddressId" OtherKey="VisitingAddressId" Storage="_customerVisitingAddress"/>
+			<Association Name="Customer_Addressc76a94a3da304cfa8da7c2bc78987d6f" Member="CustomerBillingAddress" ThisKey="AddressId" OtherKey="BillingAddressId" Storage="_customerBillingAddress"/>
+			<Association Name="Customer_Address7093bb1e1618496189bda9a8b973603b" Member="CustomerVisitingAddress" ThisKey="AddressId" OtherKey="VisitingAddressId" Storage="_customerVisitingAddress"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[Address]" Member="AddressDuplicateFields">
@@ -40,7 +40,7 @@
 		<Type Name="WriteTests.EntityClasses.Ball">
 			<Column Name="Diameter" Member="Diameter" Storage="_diameter" DbType="int NOT NULL" CanBeNull="false"/>
 			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
-			<Association Name="BallColor_Ballc3f1808f618f4949becc6ca947f4ee86" Member="BallColor" ThisKey="Id" OtherKey="BallId" Storage="_ballColor"/>
+			<Association Name="BallColor_Balld074aebf604c4d89ac1f1797c509b882" Member="BallColor" ThisKey="Id" OtherKey="BallId" Storage="_ballColor"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[BallColor]" Member="BallColors">
@@ -48,15 +48,15 @@
 			<Column Name="BallId" Member="BallId" Storage="_ballId" DbType="int NOT NULL" CanBeNull="false"/>
 			<Column Name="ColorId" Member="ColorId" Storage="_colorId" DbType="int NOT NULL" CanBeNull="false"/>
 			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
-			<Association Name="BallColor_Ballc3f1808f618f4949becc6ca947f4ee86" Member="Ball" ThisKey="BallId" OtherKey="Id" Storage="_ball" IsForeignKey="true"/>
-			<Association Name="BallColor_Color98e695d71ac44a6cbe72343a7a3b7839" Member="Color" ThisKey="ColorId" OtherKey="Id" Storage="_color" IsForeignKey="true"/>
+			<Association Name="BallColor_Balld074aebf604c4d89ac1f1797c509b882" Member="Ball" ThisKey="BallId" OtherKey="Id" Storage="_ball" IsForeignKey="true"/>
+			<Association Name="BallColor_Color4a37c4ca09834ca2919444a46586df9e" Member="Color" ThisKey="ColorId" OtherKey="Id" Storage="_color" IsForeignKey="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[Color]" Member="Colors">
 		<Type Name="WriteTests.EntityClasses.Color">
 			<Column Name="Description" Member="Description" Storage="_description" DbType="nvarchar(100) NOT NULL" CanBeNull="false"/>
 			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
-			<Association Name="BallColor_Color98e695d71ac44a6cbe72343a7a3b7839" Member="BallColor" ThisKey="Id" OtherKey="ColorId" Storage="_ballColor"/>
+			<Association Name="BallColor_Color4a37c4ca09834ca2919444a46586df9e" Member="BallColor" ThisKey="Id" OtherKey="ColorId" Storage="_ballColor"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[Company]" Member="Companies">
@@ -64,7 +64,7 @@
 			<Column Name="CompanyID" Member="CompanyId" Storage="_companyId" DbType="binary(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
 			<Column Name="CompanyName" Member="CompanyName" Storage="_companyName" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
 			<Column Name="TestrunID" Member="TestrunId" Storage="_testrunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="CompanyProperty_Companyf248303b878e453d8c298ca035f4b84e" Member="CompanyProperty" ThisKey="CompanyId" OtherKey="CompanyId" Storage="_companyProperty"/>
+			<Association Name="CompanyProperty_Company957596d1947b48258acbbf6e2509b7c8" Member="CompanyProperty" ThisKey="CompanyId" OtherKey="CompanyId" Storage="_companyProperty"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[CompanyProperty]" Member="CompanyProperties">
@@ -73,7 +73,7 @@
 			<Column Name="PropertyID" Member="PropertyId" Storage="_propertyId" DbType="binary(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
 			<Column Name="PropertyValue" Member="PropertyValue" Storage="_propertyValue" DbType="varchar(50) NOT NULL" CanBeNull="false"/>
 			<Column Name="TestrunID" Member="TestrunId" Storage="_testrunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="CompanyProperty_Companyf248303b878e453d8c298ca035f4b84e" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Storage="_company" IsForeignKey="true"/>
+			<Association Name="CompanyProperty_Company957596d1947b48258acbbf6e2509b7c8" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Storage="_company" IsForeignKey="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[Customer]" Member="Customers">
@@ -86,10 +86,10 @@
 			<Column Name="CustomerSince" Member="CustomerSince" Storage="_customerSince" DbType="datetime NOT NULL" CanBeNull="false"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
 			<Column Name="VisitingAddressID" Member="VisitingAddressId" Storage="_visitingAddressId" DbType="int NOT NULL" CanBeNull="false"/>
-			<Association Name="Customer_Addressc02777a79bd941cfbf433ea9fc718199" Member="BillingAddress" ThisKey="BillingAddressId" OtherKey="AddressId" Storage="_billingAddress" IsForeignKey="true"/>
-			<Association Name="Customer_Address4f62f6f7317c4c1a90231f291ff594b8" Member="VisitingAddress" ThisKey="VisitingAddressId" OtherKey="AddressId" Storage="_visitingAddress" IsForeignKey="true"/>
-			<Association Name="Order_Customerc68db2f3c53046238c4a29425d0ff71e" Member="Orders" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_orders"/>
-			<Association Name="SpecialCustomer_Customer3706c7cc47c245d59d7bfedb09680c1d" Member="SpecialCustomer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_specialCustomer"/>
+			<Association Name="Customer_Addressc76a94a3da304cfa8da7c2bc78987d6f" Member="BillingAddress" ThisKey="BillingAddressId" OtherKey="AddressId" Storage="_billingAddress" IsForeignKey="true"/>
+			<Association Name="Customer_Address7093bb1e1618496189bda9a8b973603b" Member="VisitingAddress" ThisKey="VisitingAddressId" OtherKey="AddressId" Storage="_visitingAddress" IsForeignKey="true"/>
+			<Association Name="Order_Customerb6362ae2e5624b34bc9ca50807ab08e0" Member="Orders" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_orders"/>
+			<Association Name="SpecialCustomer_Customer0be44c4896a54c47921175da8923d3da" Member="SpecialCustomer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_specialCustomer"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[Employee]" Member="Employees">
@@ -100,9 +100,16 @@
 			<Column Name="Name" Member="Name" Storage="_name" DbType="varchar(100) NOT NULL" CanBeNull="false"/>
 			<Column Name="Photo" Member="Photo" Storage="_photo" DbType="image NULL" CanBeNull="true" UpdateCheck="Never"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="Employee_Employeecd9270d8f8a247f1bcb4ebb90808a6bc" Member="ManagedByEmployee" ThisKey="ManagedBy" OtherKey="EmployeeId" Storage="_managedByEmployee" IsForeignKey="true"/>
-			<Association Name="Employee_Employeecd9270d8f8a247f1bcb4ebb90808a6bc" Member="ManagesEmployees" ThisKey="EmployeeId" OtherKey="ManagedBy" Storage="_managesEmployees"/>
-			<Association Name="Order_Employeec205d86f4cc4432c96d947f622bd0026" Member="Orders" ThisKey="EmployeeId" OtherKey="EmployeeId" Storage="_orders"/>
+			<Association Name="Employee_Employee43cbebed1a024d01a2f158654e78113b" Member="ManagedByEmployee" ThisKey="ManagedBy" OtherKey="EmployeeId" Storage="_managedByEmployee" IsForeignKey="true"/>
+			<Association Name="Employee_Employee43cbebed1a024d01a2f158654e78113b" Member="ManagesEmployees" ThisKey="EmployeeId" OtherKey="ManagedBy" Storage="_managesEmployees"/>
+			<Association Name="Order_Employeeb4817edc591f4638939d8a2622ee108d" Member="Orders" ThisKey="EmployeeId" OtherKey="EmployeeId" Storage="_orders"/>
+		</Type>
+	</Table>
+	<Table Name="[dbo].[EnumTester]" Member="EnumTesters">
+		<Type Name="WriteTests.EntityClasses.EnumTester">
+			<Column Name="EnumField" Member="EnumField" Storage="_enumField" DbType="int NOT NULL" CanBeNull="false"/>
+			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
+			<Column Name="NullableEnumField" Member="NullableEnumField" Storage="_nullableEnumField" DbType="int NULL" CanBeNull="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[GuidTPEHTester]" Member="GuidTpehTesters">
@@ -127,9 +134,9 @@
 			<Column Name="RequiredDate" Member="RequiredDate" Storage="_requiredDate" DbType="datetime NULL" CanBeNull="true"/>
 			<Column Name="ShippedDate" Member="ShippedDate" Storage="_shippedDate" DbType="datetime NULL" CanBeNull="true"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="Order_Customerc68db2f3c53046238c4a29425d0ff71e" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
-			<Association Name="Order_Employeec205d86f4cc4432c96d947f622bd0026" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Storage="_employee" IsForeignKey="true"/>
-			<Association Name="OrderRow_Orderf392a6d60c984df6aad91e0f81369bbf" Member="OrderRows" ThisKey="OrderId" OtherKey="OrderId" Storage="_orderRows"/>
+			<Association Name="Order_Customerb6362ae2e5624b34bc9ca50807ab08e0" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
+			<Association Name="Order_Employeeb4817edc591f4638939d8a2622ee108d" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Storage="_employee" IsForeignKey="true"/>
+			<Association Name="OrderRow_Order1d19a5c5721f47218ad0a3e5654a556e" Member="OrderRows" ThisKey="OrderId" OtherKey="OrderId" Storage="_orderRows"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[OrderRow]" Member="OrderRows">
@@ -139,8 +146,8 @@
 			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
 			<Column Name="Quantity" Member="Quantity" Storage="_quantity" DbType="int NOT NULL" CanBeNull="false"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="OrderRow_Orderf392a6d60c984df6aad91e0f81369bbf" Member="Order" ThisKey="OrderId" OtherKey="OrderId" Storage="_order" IsForeignKey="true"/>
-			<Association Name="OrderRow_Productd3176cd01eee4bdcbeee7e6002137b53" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="OrderRow_Order1d19a5c5721f47218ad0a3e5654a556e" Member="Order" ThisKey="OrderId" OtherKey="OrderId" Storage="_order" IsForeignKey="true"/>
+			<Association Name="OrderRow_Product96c08fb14dba4603a30f71afe1377a7e" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[Product]" Member="Products">
@@ -150,8 +157,8 @@
 			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
 			<Column Name="ShortDescription" Member="ShortDescription" Storage="_shortDescription" DbType="varchar(150) NULL" CanBeNull="true"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="OrderRow_Productd3176cd01eee4bdcbeee7e6002137b53" Member="OrderRows" ThisKey="ProductId" OtherKey="ProductId" Storage="_orderRows"/>
-			<Association Name="SpecialProduct_Product477c46ccf9f04b2099bdd7f55a8f9038" Member="SpecialProduct" ThisKey="ProductId" OtherKey="ProductId" Storage="_specialProduct"/>
+			<Association Name="OrderRow_Product96c08fb14dba4603a30f71afe1377a7e" Member="OrderRows" ThisKey="ProductId" OtherKey="ProductId" Storage="_orderRows"/>
+			<Association Name="SpecialProduct_Product4dc60fa69cdf4af9b62629e45f3a653b" Member="SpecialProduct" ThisKey="ProductId" OtherKey="ProductId" Storage="_specialProduct"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[SpecialCustomer]" Member="SpecialCustomers">
@@ -159,7 +166,7 @@
 			<Column Name="CustomerID" Member="CustomerId" Storage="_customerId" DbType="int NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
 			<Column Name="Discount" Member="Discount" Storage="_discount" DbType="real NOT NULL" CanBeNull="false"/>
 			<Column Name="TestRunID" Member="TestRunId" Storage="_testRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="SpecialCustomer_Customer3706c7cc47c245d59d7bfedb09680c1d" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
+			<Association Name="SpecialCustomer_Customer0be44c4896a54c47921175da8923d3da" Member="Customer" ThisKey="CustomerId" OtherKey="CustomerId" Storage="_customer" IsForeignKey="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[SpecialProduct]" Member="SpecialProducts">
@@ -168,7 +175,7 @@
 			<Column Name="ActionDate" Member="ActionDate" Storage="_actionDate" DbType="datetime NULL" CanBeNull="true"/>
 			<Column Name="ProductID" Member="ProductId" Storage="_productId" DbType="uniqueidentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false"/>
 			<Column Name="TestrunID" Member="SpTestRunId" Storage="_spTestRunId" DbType="uniqueidentifier NOT NULL" CanBeNull="false"/>
-			<Association Name="SpecialProduct_Product477c46ccf9f04b2099bdd7f55a8f9038" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
+			<Association Name="SpecialProduct_Product4dc60fa69cdf4af9b62629e45f3a653b" Member="Product" ThisKey="ProductId" OtherKey="ProductId" Storage="_product" IsForeignKey="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[SplitOffTest]" Member="SplitOffBlobDatas">
@@ -176,7 +183,7 @@
 			<Column Name="Id" Member="MainDataId" Storage="_mainDataId" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
 			<Column Name="Notes" Member="Notes" Storage="_notes" DbType="ntext NULL" CanBeNull="true" UpdateCheck="Never"/>
 			<Column Name="Photo" Member="Photo" Storage="_photo" DbType="image NULL" CanBeNull="true" UpdateCheck="Never"/>
-			<Association Name="SplitOffNoBlobData_SplitOffBlobDataa6ded705e9eb4313b67c257fd8b3bd9f" Member="MainData" ThisKey="MainDataId" OtherKey="Id" Storage="_mainData" IsForeignKey="true"/>
+			<Association Name="SplitOffNoBlobData_SplitOffBlobData2a4895f5bc30419eab06e2dac5f1712c" Member="MainData" ThisKey="MainDataId" OtherKey="Id" Storage="_mainData" IsForeignKey="true"/>
 		</Type>
 	</Table>
 	<Table Name="[dbo].[SplitOffTest]" Member="SplitOffNoBlobDatas">
@@ -184,7 +191,7 @@
 			<Column Name="FirstName" Member="FirstName" Storage="_firstName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
 			<Column Name="Id" Member="Id" Storage="_id" DbType="int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never"/>
 			<Column Name="LastName" Member="LastName" Storage="_lastName" DbType="nvarchar(50) NOT NULL" CanBeNull="false"/>
-			<Association Name="SplitOffNoBlobData_SplitOffBlobDataa6ded705e9eb4313b67c257fd8b3bd9f" Member="BlobData" ThisKey="Id" OtherKey="MainDataId" Storage="_blobData"/>
+			<Association Name="SplitOffNoBlobData_SplitOffBlobData2a4895f5bc30419eab06e2dac5f1712c" Member="BlobData" ThisKey="Id" OtherKey="MainDataId" Storage="_blobData"/>
 		</Type>
 	</Table>
 	<Function Name = "[dbo].[pr_ClearAll]" Method="CallClearAll" >

@@ -82,6 +82,9 @@
     <Compile Include="EntityClasses\Employee.cs">
       <GeneratedBy>LLBLGen Pro</GeneratedBy>
     </Compile>
+    <Compile Include="EntityClasses\EnumTester.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
     <Compile Include="EntityClasses\GuidTpehTester.cs">
       <GeneratedBy>LLBLGen Pro</GeneratedBy>
     </Compile>

@@ -1,0 +1,3 @@
+﻿<typeImports>
+	<typeImport typeName="System.ConsoleColor"/>
+</typeImports>

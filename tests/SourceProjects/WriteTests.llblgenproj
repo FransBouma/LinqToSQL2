@@ -259,6 +259,13 @@
           <Field Name="TestRunId" Type="guid" />
         </Fields>
       </EntityDefinition>
+      <EntityDefinition Name="EnumTester" ObjectID="96284c58-baec-4fc7-9300-e734a748cece">
+        <Fields>
+          <Field Name="EnumField" Type="ccolor" Precision="10" />
+          <Field Name="Id" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="NullableEnumField" Type="ccolor" IsOptional="true" Precision="10" />
+        </Fields>
+      </EntityDefinition>
       <EntityDefinition Name="GuidTpehTester" ObjectID="a2adbeaa-97af-4b73-a7f3-86ace740571c" InheritanceType="1" DiscriminatorValue="1" DiscriminatorValueType="2">
         <Fields>
           <Field Name="Id" Type="guid" IsPrimaryKey="true" />
@@ -872,6 +879,13 @@
             <FieldMapping FieldName="Name" TargetFieldName="Name" />
             <FieldMapping FieldName="Photo" TargetFieldName="Photo" />
             <FieldMapping FieldName="TestRunId" TargetFieldName="TestRunID" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":EnumTester" TargetName="LLBLGenProUnitTest:dbo:EnumTester">
+          <FieldMappings>
+            <FieldMapping FieldName="EnumField" TargetFieldName="EnumField" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="NullableEnumField" TargetFieldName="NullableEnumField" />
           </FieldMappings>
         </EntityMapping>
         <EntityMapping EntityName=":GuidTpehTester" TargetName="LLBLGenProUnitTest:dbo:GuidTPEHTester">
