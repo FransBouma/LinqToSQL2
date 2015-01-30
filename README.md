@@ -7,13 +7,13 @@ There's no official release yet, as this project has just been started. After ev
 
 ## Linq to SQL and this project
 
-This project is an official fork from Linq to SQL from the [.NET reference sourcecode](https://github.com/Microsoft/referencesource). As the reference source for .NET doesn't come in compilable form, the generated resource files have been added from the official System.Data.Linq assembly. When Microsoft ports Linq to SQL to vNext these files will be replaced with the official resource files from that project. 
+This project is an official fork from Linq to SQL from the [.NET reference sourcecode](https://github.com/Microsoft/referencesource). As the reference source for .NET doesn't come in compilable form, the resource files for the error strings have been reverse engineered from the official System.Data.Linq assembly.
 
-This project strives to stay 100% backwards compatible with Linq to SQL's query API, so your original Linq to SQL projects will just work with Linq to DB, unless stated otherwise.
+This project strives to stay 100% backwards compatible with Linq to SQL's query API, so your original Linq to SQL projects will just work with Linq to SQL 2, unless stated otherwise.
 
 ### License
 
-The original Linq to SQL code is (c) Microsoft Corporation (see License.txt). Additional code added is (c) of the contributors and is marked as such in the code files. 
+The original Linq to SQL code is (c) Microsoft Corporation (see License.txt). Additional code added is (c) by the contributors and is marked as such in the code files. 
 
 ### Designer support
 
