@@ -11,7 +11,7 @@ using System.Security;
 namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
-	using System.Data.Linq.Provider;
+	using Linq;
 	using System.Diagnostics.CodeAnalysis;
 
 	/// <summary>
@@ -25,13 +25,15 @@ namespace System.Data.Linq
 		private enum AutoSyncBehavior { ApplyNewAutoSync, RollbackSavedValues }
 		#endregion
 
-		DataContext context;
+		#region Member Declarations
+		private DataContext _context;
 		[SuppressMessage("Microsoft.MSInternal", "CA908:AvoidTypesThatRequireJitCompilationInPrecompiledAssemblies", Justification = "[....]: FxCop bug Dev10:423110 -- List<KeyValuePair<object, object>> is not supposed to be flagged as a violation.")]
-		List<KeyValuePair<TrackedObject, object[]>> syncRollbackItems;
+		private List<KeyValuePair<TrackedObject, object[]>> _syncRollbackItems;
+		#endregion
 
 		internal StandardChangeDirector(DataContext context)
 		{
-			this.context = context;
+			this._context = context;
 		}
 
 		[SuppressMessage("Microsoft.MSInternal", "CA908:AvoidTypesThatRequireJitCompilationInPrecompiledAssemblies", Justification = "[....]: FxCop bug Dev10:423110 -- List<KeyValuePair<object, object>> is not supposed to be flagged as a violation.")]
@@ -39,11 +41,11 @@ namespace System.Data.Linq
 		{
 			get
 			{
-				if(syncRollbackItems == null)
+				if(_syncRollbackItems == null)
 				{
-					syncRollbackItems = new List<KeyValuePair<TrackedObject, object[]>>();
+					_syncRollbackItems = new List<KeyValuePair<TrackedObject, object[]>>();
 				}
-				return syncRollbackItems;
+				return _syncRollbackItems;
 			}
 		}
 
@@ -53,7 +55,7 @@ namespace System.Data.Linq
 			{
 				try
 				{
-					item.Type.Table.InsertMethod.Invoke(this.context, new object[] { item.Current });
+					item.Type.Table.InsertMethod.Invoke(this._context, new object[] { item.Current });
 				}
 				catch(TargetInvocationException tie)
 				{
@@ -76,11 +78,11 @@ namespace System.Data.Linq
 			Expression cmd = this.GetInsertCommand(item);
 			if(cmd.Type == typeof(int))
 			{
-				return (int)this.context.Provider.Execute(cmd).ReturnValue;
+				return (int)this._context.Provider.Execute(cmd).ReturnValue;
 			}
 			else
 			{
-				IEnumerable<object> facts = (IEnumerable<object>)this.context.Provider.Execute(cmd).ReturnValue;
+				IEnumerable<object> facts = (IEnumerable<object>)this._context.Provider.Execute(cmd).ReturnValue;
 				object[] syncResults = (object[])facts.FirstOrDefault();
 				if(syncResults != null)
 				{
@@ -104,7 +106,7 @@ namespace System.Data.Linq
 			else
 			{
 				Expression cmd = this.GetInsertCommand(item);
-				appendTo.Append(this.context.Provider.GetQueryText(cmd));
+				appendTo.Append(this._context.Provider.GetQueryText(cmd));
 				appendTo.AppendLine();
 			}
 		}
@@ -120,7 +122,7 @@ namespace System.Data.Linq
 				// internal original values
 				try
 				{
-					item.Type.Table.UpdateMethod.Invoke(this.context, new object[] { item.Current });
+					item.Type.Table.UpdateMethod.Invoke(this._context, new object[] { item.Current });
 				}
 				catch(TargetInvocationException tie)
 				{
@@ -143,11 +145,11 @@ namespace System.Data.Linq
 			Expression cmd = this.GetUpdateCommand(item);
 			if(cmd.Type == typeof(int))
 			{
-				return (int)this.context.Provider.Execute(cmd).ReturnValue;
+				return (int)this._context.Provider.Execute(cmd).ReturnValue;
 			}
 			else
 			{
-				IEnumerable<object> facts = (IEnumerable<object>)this.context.Provider.Execute(cmd).ReturnValue;
+				IEnumerable<object> facts = (IEnumerable<object>)this._context.Provider.Execute(cmd).ReturnValue;
 				object[] syncResults = (object[])facts.FirstOrDefault();
 				if(syncResults != null)
 				{
@@ -171,7 +173,7 @@ namespace System.Data.Linq
 			else
 			{
 				Expression cmd = this.GetUpdateCommand(item);
-				appendTo.Append(this.context.Provider.GetQueryText(cmd));
+				appendTo.Append(this._context.Provider.GetQueryText(cmd));
 				appendTo.AppendLine();
 			}
 		}
@@ -182,7 +184,7 @@ namespace System.Data.Linq
 			{
 				try
 				{
-					item.Type.Table.DeleteMethod.Invoke(this.context, new object[] { item.Current });
+					item.Type.Table.DeleteMethod.Invoke(this._context, new object[] { item.Current });
 				}
 				catch(TargetInvocationException tie)
 				{
@@ -203,13 +205,13 @@ namespace System.Data.Linq
 		internal override int DynamicDelete(TrackedObject item)
 		{
 			Expression cmd = this.GetDeleteCommand(item);
-			int ret = (int)this.context.Provider.Execute(cmd).ReturnValue;
+			int ret = (int)this._context.Provider.Execute(cmd).ReturnValue;
 			if(ret == 0)
 			{
 				// we don't yet know if the delete failed because the check constaint did not match
 				// or item was already deleted.  Verify the item exists
 				cmd = this.GetDeleteVerificationCommand(item);
-				ret = ((int?)this.context.Provider.Execute(cmd).ReturnValue) ?? -1;
+				ret = ((int?)this._context.Provider.Execute(cmd).ReturnValue) ?? -1;
 			}
 			return ret;
 		}
@@ -223,7 +225,7 @@ namespace System.Data.Linq
 			else
 			{
 				Expression cmd = this.GetDeleteCommand(item);
-				appendTo.Append(this.context.Provider.GetQueryText(cmd));
+				appendTo.Append(this._context.Provider.GetQueryText(cmd));
 				appendTo.AppendLine();
 			}
 		}
@@ -233,7 +235,7 @@ namespace System.Data.Linq
 		{
 			// Rolls back any AutoSync values that may have been set already
 			// Those values are no longer valid since the transaction will be rolled back on the server
-			if(this.syncRollbackItems != null)
+			if(this._syncRollbackItems != null)
 			{
 				foreach(KeyValuePair<TrackedObject, object[]> rollbackItemPair in this.SyncRollbackItems)
 				{
@@ -252,7 +254,7 @@ namespace System.Data.Linq
 		[SuppressMessage("Microsoft.MSInternal", "CA908:AvoidTypesThatRequireJitCompilationInPrecompiledAssemblies", Justification = "[....]: FxCop bug Dev10:423110 -- List<KeyValuePair<object, object>> is not supposed to be flagged as a violation.")]
 		internal override void ClearAutoSyncRollback()
 		{
-			this.syncRollbackItems = null;
+			this._syncRollbackItems = null;
 		}
 
 		private Expression GetInsertCommand(TrackedObject item)
@@ -457,7 +459,7 @@ namespace System.Data.Linq
 
 		private Expression GetDeleteVerificationCommand(TrackedObject tracked)
 		{
-			ITable table = this.context.GetTable(tracked.Type.InheritanceRoot.Type);
+			ITable table = this._context.GetTable(tracked.Type.InheritanceRoot.Type);
 			System.Diagnostics.Debug.Assert(table != null);
 			ParameterExpression p = Expression.Parameter(table.ElementType, "p");
 			Expression pred = Expression.Lambda(Expression.Equal(p, Expression.Constant(tracked.Current)), p);

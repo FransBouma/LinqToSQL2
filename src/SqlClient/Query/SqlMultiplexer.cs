@@ -210,7 +210,7 @@ namespace System.Data.Linq.SqlClient {
             return cq;
         }
 
-        class Visitor : SqlDuplicator.DuplicatingVisitor {
+        class Visitor : DuplicatingVisitor {
             List<SqlExpression> externals;
             List<SqlParameter> parameters;
 

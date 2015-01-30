@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Data.Linq.Mapping
 {
-	using System.Data.Linq.Provider;
+	using Linq;
 	using System.Diagnostics.CodeAnalysis;
 
 	internal static class PropertyAccessor

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace System.Data.Linq.SqlClient {
     using System.Data.Linq.Mapping;
-    using System.Data.Linq.Provider;
+    using Linq;
     using System.Diagnostics.CodeAnalysis;
 
     // flatten object expressions into rows

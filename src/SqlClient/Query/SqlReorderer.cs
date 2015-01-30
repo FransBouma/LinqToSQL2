@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace System.Data.Linq.SqlClient {
     using System.Data.Linq.Mapping;
-    using System.Data.Linq.Provider;
+    using Linq;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
     

@@ -8,17 +8,22 @@ using System.Diagnostics;
 namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
-	using System.Data.Linq.Provider;
+	using Linq;
 
+	/// <summary>
+	/// Class which performs actions on changes of entity instances tracked by the controlling change tracker 
+	/// </summary>
 	internal class ChangeProcessor
 	{
-		CommonDataServices services;
-		DataContext context;
-		ChangeTracker tracker;
-		ChangeDirector changeDirector;
-		EdgeMap currentParentEdges;
-		EdgeMap originalChildEdges;
-		ReferenceMap originalChildReferences;
+		#region Member Declarations
+		private CommonDataServices _services;
+		private DataContext _context;
+		private ChangeTracker _tracker;
+		private ChangeDirector _changeDirector;
+		private EdgeMap _currentParentEdges;
+		private EdgeMap _originalChildEdges;
+		private ReferenceMap _originalChildReferences;
+		#endregion
 
 		#region Private classes
 
@@ -110,16 +115,20 @@ namespace System.Data.Linq
 
 		internal ChangeProcessor(CommonDataServices services, DataContext context)
 		{
-			this.services = services;
-			this.context = context;
-			this.tracker = services.ChangeTracker;
-			this.changeDirector = services.ChangeDirector;
-			this.currentParentEdges = new EdgeMap();
-			this.originalChildEdges = new EdgeMap();
-			this.originalChildReferences = new ReferenceMap();
+			this._services = services;
+			this._context = context;
+			this._tracker = services.ChangeTracker;
+			this._changeDirector = services.ChangeDirector;
+			this._currentParentEdges = new EdgeMap();
+			this._originalChildEdges = new EdgeMap();
+			this._originalChildReferences = new ReferenceMap();
 		}
 
 
+		/// <summary>
+		/// Submits the changes to the database: executes Insert, Update and Delete queries based on the changes found in the tracked entities.
+		/// </summary>
+		/// <param name="failureMode">The failure mode.</param>
 		internal void SubmitChanges(ConflictMode failureMode)
 		{
 			this.TrackUntrackedObjects();
@@ -133,7 +142,7 @@ namespace System.Data.Linq
 			ValidateAll(list);
 
 			int numUpdatesAttempted = 0;
-			ChangeConflictSession conflictSession = new ChangeConflictSession(this.context);
+			ChangeConflictSession conflictSession = new ChangeConflictSession(this._context);
 			List<ObjectChangeConflict> conflicts = new List<ObjectChangeConflict>();
 			List<TrackedObject> deletedItems = new List<TrackedObject>();
 			List<TrackedObject> insertedItems = new List<TrackedObject>();
@@ -149,7 +158,7 @@ namespace System.Data.Linq
 						{
 							syncDependentItems.Add(item);
 						}
-						changeDirector.Insert(item);
+						_changeDirector.Insert(item);
 						// store all inserted items for post processing
 						insertedItems.Add(item);
 					}
@@ -159,7 +168,7 @@ namespace System.Data.Linq
 						// but wasn't deleted due to an OC conflict, or -1 if the row was
 						// deleted by another context (no OC conflict in this case)
 						numUpdatesAttempted++;
-						int ret = changeDirector.Delete(item);
+						int ret = _changeDirector.Delete(item);
 						if(ret == 0)
 						{
 							conflicts.Add(new ObjectChangeConflict(conflictSession, item, false));
@@ -180,7 +189,7 @@ namespace System.Data.Linq
 						{
 							CheckForInvalidChanges(item);
 							numUpdatesAttempted++;
-							if(changeDirector.Update(item) <= 0)
+							if(_changeDirector.Update(item) <= 0)
 							{
 								conflicts.Add(new ObjectChangeConflict(conflictSession, item));
 							}
@@ -201,20 +210,20 @@ namespace System.Data.Linq
 			if(conflicts.Count > 0)
 			{
 				// First we need to rollback any value that have already been auto-[....]'d, since the values are no longer valid on the server
-				changeDirector.RollbackAutoSync();
+				_changeDirector.RollbackAutoSync();
 				// Also rollback any dependent items that were [....]'d, since their parent values may have been rolled back
 				foreach(TrackedObject syncDependentItem in syncDependentItems)
 				{
 					Debug.Assert(syncDependentItem.IsNew || syncDependentItem.IsPossiblyModified, "SynchDependent data should only be rolled back for new and modified objects.");
 					syncDependentItem.SynchDependentData();
 				}
-				this.context.ChangeConflicts.Fill(conflicts);
+				this._context.ChangeConflicts.Fill(conflicts);
 				throw CreateChangeConflictException(numUpdatesAttempted, conflicts.Count);
 			}
 			else
 			{
 				// No conflicts occurred, so we don't need to save the rollback values anymore
-				changeDirector.ClearAutoSyncRollback();
+				_changeDirector.ClearAutoSyncRollback();
 			}
 
 			// Only after all updates have been sucessfully processed do we want to make
@@ -228,14 +237,14 @@ namespace System.Data.Linq
 			foreach(TrackedObject deletedItem in deletedItems)
 			{
 				// remove deleted item from identity cache
-				this.services.RemoveCachedObjectLike(deletedItem.Type, deletedItem.Original);
+				this._services.RemoveCachedObjectLike(deletedItem.Type, deletedItem.Original);
 				ClearForeignKeyReferences(deletedItem);
 			}
 
 			// perform post insert processing
 			foreach(TrackedObject insertedItem in insertedItems)
 			{
-				object lookup = this.services.InsertLookupCachedObject(insertedItem.Type, insertedItem.Current);
+				object lookup = this._services.InsertLookupCachedObject(insertedItem.Type, insertedItem.Current);
 				if(lookup != insertedItem.Current)
 				{
 					throw new DuplicateKeyException(insertedItem.Current, Strings.DatabaseGeneratedAlreadyExistingKey);
@@ -267,7 +276,7 @@ namespace System.Data.Linq
 						// it might not be loaded on the object being deleted, and we
 						// don't want to force a load.
 						object[] keyValues = CommonDataServices.GetForeignKeyValues(assoc, to.Current);
-						object cached = this.services.IdentityManager.Find(assoc.OtherType, keyValues);
+						object cached = this._services.IdentityManager.Find(assoc.OtherType, keyValues);
 
 						if(cached != null)
 						{
@@ -413,18 +422,18 @@ namespace System.Data.Linq
 				if(item.IsNew)
 				{
 					item.SynchDependentData();
-					changeDirector.AppendInsertText(item, changeText);
+					_changeDirector.AppendInsertText(item, changeText);
 				}
 				else if(item.IsDeleted)
 				{
-					changeDirector.AppendDeleteText(item, changeText);
+					_changeDirector.AppendDeleteText(item, changeText);
 				}
 				else if(item.IsPossiblyModified)
 				{
 					item.SynchDependentData();
 					if(item.IsModified)
 					{
-						changeDirector.AppendUpdateText(item, changeText);
+						_changeDirector.AppendUpdateText(item, changeText);
 					}
 				}
 			}
@@ -442,7 +451,7 @@ namespace System.Data.Linq
 			// are tracked
 			this.ApplyInferredDeletions();
 
-			foreach(TrackedObject item in this.tracker.GetInterestingObjects())
+			foreach(TrackedObject item in this._tracker.GetInterestingObjects())
 			{
 				if(item.IsNew)
 				{
@@ -506,7 +515,7 @@ namespace System.Data.Linq
 			Dictionary<object, object> visited = new Dictionary<object, object>();
 
 			// search for untracked new objects
-			List<TrackedObject> items = new List<TrackedObject>(this.tracker.GetInterestingObjects());
+			List<TrackedObject> items = new List<TrackedObject>(this._tracker.GetInterestingObjects());
 			foreach(TrackedObject item in items)
 			{
 				this.TrackUntrackedObjects(item.Type, item.Current, visited);
@@ -515,7 +524,7 @@ namespace System.Data.Linq
 
 		internal void ApplyInferredDeletions()
 		{
-			foreach(TrackedObject item in this.tracker.GetInterestingObjects())
+			foreach(TrackedObject item in this._tracker.GetInterestingObjects())
 			{
 				if(item.CanInferDelete())
 				{
@@ -539,10 +548,10 @@ namespace System.Data.Linq
 			if(!visited.ContainsKey(item))
 			{
 				visited.Add(item, item);
-				TrackedObject tracked = this.tracker.GetTrackedObject(item);
+				TrackedObject tracked = this._tracker.GetTrackedObject(item);
 				if(tracked == null)
 				{
-					tracked = this.tracker.Track(item);
+					tracked = this._tracker.Track(item);
 					tracked.ConvertToNew();
 				}
 				else if(tracked.IsDead || tracked.IsRemoved)
@@ -552,7 +561,7 @@ namespace System.Data.Linq
 				}
 
 				// search parents (objects we are dependent on)
-				foreach(RelatedItem parent in this.services.GetParents(type, item))
+				foreach(RelatedItem parent in this._services.GetParents(type, item))
 				{
 					this.TrackUntrackedObjects(parent.Type, parent.Item, visited);
 				}
@@ -565,10 +574,10 @@ namespace System.Data.Linq
 					if(!tracked.IsPendingGeneration(tracked.Type.IdentityMembers))
 					{
 						tracked.SynchDependentData();
-						object cached = this.services.InsertLookupCachedObject(tracked.Type, item);
+						object cached = this._services.InsertLookupCachedObject(tracked.Type, item);
 						if(cached != item)
 						{
-							TrackedObject cachedTracked = this.tracker.GetTrackedObject(cached);
+							TrackedObject cachedTracked = this._tracker.GetTrackedObject(cached);
 							Debug.Assert(cachedTracked != null);
 							if(cachedTracked.IsDeleted || cachedTracked.CanInferDelete())
 							{
@@ -577,8 +586,8 @@ namespace System.Data.Linq
 								// turn deleted to dead...
 								cachedTracked.ConvertToDead();
 
-								this.services.RemoveCachedObjectLike(tracked.Type, item);
-								this.services.InsertLookupCachedObject(tracked.Type, item);
+								this._services.RemoveCachedObjectLike(tracked.Type, item);
+								this._services.InsertLookupCachedObject(tracked.Type, item);
 							}
 							else if(!cachedTracked.IsDead)
 							{
@@ -590,10 +599,10 @@ namespace System.Data.Linq
 					{
 						// we may have a generated PK, however we set the PK on this new item to 
 						// match a deleted item
-						object cached = this.services.GetCachedObjectLike(tracked.Type, item);
+						object cached = this._services.GetCachedObjectLike(tracked.Type, item);
 						if(cached != null)
 						{
-							TrackedObject cachedTracked = this.tracker.GetTrackedObject(cached);
+							TrackedObject cachedTracked = this._tracker.GetTrackedObject(cached);
 							Debug.Assert(cachedTracked != null);
 							if(cachedTracked.IsDeleted || cachedTracked.CanInferDelete())
 							{
@@ -602,15 +611,15 @@ namespace System.Data.Linq
 								// turn deleted to dead...
 								cachedTracked.ConvertToDead();
 
-								this.services.RemoveCachedObjectLike(tracked.Type, item);
-								this.services.InsertLookupCachedObject(tracked.Type, item);
+								this._services.RemoveCachedObjectLike(tracked.Type, item);
+								this._services.InsertLookupCachedObject(tracked.Type, item);
 							}
 						}
 					}
 				}
 
 				// search children (objects that are dependent on us)
-				foreach(RelatedItem child in this.services.GetChildren(type, item))
+				foreach(RelatedItem child in this._services.GetChildren(type, item))
 				{
 					this.TrackUntrackedObjects(child.Type, child.Item, visited);
 				}
@@ -621,7 +630,7 @@ namespace System.Data.Linq
 		{
 			Dictionary<object, object> visited = new Dictionary<object, object>();
 
-			List<TrackedObject> items = new List<TrackedObject>(this.tracker.GetInterestingObjects());
+			List<TrackedObject> items = new List<TrackedObject>(this._tracker.GetInterestingObjects());
 			foreach(TrackedObject item in items)
 			{
 				this.ObserveUntrackedObjects(item.Type, item.Current, visited);
@@ -633,10 +642,10 @@ namespace System.Data.Linq
 			if(!visited.ContainsKey(item))
 			{
 				visited.Add(item, item);
-				TrackedObject tracked = this.tracker.GetTrackedObject(item);
+				TrackedObject tracked = this._tracker.GetTrackedObject(item);
 				if(tracked == null)
 				{
-					tracked = this.tracker.Track(item);
+					tracked = this._tracker.Track(item);
 					tracked.ConvertToNew();
 				}
 				else if(tracked.IsDead || tracked.IsRemoved)
@@ -646,7 +655,7 @@ namespace System.Data.Linq
 				}
 
 				// search parents (objects we are dependent on)
-				foreach(RelatedItem parent in this.services.GetParents(type, item))
+				foreach(RelatedItem parent in this._services.GetParents(type, item))
 				{
 					this.ObserveUntrackedObjects(parent.Type, parent.Item, visited);
 				}
@@ -661,7 +670,7 @@ namespace System.Data.Linq
 				}
 
 				// search children (objects that are dependent on us)
-				foreach(RelatedItem child in this.services.GetChildren(type, item))
+				foreach(RelatedItem child in this._services.GetChildren(type, item))
 				{
 					this.ObserveUntrackedObjects(child.Type, child.Item, visited);
 				}
@@ -684,10 +693,10 @@ namespace System.Data.Linq
 			{
 				// Maybe it's in the cache, but not yet attached through reference.
 				object[] foreignKeys = CommonDataServices.GetForeignKeyValues(assoc, instance);
-				other = this.services.GetCachedObject(assoc.OtherType, foreignKeys);
+				other = this._services.GetCachedObject(assoc.OtherType, foreignKeys);
 			}
 			// else the other key is not the primary key so there is no way to try to look it up
-			return (other != null) ? this.tracker.GetTrackedObject(other) : null;
+			return (other != null) ? this._tracker.GetTrackedObject(other) : null;
 		}
 
 		private bool HasAssociationChanged(MetaAssociation assoc, TrackedObject item)
@@ -716,11 +725,11 @@ namespace System.Data.Linq
 
 		private void BuildEdgeMaps()
 		{
-			this.currentParentEdges.Clear();
-			this.originalChildEdges.Clear();
-			this.originalChildReferences.Clear();
+			this._currentParentEdges.Clear();
+			this._originalChildEdges.Clear();
+			this._originalChildReferences.Clear();
 
-			List<TrackedObject> list = new List<TrackedObject>(this.tracker.GetInterestingObjects());
+			List<TrackedObject> list = new List<TrackedObject>(this._tracker.GetInterestingObjects());
 			foreach(TrackedObject item in list)
 			{
 				bool isNew = item.IsNew;
@@ -738,15 +747,15 @@ namespace System.Data.Linq
 						{
 							if(otherItem != null)
 							{
-								this.currentParentEdges.Add(assoc, item, otherItem);
+								this._currentParentEdges.Add(assoc, item, otherItem);
 							}
 							if(dbOtherItem != null)
 							{
 								if(assoc.IsUnique)
 								{
-									this.originalChildEdges.Add(assoc, dbOtherItem, item);
+									this._originalChildEdges.Add(assoc, dbOtherItem, item);
 								}
-								this.originalChildReferences.Add(dbOtherItem, item);
+								this._originalChildReferences.Add(dbOtherItem, item);
 							}
 						}
 					}
@@ -762,7 +771,7 @@ namespace System.Data.Linq
 
 		private List<TrackedObject> GetOrderedList()
 		{
-			var objects = this.tracker.GetInterestingObjects().ToList();
+			var objects = this._tracker.GetInterestingObjects().ToList();
 
 			// give list an initial order (most likely correct order) to avoid deadlocks in server
 			var range = Enumerable.Range(0, objects.Count).ToList();
@@ -866,7 +875,7 @@ namespace System.Data.Linq
 				{
 					// if 'item' is deleted
 					//    all objects that used to refer to 'item' must be ordered before item
-					foreach(TrackedObject other in this.originalChildReferences[item])
+					foreach(TrackedObject other in this._originalChildReferences[item])
 					{
 						if(other != item)
 						{
@@ -885,7 +894,7 @@ namespace System.Data.Linq
 					{
 						if(assoc.IsForeignKey)
 						{
-							TrackedObject other = this.currentParentEdges[assoc, item];
+							TrackedObject other = this._currentParentEdges[assoc, item];
 							if(other != null)
 							{
 								if(other.IsNew)
@@ -898,7 +907,7 @@ namespace System.Data.Linq
 								}
 								else if((assoc.IsUnique || assoc.ThisKeyIsPrimaryKey))
 								{
-									TrackedObject prevItem = this.originalChildEdges[assoc, other];
+									TrackedObject prevItem = this._originalChildEdges[assoc, other];
 									if(prevItem != null && other != item)
 									{
 										this.BuildDependencyOrderedList(prevItem, list, visited);

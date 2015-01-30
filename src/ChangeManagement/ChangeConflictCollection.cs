@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
-	using System.Data.Linq.Provider;
+	using Linq;
 	using System.Diagnostics.CodeAnalysis;
 
 	public sealed class ChangeConflictCollection : ICollection<ObjectChangeConflict>, ICollection, IEnumerable<ObjectChangeConflict>, IEnumerable

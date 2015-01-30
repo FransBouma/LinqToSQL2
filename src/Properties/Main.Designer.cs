@@ -61,6 +61,24 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abstract class &apos;{0}&apos; should not be assigned an inheritance discriminator key..
+        /// </summary>
+        internal static string AbstractClassAssignInheritanceDiscriminator {
+            get {
+                return ResourceManager.GetString("AbstractClassAssignInheritanceDiscriminator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The string parameter &apos;{0}&apos; was expected to have length greater than zero..
+        /// </summary>
+        internal static string ArgumentEmpty {
+            get {
+                return ResourceManager.GetString("ArgumentEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The type &apos;{0}&apos; has no identity key.
         /// </summary>
         internal static string ArgumentTypeHasNoIdentityKey {
@@ -70,11 +88,119 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more type mismatches in argument &apos;{0}&apos;..
+        /// </summary>
+        internal static string ArgumentTypeMismatch {
+            get {
+                return ResourceManager.GetString("ArgumentTypeMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The argument &apos;{0}&apos; was the wrong type. Expected &apos;{1}&apos;. Actual &apos;{2}&apos;..
+        /// </summary>
+        internal static string ArgumentWrongType {
+            get {
+                return ResourceManager.GetString("ArgumentWrongType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The argument &apos;{0}&apos; was the wrong value. .
+        /// </summary>
+        internal static string ArgumentWrongValue {
+            get {
+                return ResourceManager.GetString("ArgumentWrongValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Bad function type in mapping for method &apos;{0}&apos;..
+        /// </summary>
+        internal static string BadFunctionTypeInMethodMapping {
+            get {
+                return ResourceManager.GetString("BadFunctionTypeInMethodMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find key member &apos;{0}&apos; of key &apos;{1}&apos; on type &apos;{2}&apos;. The key may be wrong or the field or property on &apos;{2}&apos; has changed names..
+        /// </summary>
+        internal static string BadKeyMember {
+            get {
+                return ResourceManager.GetString("BadKeyMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A query parameter cannot be of type &apos;{0}&apos;..
+        /// </summary>
+        internal static string BadParameterType {
+            get {
+                return ResourceManager.GetString("BadParameterType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad projection in Select..
+        /// </summary>
+        internal static string BadProjectionInSelect {
+            get {
+                return ResourceManager.GetString("BadProjectionInSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad Storage property: &apos;{0}&apos; on member &apos;{1}.{2}&apos;..
+        /// </summary>
+        internal static string BadStorageProperty {
+            get {
+                return ResourceManager.GetString("BadStorageProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binary operator not recognized: {0}.
+        /// </summary>
+        internal static string BinaryOperatorNotRecognized {
+            get {
+                return ResourceManager.GetString("BinaryOperatorNotRecognized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot add change conflicts. They are added automatically during SubmitChanges..
         /// </summary>
         internal static string CannotAddChangeConflicts {
             get {
                 return ResourceManager.GetString("CannotAddChangeConflicts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; is not supported in aggregation operations..
+        /// </summary>
+        internal static string CannotAggregateType {
+            get {
+                return ResourceManager.GetString("CannotAggregateType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The null value cannot be assigned to a member with type {0} which is a non-nullable value type..
+        /// </summary>
+        internal static string CannotAssignNull {
+            get {
+                return ResourceManager.GetString("CannotAssignNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot assign value to member &apos;{0}&apos;. It does not define a setter..
+        /// </summary>
+        internal static string CannotAssignToMember {
+            get {
+                return ResourceManager.GetString("CannotAssignToMember", resourceCulture);
             }
         }
         
@@ -111,6 +237,69 @@ namespace System.Data.Linq.Properties {
         internal static string CannotChangeInheritanceType {
             get {
                 return ResourceManager.GetString("CannotChangeInheritanceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot compare entities associated with different tables..
+        /// </summary>
+        internal static string CannotCompareItemsAssociatedWithDifferentTable {
+            get {
+                return ResourceManager.GetString("CannotCompareItemsAssociatedWithDifferentTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot convert type &apos;{0}&apos; to EntityRef/Link..
+        /// </summary>
+        internal static string CannotConvertToEntityRef {
+            get {
+                return ResourceManager.GetString("CannotConvertToEntityRef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot delete items of type {0}..
+        /// </summary>
+        internal static string CannotDeleteTypesOf {
+            get {
+                return ResourceManager.GetString("CannotDeleteTypesOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The query results cannot be enumerated more than once..
+        /// </summary>
+        internal static string CannotEnumerateResultsMoreThanOnce {
+            get {
+                return ResourceManager.GetString("CannotEnumerateResultsMoreThanOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Cannot get inheritance default from class not mapped into an inheritance hierarchy..
+        /// </summary>
+        internal static string CannotGetInheritanceDefaultFromNonInheritanceClass {
+            get {
+                return ResourceManager.GetString("CannotGetInheritanceDefaultFromNonInheritanceClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explicit construction of entity type &apos;{0}&apos; in query is not allowed..
+        /// </summary>
+        internal static string CannotMaterializeEntityType {
+            get {
+                return ResourceManager.GetString("CannotMaterializeEntityType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot create a query result of type &apos;{0}&apos;..
+        /// </summary>
+        internal static string CannotMaterializeList {
+            get {
+                return ResourceManager.GetString("CannotMaterializeList", resourceCulture);
             }
         }
         
@@ -169,6 +358,15 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot translate expression to SQL for this server version..
+        /// </summary>
+        internal static string CannotTranslateExpressionToSql {
+            get {
+                return ResourceManager.GetString("CannotTranslateExpressionToSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot add an entity that already exists..
         /// </summary>
         internal static string CantAddAlreadyExistingItem {
@@ -187,11 +385,173 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Local sequence cannot be used in LINQ to SQL implementations of query operators except the Contains operator..
+        /// </summary>
+        internal static string CapturedValuesCannotBeSequences {
+            get {
+                return ResourceManager.GetString("CapturedValuesCannotBeSequences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class literals are not allowed: {0}..
+        /// </summary>
+        internal static string ClassLiteralsNotAllowed {
+            get {
+                return ResourceManager.GetString("ClassLiteralsNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client case should not hold &apos;{0}&apos;. It should probably have been SqlSimpleCase..
+        /// </summary>
+        internal static string ClientCaseShouldNotHold {
+            get {
+                return ResourceManager.GetString("ClientCaseShouldNotHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected Node with CLR Type of &apos;bool&apos; to have SQL type of &apos;Bit&apos; or &apos;Predicate&apos;. Instead, it was type &apos;{0}&apos;..
+        /// </summary>
+        internal static string ClrBoolDoesNotAgreeWithSqlType {
+            get {
+                return ResourceManager.GetString("ClrBoolDoesNotAgreeWithSqlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column cannot refer to itself..
+        /// </summary>
+        internal static string ColumnCannotReferToItself {
+            get {
+                return ResourceManager.GetString("ColumnCannotReferToItself", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The ClrType of the column did not agree with the ClrType of the expression..
+        /// </summary>
+        internal static string ColumnClrTypeDoesNotAgreeWithExpressionsClrType {
+            get {
+                return ResourceManager.GetString("ColumnClrTypeDoesNotAgreeWithExpressionsClrType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column &apos;{0}&apos; is defined in multiple places..
+        /// </summary>
+        internal static string ColumnIsDefinedInMultiplePlaces {
+            get {
+                return ResourceManager.GetString("ColumnIsDefinedInMultiplePlaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column &apos;{0}&apos; is not accessible through distinct..
+        /// </summary>
+        internal static string ColumnIsNotAccessibleThroughDistinct {
+            get {
+                return ResourceManager.GetString("ColumnIsNotAccessibleThroughDistinct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column &apos;{0}&apos; is not accessible through group by..
+        /// </summary>
+        internal static string ColumnIsNotAccessibleThroughGroupBy {
+            get {
+                return ResourceManager.GetString("ColumnIsNotAccessibleThroughGroupBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mapping Problem: The database column &apos;{0}&apos; is mapped more than once..
         /// </summary>
         internal static string ColumnMappedMoreThanOnce {
             get {
                 return ResourceManager.GetString("ColumnMappedMoreThanOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column referenced is not in scope: &apos;{0}&apos;..
+        /// </summary>
+        internal static string ColumnReferencedIsNotInScope {
+            get {
+                return ResourceManager.GetString("ColumnReferencedIsNotInScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comparison operators not supported for type &apos;{0}&apos;..
+        /// </summary>
+        internal static string ComparisonNotSupportedForType {
+            get {
+                return ResourceManager.GetString("ComparisonNotSupportedForType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compiled queries across DataContexts with different LoadOptions not supported..
+        /// </summary>
+        internal static string CompiledQueryAgainstMultipleShapesNotSupported {
+            get {
+                return ResourceManager.GetString("CompiledQueryAgainstMultipleShapesNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A compiled query cannot return type &apos;{0}&apos;..
+        /// </summary>
+        internal static string CompiledQueryCannotReturnType {
+            get {
+                return ResourceManager.GetString("CompiledQueryCannotReturnType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Constructed arrays are only supported for Contains..
+        /// </summary>
+        internal static string ConstructedArraysNotSupported {
+            get {
+                return ResourceManager.GetString("ConstructedArraysNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SqlContext is not initialized..
+        /// </summary>
+        internal static string ContextNotInitialized {
+            get {
+                return ResourceManager.GetString("ContextNotInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no supported conversion from a Boolean to a Character type..
+        /// </summary>
+        internal static string ConvertToCharFromBoolNotSupported {
+            get {
+                return ResourceManager.GetString("ConvertToCharFromBoolNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only DateTimes or strings can be converted to DateTime..
+        /// </summary>
+        internal static string ConvertToDateTimeOnlyForDateTimeOrString {
+            get {
+                return ResourceManager.GetString("ConvertToDateTimeOnlyForDateTimeOrString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not assign sequence of {0} to type {1}..
+        /// </summary>
+        internal static string CouldNotAssignSequence {
+            get {
+                return ResourceManager.GetString("CouldNotAssignSequence", resourceCulture);
             }
         }
         
@@ -214,11 +574,119 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MemberInfo &apos;{0}&apos; had no corresponding field or property..
+        /// </summary>
+        internal static string CouldNotConvertToPropertyOrField {
+            get {
+                return ResourceManager.GetString("CouldNotConvertToPropertyOrField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create PropertyAccessor&lt;{0},{1}&gt; to {2}..
+        /// </summary>
+        internal static string CouldNotCreateAccessorToProperty {
+            get {
+                return ResourceManager.GetString("CouldNotCreateAccessorToProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to determine catalog name..
+        /// </summary>
+        internal static string CouldNotDetermineCatalogName {
+            get {
+                return ResourceManager.GetString("CouldNotDetermineCatalogName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to determine SQL type for &apos;{0}&apos; that can also be generated by the server..
+        /// </summary>
+        internal static string CouldNotDetermineDbGeneratedSqlType {
+            get {
+                return ResourceManager.GetString("CouldNotDetermineDbGeneratedSqlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to determine SQL type for &apos;{0}&apos;..
+        /// </summary>
+        internal static string CouldNotDetermineSqlType {
+            get {
+                return ResourceManager.GetString("CouldNotDetermineSqlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Could not find element type in model for &apos;{0}&apos;..
+        /// </summary>
+        internal static string CouldNotFindElementTypeInModel {
+            get {
+                return ResourceManager.GetString("CouldNotFindElementTypeInModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Could not find required attribute &apos;{0}&apos;: {1}..
+        /// </summary>
+        internal static string CouldNotFindRequiredAttribute {
+            get {
+                return ResourceManager.GetString("CouldNotFindRequiredAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Cannot find runtime type for type mapping &apos;{0}&apos;..
+        /// </summary>
+        internal static string CouldNotFindRuntimeTypeForMapping {
+            get {
+                return ResourceManager.GetString("CouldNotFindRuntimeTypeForMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Cannot find type &apos;{0}&apos; from mapping..
+        /// </summary>
+        internal static string CouldNotFindTypeFromMapping {
+            get {
+                return ResourceManager.GetString("CouldNotFindTypeFromMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get the ClrType..
+        /// </summary>
+        internal static string CouldNotGetClrType {
+            get {
+                return ResourceManager.GetString("CouldNotGetClrType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not get the SqlType..
+        /// </summary>
+        internal static string CouldNotGetSqlType {
+            get {
+                return ResourceManager.GetString("CouldNotGetSqlType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not retrieve a Table for inheritance subtype &apos;{0}&apos;, try Table of {1} instead..
         /// </summary>
         internal static string CouldNotGetTableForSubtype {
             get {
                 return ResourceManager.GetString("CouldNotGetTableForSubtype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not handle alias ref of {0}..
+        /// </summary>
+        internal static string CouldNotHandleAliasRef {
+            get {
+                return ResourceManager.GetString("CouldNotHandleAliasRef", resourceCulture);
             }
         }
         
@@ -232,6 +700,42 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not translate expression &apos;{0}&apos; into SQL and could not treat it as a local expression..
+        /// </summary>
+        internal static string CouldNotTranslateExpressionForReading {
+            get {
+                return ResourceManager.GetString("CouldNotTranslateExpressionForReading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create database because mapped class &apos;{0}&apos; has zero members..
+        /// </summary>
+        internal static string CreateDatabaseFailedBecauseOfClassWithNoMembers {
+            get {
+                return ResourceManager.GetString("CreateDatabaseFailedBecauseOfClassWithNoMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create database because data context &apos;{0}&apos; has no tables..
+        /// </summary>
+        internal static string CreateDatabaseFailedBecauseOfContextWithNoTables {
+            get {
+                return ResourceManager.GetString("CreateDatabaseFailedBecauseOfContextWithNoTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to create database because the database &apos;{0}&apos; already exists..
+        /// </summary>
+        internal static string CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists {
+            get {
+                return ResourceManager.GetString("CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A cycle was detected in the set of changes.
         /// </summary>
         internal static string CycleDetected {
@@ -241,11 +745,29 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation not allowed after DeleteDatabase call..
+        /// </summary>
+        internal static string DatabaseDeleteThroughContext {
+            get {
+                return ResourceManager.GetString("DatabaseDeleteThroughContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The database generated a key that is already in use..
         /// </summary>
         internal static string DatabaseGeneratedAlreadyExistingKey {
             get {
                 return ResourceManager.GetString("DatabaseGeneratedAlreadyExistingKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database node not found.  Is the mapping namespace ({0}) correctly specified?.
+        /// </summary>
+        internal static string DatabaseNodeNotFound {
+            get {
+                return ResourceManager.GetString("DatabaseNodeNotFound", resourceCulture);
             }
         }
         
@@ -277,6 +799,15 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deferred member not one of EntitySet, EntityRef, or Link..
+        /// </summary>
+        internal static string DeferredMemberWrongType {
+            get {
+                return ResourceManager.GetString("DeferredMemberWrongType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --Callback into user code for delete..
         /// </summary>
         internal static string DeleteCallbackComment {
@@ -286,11 +817,74 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Did not expect &apos;as&apos; operator in &apos;{0}&apos;..
+        /// </summary>
+        internal static string DidNotExpectAs {
+            get {
+                return ResourceManager.GetString("DidNotExpectAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Did not expect type binding back. This should result in a type case not a simple case..
+        /// </summary>
+        internal static string DidNotExpectTypeBinding {
+            get {
+                return ResourceManager.GetString("DidNotExpectTypeBinding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Did not expect operation to change result type. Original type was &apos;{0}&apos; new type is &apos;{1}&apos;..
+        /// </summary>
+        internal static string DidNotExpectTypeChange {
+            get {
+                return ResourceManager.GetString("DidNotExpectTypeChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discriminator &apos;{0}.{1}&apos; may not be type &apos;{2}&apos;..
+        /// </summary>
+        internal static string DiscriminatorClrTypeNotSupported {
+            get {
+                return ResourceManager.GetString("DiscriminatorClrTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distributed transactions are not allowed..
+        /// </summary>
+        internal static string DistributedTransactionsAreNotAllowed {
+            get {
+                return ResourceManager.GetString("DistributedTransactionsAreNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty case is not supported..
+        /// </summary>
+        internal static string EmptyCaseNotSupported {
+            get {
+                return ResourceManager.GetString("EmptyCaseNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The entity is not of the correct type..
         /// </summary>
         internal static string EntityIsTheWrongType {
             get {
                 return ResourceManager.GetString("EntityIsTheWrongType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The EntityRef is already loaded and the source cannot be changed..
+        /// </summary>
+        internal static string EntityRefAlreadyLoaded {
+            get {
+                return ResourceManager.GetString("EntityRefAlreadyLoaded", resourceCulture);
             }
         }
         
@@ -331,6 +925,60 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Except is not supported for hierarchical result types..
+        /// </summary>
+        internal static string ExceptNotSupportedForHierarchicalTypes {
+            get {
+                return ResourceManager.GetString("ExceptNotSupportedForHierarchicalTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected a Bit here but found a Predicate..
+        /// </summary>
+        internal static string ExpectedBitFoundPredicate {
+            get {
+                return ResourceManager.GetString("ExpectedBitFoundPredicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected ClrTypes to agree. One was &apos;{0}&apos; the other was &apos;{1}&apos;..
+        /// </summary>
+        internal static string ExpectedClrTypesToAgree {
+            get {
+                return ResourceManager.GetString("ExpectedClrTypesToAgree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Element &apos;{0}&apos; must be empty, but contains a node of type {1} named &apos;{2}&apos;..
+        /// </summary>
+        internal static string ExpectedEmptyElement {
+            get {
+                return ResourceManager.GetString("ExpectedEmptyElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected no ObjectType nodes to remain..
+        /// </summary>
+        internal static string ExpectedNoObjectType {
+            get {
+                return ResourceManager.GetString("ExpectedNoObjectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected a Predicate here but found a Bit..
+        /// </summary>
+        internal static string ExpectedPredicateFoundBit {
+            get {
+                return ResourceManager.GetString("ExpectedPredicateFoundBit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Argument {0} does not implement {1}..
         /// </summary>
         internal static string ExpectedQueryableArgument {
@@ -349,11 +997,65 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expression is not a deferred query source..
+        /// </summary>
+        internal static string ExpressionNotDeferredQuerySource {
+            get {
+                return ResourceManager.GetString("ExpressionNotDeferredQuerySource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General collection materialization is not supported..
+        /// </summary>
+        internal static string GeneralCollectionMaterializationNotSupported {
+            get {
+                return ResourceManager.GetString("GeneralCollectionMaterializationNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A grouping cannot be used as an order criterion; you may want to use its key instead..
+        /// </summary>
+        internal static string GroupingNotSupportedAsOrderCriterion {
+            get {
+                return ResourceManager.GetString("GroupingNotSupportedAsOrderCriterion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value of member &apos;{0}&apos; of an object of type &apos;{1}&apos; changed. A member defining the identity of the object cannot be changed. Consider adding a new object with new identity and deleting the existing one instead..
         /// </summary>
         internal static string IdentityChangeNotAllowed {
             get {
                 return ResourceManager.GetString("IdentityChangeNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid type mapping for Identity member &apos;{0}.{1}&apos;.  Type &apos;{2}&apos; is not supported for identity members..
+        /// </summary>
+        internal static string IdentityClrTypeNotSupported {
+            get {
+                return ResourceManager.GetString("IdentityClrTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The IIF method returns two separate types: {0}, {1}.  Translation to SQL does not support different return types..
+        /// </summary>
+        internal static string IifReturnTypesMustBeEqual {
+            get {
+                return ResourceManager.GetString("IifReturnTypesMustBeEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Should not have reached this point..
+        /// </summary>
+        internal static string Impossible {
+            get {
+                return ResourceManager.GetString("Impossible", resourceCulture);
             }
         }
         
@@ -385,6 +1087,105 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect AutoSync specification for member &apos;{0}&apos;..
+        /// </summary>
+        internal static string IncorrectAutoSyncSpecification {
+            get {
+                return ResourceManager.GetString("IncorrectAutoSyncSpecification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Incorrect number of parameters mapped for method &apos;{0}&apos;..
+        /// </summary>
+        internal static string IncorrectNumberOfParametersMappedForMethod {
+            get {
+                return ResourceManager.GetString("IncorrectNumberOfParametersMappedForMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The translation of String.IndexOf to SQL does not support versions with a StringComparison argument..
+        /// </summary>
+        internal static string IndexOfWithStringComparisonArgNotSupported {
+            get {
+                return ResourceManager.GetString("IndexOfWithStringComparisonArgNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descent limit exceeded..
+        /// </summary>
+        internal static string InfiniteDescent {
+            get {
+                return ResourceManager.GetString("InfiniteDescent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inheritance code value may not be null..
+        /// </summary>
+        internal static string InheritanceCodeMayNotBeNull {
+            get {
+                return ResourceManager.GetString("InheritanceCodeMayNotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inheritance code &apos;{0}&apos; is used for multiple types..
+        /// </summary>
+        internal static string InheritanceCodeUsedForMultipleTypes {
+            get {
+                return ResourceManager.GetString("InheritanceCodeUsedForMultipleTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inheritance hierarchy rooted at &apos;{0}&apos; does not define a default..
+        /// </summary>
+        internal static string InheritanceHierarchyDoesNotDefineDefault {
+            get {
+                return ResourceManager.GetString("InheritanceHierarchyDoesNotDefineDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inheritance subtype &apos;{0}&apos; is also declared as a root type..
+        /// </summary>
+        internal static string InheritanceSubTypeIsAlsoRoot {
+            get {
+                return ResourceManager.GetString("InheritanceSubTypeIsAlsoRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inheritance type &apos;{0}&apos; does not derive from inheritance root type &apos;{1}&apos;..
+        /// </summary>
+        internal static string InheritanceTypeDoesNotDeriveFromRoot {
+            get {
+                return ResourceManager.GetString("InheritanceTypeDoesNotDeriveFromRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inheritance type &apos;{0}&apos; has multiple defaults..
+        /// </summary>
+        internal static string InheritanceTypeHasMultipleDefaults {
+            get {
+                return ResourceManager.GetString("InheritanceTypeHasMultipleDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inherited type &apos;{0}&apos; cannot have multiple discriminator key values..
+        /// </summary>
+        internal static string InheritanceTypeHasMultipleDiscriminators {
+            get {
+                return ResourceManager.GetString("InheritanceTypeHasMultipleDiscriminators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member AutoSync failure. For members to be Auto-Synced after insert, the type must either have an auto-generated identity, or a key that is not modified by the database after insert..
         /// </summary>
         internal static string InsertAutoSyncFailure {
@@ -403,11 +1204,164 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The item of an Insert must be a constant value expression..
+        /// </summary>
+        internal static string InsertItemMustBeConstant {
+            get {
+                return ResourceManager.GetString("InsertItemMustBeConstant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intersect is not supported for hierarchical result types..
+        /// </summary>
+        internal static string IntersectNotSupportedForHierarchicalTypes {
+            get {
+                return ResourceManager.GetString("IntersectNotSupportedForHierarchicalTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; must be string, SqlConnection, SqlCeConnection, SqlTransaction, or SqlCeTransaction..
+        /// </summary>
+        internal static string InvalidConnectionArgument {
+            get {
+                return ResourceManager.GetString("InvalidConnectionArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The primary key column of type &apos;{0}&apos; cannot be generated by the server. .
+        /// </summary>
+        internal static string InvalidDbGeneratedType {
+            get {
+                return ResourceManager.GetString("InvalidDbGeneratedType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid DeleteOnNull specification for member &apos;{0}&apos;. DeleteOnNull can only be true for singleton association members mapped to non-nullable foreign key columns..
+        /// </summary>
+        internal static string InvalidDeleteOnNullSpecification {
+            get {
+                return ResourceManager.GetString("InvalidDeleteOnNullSpecification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create FieldAccessor&lt;{0},{1}&gt; from FieldInfo &apos;{2}&apos;..
+        /// </summary>
+        internal static string InvalidFieldInfo {
+            get {
+                return ResourceManager.GetString("InvalidFieldInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not format node &apos;{0}&apos; for execution as SQL..
+        /// </summary>
+        internal static string InvalidFormatNode {
+            get {
+                return ResourceManager.GetString("InvalidFormatNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The group by operation contains an expression that cannot be translated..
+        /// </summary>
+        internal static string InvalidGroupByExpression {
+            get {
+                return ResourceManager.GetString("InvalidGroupByExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A group by expression can only contain non-constant scalars that are comparable by the server. The expression with type &apos;{0}&apos; is not comparable..
+        /// </summary>
+        internal static string InvalidGroupByExpressionType {
+            get {
+                return ResourceManager.GetString("InvalidGroupByExpressionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The expression specified must be of the form p.A, where p is the parameter and A is a property or field member. .
         /// </summary>
         internal static string InvalidLoadOptionsLoadMemberSpecification {
             get {
                 return ResourceManager.GetString("InvalidLoadOptionsLoadMemberSpecification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The method &apos;{0}&apos; is not mapped as a stored procedure or user-defined function..
+        /// </summary>
+        internal static string InvalidMethodExecution {
+            get {
+                return ResourceManager.GetString("InvalidMethodExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An order by expression can only contain non-constant scalars that are order comparable by the server. The expression with type &apos;{0}&apos; is not order comparable..
+        /// </summary>
+        internal static string InvalidOrderByExpression {
+            get {
+                return ResourceManager.GetString("InvalidOrderByExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified type &apos;{0}&apos; is not a valid provider type..
+        /// </summary>
+        internal static string InvalidProviderType {
+            get {
+                return ResourceManager.GetString("InvalidProviderType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference to removed alias discovered during deflation..
+        /// </summary>
+        internal static string InvalidReferenceToRemovedAliasDuringDeflation {
+            get {
+                return ResourceManager.GetString("InvalidReferenceToRemovedAliasDuringDeflation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid return type for a mapped stored procedure method..
+        /// </summary>
+        internal static string InvalidReturnFromSproc {
+            get {
+                return ResourceManager.GetString("InvalidReturnFromSproc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sequence operator call is only valid for Sequence, Queryable, or DataQueryExtensions not for &apos;{0}&apos;..
+        /// </summary>
+        internal static string InvalidSequenceOperatorCall {
+            get {
+                return ResourceManager.GetString("InvalidSequenceOperatorCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid use of generic method &apos;{0}&apos; as mapped function..
+        /// </summary>
+        internal static string InvalidUseOfGenericMethodAsMappedFunction {
+            get {
+                return ResourceManager.GetString("InvalidUseOfGenericMethodAsMappedFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An IQueryable that returns a self-referencing Constant expression is not supported..
+        /// </summary>
+        internal static string IQueryableCannotReturnSelfReferencingConstantExpression {
+            get {
+                return ResourceManager.GetString("IQueryableCannotReturnSelfReferencingConstantExpression", resourceCulture);
             }
         }
         
@@ -430,11 +1384,209 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The translation of String.LastIndexOf to SQL does not support versions with a StringComparison argument..
+        /// </summary>
+        internal static string LastIndexOfWithStringComparisonArgNotSupported {
+            get {
+                return ResourceManager.GetString("LastIndexOfWithStringComparisonArgNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation would contain LEN of Text or NText arguments: {0}.
+        /// </summary>
+        internal static string LenOfTextOrNTextNotSupported {
+            get {
+                return ResourceManager.GetString("LenOfTextOrNTextNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Link is already loaded and the source cannot be changed..
+        /// </summary>
+        internal static string LinkAlreadyLoaded {
+            get {
+                return ResourceManager.GetString("LinkAlreadyLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting load options is not allowed after results have been returned from a query..
         /// </summary>
         internal static string LoadOptionsChangeNotAllowedAfterQuery {
             get {
                 return ResourceManager.GetString("LoadOptionsChangeNotAllowedAfterQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to delete the database &apos;{0}&apos;..
+        /// </summary>
+        internal static string LogAttemptingToDeleteDatabase {
+            get {
+                return ResourceManager.GetString("LogAttemptingToDeleteDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: {1}..
+        /// </summary>
+        internal static string LogGeneralInfoMessage {
+            get {
+                return ResourceManager.GetString("LogGeneralInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Execute stored procedure: {0}({1})..
+        /// </summary>
+        internal static string LogStoredProcedureExecution {
+            get {
+                return ResourceManager.GetString("LogStoredProcedureExecution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The column or association &apos;{0}&apos; in the mapping had no corresponding member in type &apos;{1}&apos;. Mapping members from above root type is not supported..
+        /// </summary>
+        internal static string MappedMemberHadNoCorrespondingMemberInType {
+            get {
+                return ResourceManager.GetString("MappedMemberHadNoCorrespondingMemberInType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; must declare a default (parameterless) constructor in order to be constructed during mapping..
+        /// </summary>
+        internal static string MappedTypeMustHaveDefaultConstructor {
+            get {
+                return ResourceManager.GetString("MappedTypeMustHaveDefaultConstructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Mapping for table &apos;{0}&apos; is not defined..
+        /// </summary>
+        internal static string MappingForTableUndefined {
+            get {
+                return ResourceManager.GetString("MappingForTableUndefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The mapping of interface member {0}.{1} is not supported..
+        /// </summary>
+        internal static string MappingOfInterfacesMemberIsNotSupported {
+            get {
+                return ResourceManager.GetString("MappingOfInterfacesMemberIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For translation to SQL, the Math.Round method needs a MidpointRounding parameter. Use &apos;AwayFromZero&apos; to specify the SQL function ROUND..
+        /// </summary>
+        internal static string MathRoundNotSupported {
+            get {
+                return ResourceManager.GetString("MathRoundNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation would contain an out parameter of type Text, NText, or Image: {0}.
+        /// </summary>
+        internal static string MaxSizeNotSupported {
+            get {
+                return ResourceManager.GetString("MaxSizeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member access &apos;{0}&apos; of &apos;{1}&apos; not legal on type &apos;{2}..
+        /// </summary>
+        internal static string MemberAccessIllegal {
+            get {
+                return ResourceManager.GetString("MemberAccessIllegal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The member &apos;{0}.{1}&apos; has no supported translation to SQL..
+        /// </summary>
+        internal static string MemberCannotBeTranslated {
+            get {
+                return ResourceManager.GetString("MemberCannotBeTranslated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member &apos;{0}.{1}&apos; could not be translated..
+        /// </summary>
+        internal static string MemberCouldNotBeTranslated {
+            get {
+                return ResourceManager.GetString("MemberCouldNotBeTranslated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The member &apos;{0}&apos; is mapped more than once..
+        /// </summary>
+        internal static string MemberMappedMoreThanOnce {
+            get {
+                return ResourceManager.GetString("MemberMappedMoreThanOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binding error: Member &apos;{0}.{1}&apos; not found in projection..
+        /// </summary>
+        internal static string MemberNotPartOfProjection {
+            get {
+                return ResourceManager.GetString("MemberNotPartOfProjection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method &apos;{0}&apos; cannot be found..
+        /// </summary>
+        internal static string MethodCannotBeFound {
+            get {
+                return ResourceManager.GetString("MethodCannotBeFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The method &apos;{0}&apos; has a translation to SQL, but the overload &apos;{1}&apos; does not..
+        /// </summary>
+        internal static string MethodFormHasNoSupportConversionToSql {
+            get {
+                return ResourceManager.GetString("MethodFormHasNoSupportConversionToSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method &apos;{0}&apos; has no supported translation to SQL..
+        /// </summary>
+        internal static string MethodHasNoSupportConversionToSql {
+            get {
+                return ResourceManager.GetString("MethodHasNoSupportConversionToSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The method specified ({0}) is not mapped to a stored procedure..
+        /// </summary>
+        internal static string MethodNotMappedToStoredProcedure {
+            get {
+                return ResourceManager.GetString("MethodNotMappedToStoredProcedure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of ThisKey columns is different from the number of OtherKey columns for the association property &apos;{0}&apos; in the type &apos;{1}&apos;..
+        /// </summary>
+        internal static string MismatchedThisKeyOtherKey {
+            get {
+                return ResourceManager.GetString("MismatchedThisKeyOtherKey", resourceCulture);
             }
         }
         
@@ -448,11 +1600,74 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The inheritance type &apos;{0}&apos; does not declare a discriminator column..
+        /// </summary>
+        internal static string NoDiscriminatorFound {
+            get {
+                return ResourceManager.GetString("NoDiscriminatorFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No method in type &apos;{0}&apos; matching arguments..
+        /// </summary>
+        internal static string NoMethodInTypeMatchingArguments {
+            get {
+                return ResourceManager.GetString("NoMethodInTypeMatchingArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only arguments that can be evaluated on the client are supported for the {0} method..
+        /// </summary>
+        internal static string NonConstantExpressionsNotSupportedFor {
+            get {
+                return ResourceManager.GetString("NonConstantExpressionsNotSupportedFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only arguments that can be evaluated on the client are supported for the MidpointRounding argument in Math.Round..
+        /// </summary>
+        internal static string NonConstantExpressionsNotSupportedForRounding {
+            get {
+                return ResourceManager.GetString("NonConstantExpressionsNotSupportedForRounding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameterless aggregate operator &apos;{0}&apos; is not supported over projections..
+        /// </summary>
+        internal static string NonCountAggregateFunctionsAreNotValidOnProjections {
+            get {
+                return ResourceManager.GetString("NonCountAggregateFunctionsAreNotValidOnProjections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid association mapping for member &apos;{0}.{1}&apos;.  &apos;{2}&apos; is not an entity..
         /// </summary>
         internal static string NonEntityAssociationMapping {
             get {
                 return ResourceManager.GetString("NonEntityAssociationMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The inheritance type &apos;{0}&apos; has a discriminator but is not part of a mapped inheritance hierarchy..
+        /// </summary>
+        internal static string NonInheritanceClassHasDiscriminator {
+            get {
+                return ResourceManager.GetString("NonInheritanceClassHasDiscriminator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No result types declared for function &apos;{0}&apos; that returns IMultipleResults..
+        /// </summary>
+        internal static string NoResultTypesDeclaredForFunction {
+            get {
+                return ResourceManager.GetString("NoResultTypesDeclaredForFunction", resourceCulture);
             }
         }
         
@@ -484,11 +1699,47 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DLinq.
+        ///   Looks up a localized string similar to Linq to Sql 2 team @ GitHub.
         /// </summary>
         internal static string OwningTeam {
             get {
                 return ResourceManager.GetString("OwningTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The parameter &apos;{0}&apos; is not in scope..
+        /// </summary>
+        internal static string ParameterNotInScope {
+            get {
+                return ResourceManager.GetString("ParameterNotInScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters cannot be sequences..
+        /// </summary>
+        internal static string ParametersCannotBeSequences {
+            get {
+                return ResourceManager.GetString("ParametersCannotBeSequences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The subtype &apos;{0}&apos; cannot contain the primary key member &apos;{1}&apos;..
+        /// </summary>
+        internal static string PrimaryKeyInSubTypeNotSupported {
+            get {
+                return ResourceManager.GetString("PrimaryKeyInSubTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider cannot be accessed after Dispose..
+        /// </summary>
+        internal static string ProviderCannotBeUsedAfterDispose {
+            get {
+                return ResourceManager.GetString("ProviderCannotBeUsedAfterDispose", resourceCulture);
             }
         }
         
@@ -502,11 +1753,65 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot open &apos;{0}&apos;. Provider &apos;{1}&apos; not installed..
+        /// </summary>
+        internal static string ProviderNotInstalled {
+            get {
+                return ResourceManager.GetString("ProviderNotInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specified provider type &apos;{0}&apos; not found..
+        /// </summary>
+        internal static string ProviderTypeNotFound {
+            get {
+                return ResourceManager.GetString("ProviderTypeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Non-null provider type expected..
         /// </summary>
         internal static string ProviderTypeNull {
             get {
                 return ResourceManager.GetString("ProviderTypeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queries with local collections are not supported..
+        /// </summary>
+        internal static string QueryOnLocalCollectionNotSupported {
+            get {
+                return ResourceManager.GetString("QueryOnLocalCollectionNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The query operator &apos;{0}&apos; is not supported..
+        /// </summary>
+        internal static string QueryOperatorNotSupported {
+            get {
+                return ResourceManager.GetString("QueryOperatorNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported overload used for query operator &apos;{0}&apos;..
+        /// </summary>
+        internal static string QueryOperatorOverloadNotSupported {
+            get {
+                return ResourceManager.GetString("QueryOperatorOverloadNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reader used after dispose..
+        /// </summary>
+        internal static string ReaderUsedAfterDispose {
+            get {
+                return ResourceManager.GetString("ReaderUsedAfterDispose", resourceCulture);
             }
         }
         
@@ -520,11 +1825,110 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The required column &apos;{0}&apos; does not exist in the results..
+        /// </summary>
+        internal static string RequiredColumnDoesNotExist {
+            get {
+                return ResourceManager.GetString("RequiredColumnDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result type &apos;{0}&apos; is not mapped to function &apos;{1}&apos;..
+        /// </summary>
+        internal static string ResultTypeNotMappedToFunction {
+            get {
+                return ResourceManager.GetString("ResultTypeNotMappedToFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Row not found or changed..
         /// </summary>
         internal static string RowNotFoundOrChanged {
             get {
                 return ResourceManager.GetString("RowNotFoundOrChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SelectMany does not support strings..
+        /// </summary>
+        internal static string SelectManyDoesNotSupportStrings {
+            get {
+                return ResourceManager.GetString("SelectManyDoesNotSupportStrings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sequence operators not supported for type &apos;{0}&apos;..
+        /// </summary>
+        internal static string SequenceOperatorsNotSupportedForType {
+            get {
+                return ResourceManager.GetString("SequenceOperatorsNotSupportedForType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Simple case should not hold &apos;{0}&apos; should probably have been SqlClientCase..
+        /// </summary>
+        internal static string SimpleCaseShouldNotHold {
+            get {
+                return ResourceManager.GetString("SimpleCaseShouldNotHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Skip operator is valid only over ordered queries..
+        /// </summary>
+        internal static string SkipIsValidOnlyOverOrderedQueries {
+            get {
+                return ResourceManager.GetString("SkipIsValidOnlyOverOrderedQueries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Skip operator is not supported for sequences containing sequences (with the exception of IGrouping under SQL Server 2005)..
+        /// </summary>
+        internal static string SkipNotSupportedForSequenceTypes {
+            get {
+                return ResourceManager.GetString("SkipNotSupportedForSequenceTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This provider supports Skip only over ordered queries returning entities or projections that contain all identity columns, where the query is a single-table (non-join) query, or is a Distinct, Except, Intersect, or Union (not Concat) operation..
+        /// </summary>
+        internal static string SkipRequiresSingleTableQueryWithPKs {
+            get {
+                return ResourceManager.GetString("SkipRequiresSingleTableQueryWithPKs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Expression: {0}.
+        /// </summary>
+        internal static string SourceExpressionAnnotation {
+            get {
+                return ResourceManager.GetString("SourceExpressionAnnotation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stored procedures cannot be used inside queries..
+        /// </summary>
+        internal static string SprocsCannotBeComposed {
+            get {
+                return ResourceManager.GetString("SprocsCannotBeComposed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method &apos;{0}&apos; cannot be used on the client; it is only for translation to SQL..
+        /// </summary>
+        internal static string SqlMethodOnlyForSql {
+            get {
+                return ResourceManager.GetString("SqlMethodOnlyForSql", resourceCulture);
             }
         }
         
@@ -574,6 +1978,105 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Translation would contain an expression of type Text, NText, or Image in a SELECT DISTINCT clause: {0}.
+        /// </summary>
+        internal static string TextNTextAndImageCannotOccurInDistinct {
+            get {
+                return ResourceManager.GetString("TextNTextAndImageCannotOccurInDistinct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation would contain an expression of type Text, NText, or Image in a SELECT within a UNION: {0}.
+        /// </summary>
+        internal static string TextNTextAndImageCannotOccurInUnion {
+            get {
+                return ResourceManager.GetString("TextNTextAndImageCannotOccurInUnion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More than one result type declared for function &apos;{0}&apos; that does not return IMultipleResults..
+        /// </summary>
+        internal static string TooManyResultTypesDeclaredForFunction {
+            get {
+                return ResourceManager.GetString("TooManyResultTypesDeclaredForFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method ToString can only be translated to SQL for primitive types..
+        /// </summary>
+        internal static string ToStringOnlySupportedForPrimitiveTypes {
+            get {
+                return ResourceManager.GetString("ToStringOnlySupportedForPrimitiveTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction does not match connection..
+        /// </summary>
+        internal static string TransactionDoesNotMatchConnection {
+            get {
+                return ResourceManager.GetString("TransactionDoesNotMatchConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members &apos;{0}&apos; and &apos;{1}&apos; both marked as inheritance discriminator..
+        /// </summary>
+        internal static string TwoMembersMarkedAsInheritanceDiscriminator {
+            get {
+                return ResourceManager.GetString("TwoMembersMarkedAsInheritanceDiscriminator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members &apos;{0}&apos; and &apos;{1}&apos; both marked as IsPrimaryKey and IsDbGenerated..
+        /// </summary>
+        internal static string TwoMembersMarkedAsPrimaryKeyAndDBGenerated {
+            get {
+                return ResourceManager.GetString("TwoMembersMarkedAsPrimaryKeyAndDBGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members &apos;{0}&apos; and &apos;{1}&apos; both marked as row version..
+        /// </summary>
+        internal static string TwoMembersMarkedAsRowVersion {
+            get {
+                return ResourceManager.GetString("TwoMembersMarkedAsRowVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type Binary operator not recognized..
+        /// </summary>
+        internal static string TypeBinaryOperatorNotRecognized {
+            get {
+                return ResourceManager.GetString("TypeBinaryOperatorNotRecognized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot order by type &apos;{0}&apos;..
+        /// </summary>
+        internal static string TypeCannotBeOrdered {
+            get {
+                return ResourceManager.GetString("TypeCannotBeOrdered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type column with unhandled source.
+        /// </summary>
+        internal static string TypeColumnWithUnhandledSource {
+            get {
+                return ResourceManager.GetString("TypeColumnWithUnhandledSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instance of type &apos;{0}&apos; could not be added. This type is not part of the mapped type system..
         /// </summary>
         internal static string TypeCouldNotBeAdded {
@@ -619,11 +2122,101 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to assign value to read only property &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToAssignValueToReadonlyProperty {
+            get {
+                return ResourceManager.GetString("UnableToAssignValueToReadonlyProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binding error: Member &apos;{0}.{1}&apos; is not a mapped member of &apos;{2}&apos;..
+        /// </summary>
+        internal static string UnableToBindUnmappedMember {
+            get {
+                return ResourceManager.GetString("UnableToBindUnmappedMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to determine DataContext for compiled query execution..
         /// </summary>
         internal static string UnableToDetermineDataContext {
             get {
                 return ResourceManager.GetString("UnableToDetermineDataContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mapping Problem: Unable to resolve root for type &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnableToResolveRootForType {
+            get {
+                return ResourceManager.GetString("UnableToResolveRootForType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected element &apos;{0}&apos;, but found &apos;{1}&apos;..
+        /// </summary>
+        internal static string UnexpectedElement {
+            get {
+                return ResourceManager.GetString("UnexpectedElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column declaration found outside row or table declaration..
+        /// </summary>
+        internal static string UnexpectedFloatingColumn {
+            get {
+                return ResourceManager.GetString("UnexpectedFloatingColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected node: {0}.
+        /// </summary>
+        internal static string UnexpectedNode {
+            get {
+                return ResourceManager.GetString("UnexpectedNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected null &apos;{0}&apos;..
+        /// </summary>
+        internal static string UnexpectedNull {
+            get {
+                return ResourceManager.GetString("UnexpectedNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected shared-expression found..
+        /// </summary>
+        internal static string UnexpectedSharedExpression {
+            get {
+                return ResourceManager.GetString("UnexpectedSharedExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected shared-expression reference found..
+        /// </summary>
+        internal static string UnexpectedSharedExpressionReference {
+            get {
+                return ResourceManager.GetString("UnexpectedSharedExpressionReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected type code: {0}.
+        /// </summary>
+        internal static string UnexpectedTypeCode {
+            get {
+                return ResourceManager.GetString("UnexpectedTypeCode", resourceCulture);
             }
         }
         
@@ -637,11 +2230,137 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unhandled deferred storage type: {0}..
+        /// </summary>
+        internal static string UnhandledDeferredStorageType {
+            get {
+                return ResourceManager.GetString("UnhandledDeferredStorageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unhandled Expression Type: {0}.
         /// </summary>
         internal static string UnhandledExpressionType {
             get {
                 return ResourceManager.GetString("UnhandledExpressionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member &apos;{0}&apos; on node type &apos;{1}&apos; does not have a known translation to SQL..
+        /// </summary>
+        internal static string UnhandledMemberAccess {
+            get {
+                return ResourceManager.GetString("UnhandledMemberAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQL Server does not handle comparison of NText, Text, Xml, or Image data types..
+        /// </summary>
+        internal static string UnhandledStringTypeComparison {
+            get {
+                return ResourceManager.GetString("UnhandledStringTypeComparison", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types in Union or Concat have members assigned in different order..
+        /// </summary>
+        internal static string UnionDifferentMemberOrder {
+            get {
+                return ResourceManager.GetString("UnionDifferentMemberOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types in Union or Concat have different members assigned..
+        /// </summary>
+        internal static string UnionDifferentMembers {
+            get {
+                return ResourceManager.GetString("UnionDifferentMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types in Union or Concat are constructed incompatibly..
+        /// </summary>
+        internal static string UnionIncompatibleConstruction {
+            get {
+                return ResourceManager.GetString("UnionIncompatibleConstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sources of type GetType or typeof are incompatible for Union-like operation..
+        /// </summary>
+        internal static string UnionOfIncompatibleDynamicTypes {
+            get {
+                return ResourceManager.GetString("UnionOfIncompatibleDynamicTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types in Union or Concat cannot be constructed with hierarchy..
+        /// </summary>
+        internal static string UnionWithHierarchy {
+            get {
+                return ResourceManager.GetString("UnionWithHierarchy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class member {0}.{1} is unmapped..
+        /// </summary>
+        internal static string UnmappedClassMember {
+            get {
+                return ResourceManager.GetString("UnmappedClassMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data member &apos;{0}&apos; of type &apos;{1}&apos; is not part of the mapping for type &apos;{2}&apos;. Is the member above the root of an inheritance hierarchy?.
+        /// </summary>
+        internal static string UnmappedDataMember {
+            get {
+                return ResourceManager.GetString("UnmappedDataMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized attribute &apos;{0}&apos; in mapping file..
+        /// </summary>
+        internal static string UnrecognizedAttribute {
+            get {
+                return ResourceManager.GetString("UnrecognizedAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized element &apos;{0}&apos; in mapping file..
+        /// </summary>
+        internal static string UnrecognizedElement {
+            get {
+                return ResourceManager.GetString("UnrecognizedElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized expression node: {0}.
+        /// </summary>
+        internal static string UnrecognizedExpressionNode {
+            get {
+                return ResourceManager.GetString("UnrecognizedExpressionNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid provider mode..
+        /// </summary>
+        internal static string UnrecognizedProviderMode {
+            get {
+                return ResourceManager.GetString("UnrecognizedProviderMode", resourceCulture);
             }
         }
         
@@ -655,6 +2374,69 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unsafe string conversion from {0} to {1} may lead to implicit truncation.  Try reshaping the string explicitly with a Substring operation..
+        /// </summary>
+        internal static string UnsafeStringConversion {
+            get {
+                return ResourceManager.GetString("UnsafeStringConversion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DateTime constructor form is not supported..
+        /// </summary>
+        internal static string UnsupportedDateTimeConstructorForm {
+            get {
+                return ResourceManager.GetString("UnsupportedDateTimeConstructorForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DateTimeOffset constructor form is not supported..
+        /// </summary>
+        internal static string UnsupportedDateTimeOffsetConstructorForm {
+            get {
+                return ResourceManager.GetString("UnsupportedDateTimeOffsetConstructorForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The node type &apos;{0}&apos; is not supported..
+        /// </summary>
+        internal static string UnsupportedNodeType {
+            get {
+                return ResourceManager.GetString("UnsupportedNodeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to String constructor form is not supported..
+        /// </summary>
+        internal static string UnsupportedStringConstructorForm {
+            get {
+                return ResourceManager.GetString("UnsupportedStringConstructorForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TimeSpan constructor form is not supported..
+        /// </summary>
+        internal static string UnsupportedTimeSpanConstructorForm {
+            get {
+                return ResourceManager.GetString("UnsupportedTimeSpanConstructorForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Constructor for server type &apos;{0}&apos; is not supported..
+        /// </summary>
+        internal static string UnsupportedTypeConstructorForm {
+            get {
+                return ResourceManager.GetString("UnsupportedTypeConstructorForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --Callback into user code for update..
         /// </summary>
         internal static string UpdateCallbackComment {
@@ -664,11 +2446,65 @@ namespace System.Data.Linq.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The item of an Update must be a constant value expression..
+        /// </summary>
+        internal static string UpdateItemMustBeConstant {
+            get {
+                return ResourceManager.GetString("UpdateItemMustBeConstant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} of {1} updates failed..
         /// </summary>
         internal static string UpdatesFailedMessage {
             get {
                 return ResourceManager.GetString("UpdatesFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value has no literal in SQL: {0}.
+        /// </summary>
+        internal static string ValueHasNoLiteralInSql {
+            get {
+                return ResourceManager.GetString("ValueHasNoLiteralInSql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot translate multiple character ranges in the pattern argument..
+        /// </summary>
+        internal static string VbLikeDoesNotSupportMultipleCharacterRanges {
+            get {
+                return ResourceManager.GetString("VbLikeDoesNotSupportMultipleCharacterRanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pattern contains unclosed bracket..
+        /// </summary>
+        internal static string VbLikeUnclosedBracket {
+            get {
+                return ResourceManager.GetString("VbLikeUnclosedBracket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The query contains references to items defined on a different data context..
+        /// </summary>
+        internal static string WrongDataContext {
+            get {
+                return ResourceManager.GetString("WrongDataContext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong number of values in &apos;{0}&apos;. Expected {1}. Actually {2}..
+        /// </summary>
+        internal static string WrongNumberOfValuesInCollectionArgument {
+            get {
+                return ResourceManager.GetString("WrongNumberOfValuesInCollectionArgument", resourceCulture);
             }
         }
     }

@@ -53,21 +53,104 @@
   <ItemGroup>
     <Compile Include="ChangeManagement\ReadOnlyChangeTracker.cs" />
     <Compile Include="ChangeManagement\StandardChangeTracker.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlConnectionManager.cs" />
+    <Compile Include="Provider\Visitors\SourceExpressionRemover.cs" />
+    <Compile Include="Provider\Interfaces\ICompiledSubQuery.cs" />
+    <Compile Include="Provider\Interfaces\IObjectReaderCompiler.cs" />
+    <Compile Include="Provider\Interfaces\IObjectReaderFactory.cs" />
+    <Compile Include="Provider\Interfaces\IObjectReaderSession.cs" />
+    <Compile Include="Provider\Interfaces\IReaderProvider.cs" />
+    <Compile Include="DbEngines\SqlServer\ConstantsEnums.cs" />
+    <Compile Include="DbEngines\SqlServer\Sql2000Provider.cs" />
+    <Compile Include="DbEngines\SqlServer\Sql2005Provider.cs" />
+    <Compile Include="DbEngines\SqlServer\Sql2008Provider.cs" />
+    <Compile Include="Provider\Visitors\SqlSelectionSkipper.cs" />
+    <Compile Include="Provider\Visitors\ColumnNominator.cs" />
+    <Compile Include="Provider\Visitors\ColumnDeclarer.cs" />
+    <Compile Include="Provider\Common\LinkOptimizationScope.cs" />
+    <Compile Include="Provider\Common\MetaPosition.cs" />
+    <Compile Include="Provider\Common\NodeFactory.cs" />
+    <Compile Include="Provider\Common\ProviderType.cs" />
+    <Compile Include="Provider\Interfaces\IConnectionUser.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlType.cs" />
     <Compile Include="Properties\Main.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Main.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Mapping.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Mapping.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\SqlClient.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SqlClient.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Provider\Visitors\DuplicatingVisitor.cs" />
+    <Compile Include="Provider\Visitors\SingleTableQueryVisitor.cs" />
+    <Compile Include="Provider\Expressions\KnownExpression.cs" />
+    <Compile Include="Provider\Expressions\LinkedTableExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlAlias.cs" />
+    <Compile Include="Provider\NodeTypes\SqlAliasRef.cs" />
+    <Compile Include="Provider\NodeTypes\SqlAssign.cs" />
+    <Compile Include="Provider\NodeTypes\SqlBetween.cs" />
+    <Compile Include="Provider\NodeTypes\SqlBinary.cs" />
+    <Compile Include="Provider\NodeTypes\SqlBlock.cs" />
+    <Compile Include="Provider\NodeTypes\SqlClientArray.cs" />
+    <Compile Include="Provider\NodeTypes\SqlClientCase.cs" />
+    <Compile Include="Provider\NodeTypes\SqlClientParameter.cs" />
+    <Compile Include="Provider\NodeTypes\SqlClientQuery.cs" />
+    <Compile Include="Provider\NodeTypes\SqlClientWhen.cs" />
+    <Compile Include="Provider\NodeTypes\SqlColumn.cs" />
+    <Compile Include="Provider\NodeTypes\SqlColumnRef.cs" />
+    <Compile Include="Provider\NodeTypes\SqlDelete.cs" />
+    <Compile Include="Provider\NodeTypes\SqlDiscriminatedType.cs" />
+    <Compile Include="Provider\NodeTypes\SqlDiscriminatorOf.cs" />
+    <Compile Include="Provider\NodeTypes\SqlDoNotVisitExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlExprSet.cs" />
+    <Compile Include="Provider\NodeTypes\SqlFunctionCall.cs" />
+    <Compile Include="Provider\NodeTypes\SqlGrouping.cs" />
+    <Compile Include="Provider\NodeTypes\SqlIn.cs" />
+    <Compile Include="Provider\NodeTypes\SqlIncludeScope.cs" />
+    <Compile Include="Provider\NodeTypes\SqlInsert.cs" />
+    <Compile Include="Provider\NodeTypes\SqlJoin.cs" />
+    <Compile Include="Provider\NodeTypes\SqlJoinedCollection.cs" />
+    <Compile Include="Provider\NodeTypes\SqlLift.cs" />
+    <Compile Include="Provider\NodeTypes\SqlLike.cs" />
+    <Compile Include="Provider\NodeTypes\SqlLink.cs" />
+    <Compile Include="Provider\NodeTypes\SqlMember.cs" />
+    <Compile Include="Provider\NodeTypes\SqlMemberAssign.cs" />
+    <Compile Include="Provider\NodeTypes\SqlMethodCall.cs" />
+    <Compile Include="Provider\NodeTypes\SqlNew.cs" />
+    <Compile Include="Provider\NodeTypes\SqlNop.cs" />
+    <Compile Include="Provider\NodeTypes\SqlOptionalValue.cs" />
+    <Compile Include="Provider\NodeTypes\SqlOrderExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlParameter.cs" />
+    <Compile Include="Provider\NodeTypes\SqlRow.cs" />
+    <Compile Include="Provider\NodeTypes\SqlRowNumber.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSearchedCase.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSelect.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSharedExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSharedExpressionRef.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSimpleCase.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSimpleExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSimpleTypeExpression.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSource.cs" />
+    <Compile Include="Provider\NodeTypes\SqlStatement.cs" />
+    <Compile Include="Provider\NodeTypes\SqlStoredProcedureCall.cs" />
+    <Compile Include="Provider\NodeTypes\SqlSubSelect.cs" />
+    <Compile Include="Provider\NodeTypes\SqlTable.cs" />
+    <Compile Include="Provider\NodeTypes\SqlTableValuedFunctionCall.cs" />
+    <Compile Include="Provider\NodeTypes\SqlTypeCase.cs" />
+    <Compile Include="Provider\NodeTypes\SqlTypeCaseWhen.cs" />
+    <Compile Include="Provider\NodeTypes\SqlUnary.cs" />
+    <Compile Include="Provider\NodeTypes\SqlUnion.cs" />
+    <Compile Include="Provider\NodeTypes\SqlUpdate.cs" />
+    <Compile Include="Provider\NodeTypes\SqlUserColumn.cs" />
+    <Compile Include="Provider\NodeTypes\SqlUserQuery.cs" />
+    <Compile Include="Provider\NodeTypes\SqlUserRow.cs" />
+    <Compile Include="Provider\NodeTypes\SqlValue.cs" />
+    <Compile Include="Provider\NodeTypes\SqlVariable.cs" />
+    <Compile Include="Provider\NodeTypes\SqlWhen.cs" />
+    <Compile Include="Provider\Visitors\DependenceChecker.cs" />
+    <Compile Include="Provider\Visitors\ExpressionVisitor.cs" />
+    <Compile Include="Provider\Visitors\Localizer.cs" />
+    <Compile Include="Provider\Visitors\LocalMapper.cs" />
+    <Compile Include="Provider\Visitors\RelationComposer.cs" />
+    <Compile Include="Provider\Common\ObjectMaterializer.cs" />
     <Compile Include="Types\Binary.cs" />
     <Compile Include="ChangeManagement\ChangeConflictCollection.cs" />
     <Compile Include="ChangeManagement\MemberChangeConflict.cs" />
@@ -147,7 +230,6 @@
     <Compile Include="Mapping\Accesssors\EntitySetDefSourceAccessor.cs" />
     <Compile Include="Mapping\AttributedMetaModel\AttributedMetaModel.cs" />
     <Compile Include="Mapping\Attributes.cs" />
-    <Compile Include="Mapping\Error.cs" />
     <Compile Include="Mapping\MappedMetaModel\MappedAssociation.cs" />
     <Compile Include="Mapping\MappedMetaModel\MappedDataMember.cs" />
     <Compile Include="Mapping\MappedMetaModel\MappedFunction.cs" />
@@ -173,8 +255,6 @@
     <Compile Include="Mapping\MetaModel\MetaParameter.cs" />
     <Compile Include="Mapping\MetaModel\MetaTable.cs" />
     <Compile Include="Mapping\MetaModel\MetaType.cs" />
-    <Compile Include="Mapping\SR.cs" />
-    <Compile Include="Mapping\Strings.cs" />
     <Compile Include="Miscellaneous\SecurityUtils.cs" />
     <Compile Include="ChangeManagement\ModifiedMemberInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,46 +262,44 @@
     <Compile Include="Interfaces\ICompiledQuery.cs" />
     <Compile Include="Interfaces\IDataServices.cs" />
     <Compile Include="Interfaces\IDeferredSourceFactory.cs" />
-    <Compile Include="Provider\IProvider.cs" />
+    <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="BindingLists\SortableBindingList.cs" />
     <Compile Include="ChangeManagement\RelatedItem.cs" />
-    <Compile Include="SqlClient\Common\DbFormatter.cs" />
-    <Compile Include="SqlClient\Common\Expressions.cs" />
-    <Compile Include="SqlClient\Common\IConnectionManager.cs" />
-    <Compile Include="SqlClient\Common\InheritanceRules.cs" />
-    <Compile Include="SqlClient\Common\SqlFactory.cs" />
-    <Compile Include="SqlClient\Common\SqlNode.cs" />
-    <Compile Include="SqlClient\Common\SqlNodeAnnotation.cs" />
-    <Compile Include="SqlClient\Common\SqlNodeAnnotations.cs" />
-    <Compile Include="SqlClient\Common\SqlNodeTypeOperators.cs" />
-    <Compile Include="SqlClient\Common\SqlServer2KCompatibilityAnnotation.cs" />
-    <Compile Include="SqlClient\Common\SqlServer2KCompatibilityCheck.cs" />
-    <Compile Include="SqlClient\Common\SqlVisitor.cs" />
-    <Compile Include="SqlClient\Common\TypeSystem.cs" />
-    <Compile Include="SqlClient\Common\TypeSystemProvider.cs" />
-    <Compile Include="SqlClient\Error.cs" />
-    <Compile Include="SqlClient\OptimizationFlags.cs" />
+    <Compile Include="Provider\Common\DbFormatter.cs" />
+    <Compile Include="Provider\Expressions\InternalExpression.cs" />
+    <Compile Include="Provider\Interfaces\IConnectionManager.cs" />
+    <Compile Include="Provider\Common\InheritanceRules.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlFactory.cs" />
+    <Compile Include="Provider\NodeTypes\SqlNode.cs" />
+    <Compile Include="Provider\Common\SqlNodeAnnotation.cs" />
+    <Compile Include="Provider\Common\SqlNodeAnnotations.cs" />
+    <Compile Include="Provider\Common\SqlNodeTypeOperators.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlServer2KCompatibilityAnnotation.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlServer2KCompatibilityCheck.cs" />
+    <Compile Include="Provider\Visitors\SqlVisitor.cs" />
+    <Compile Include="Provider\Common\TypeSystem.cs" />
+    <Compile Include="Provider\Common\TypeSystemProvider.cs" />
     <Compile Include="SqlClient\PerfTimer.cs" />
-    <Compile Include="SqlClient\Query\ContainsRowNumberChecker.cs" />
-    <Compile Include="SqlClient\Query\Funcletizer.cs" />
-    <Compile Include="SqlClient\Query\LongTypeConverter.cs" />
-    <Compile Include="SqlClient\Query\MethodCallConverter.cs" />
-    <Compile Include="SqlClient\Query\QueryConverter.cs" />
-    <Compile Include="SqlClient\Query\SimpleExpression.cs" />
-    <Compile Include="SqlClient\Query\SqlAggregateChecker.cs" />
-    <Compile Include="SqlClient\Query\SqlAliaser.cs" />
-    <Compile Include="SqlClient\Query\SqlAliasesReferenced.cs" />
-    <Compile Include="SqlClient\Query\SqlBinder.cs" />
+    <Compile Include="Provider\Visitors\ContainsRowNumberChecker.cs" />
+    <Compile Include="Provider\Visitors\Funcletizer.cs" />
+    <Compile Include="DbEngines\SqlServer\LongTypeConverter.cs" />
+    <Compile Include="Provider\Visitors\MethodCallConverter.cs" />
+    <Compile Include="Provider\Common\QueryConverter.cs" />
+    <Compile Include="Provider\Visitors\SimpleExpression.cs" />
+    <Compile Include="Provider\Visitors\SqlAggregateChecker.cs" />
+    <Compile Include="Provider\Visitors\SqlAliaser.cs" />
+    <Compile Include="Provider\Visitors\SqlAliasesReferenced.cs" />
+    <Compile Include="Provider\Common\SqlBinder.cs" />
     <Compile Include="SqlClient\Query\SqlBooleanizer.cs" />
     <Compile Include="SqlClient\Query\SqlBooleanMismatchVisitor.cs" />
     <Compile Include="SqlClient\Query\SqlCaseSimplifier.cs" />
-    <Compile Include="SqlClient\Query\SqlColumnizer.cs" />
+    <Compile Include="Provider\Common\SqlColumnizer.cs" />
     <Compile Include="SqlClient\Query\SqlComparer.cs" />
     <Compile Include="SqlClient\Query\SqlCrossApplyToCrossJoin.cs" />
     <Compile Include="SqlClient\Query\SqlDeflator.cs" />
-    <Compile Include="SqlClient\Query\SqlDuplicator.cs" />
+    <Compile Include="Provider\Common\SqlDuplicator.cs" />
     <Compile Include="SqlClient\Query\SqlExpander.cs" />
-    <Compile Include="SqlClient\Query\SqlExpressionNullability.cs" />
+    <Compile Include="Provider\Common\SqlExpressionNullability.cs" />
     <Compile Include="SqlClient\Query\SqlFlattener.cs" />
     <Compile Include="SqlClient\Query\SqlFormatter.cs" />
     <Compile Include="SqlClient\Query\SqlGatherConsumedAliases.cs" />
@@ -229,7 +307,7 @@
     <Compile Include="SqlClient\Query\SqlIdentifier.cs" />
     <Compile Include="SqlClient\Query\SqlLiftIndependentRowExpressions.cs" />
     <Compile Include="SqlClient\Query\SqlLiftWhereClauses.cs" />
-    <Compile Include="SqlClient\Query\SqlMethodCallConverter.cs" />
+    <Compile Include="DbEngines\SqlServer\PostBindDotNetConverter.cs" />
     <Compile Include="SqlClient\Query\SqlMethodTransformer.cs" />
     <Compile Include="SqlClient\Query\SqlMultiplexer.cs" />
     <Compile Include="SqlClient\Query\SqlNamer.cs" />
@@ -244,17 +322,15 @@
     <Compile Include="SqlClient\Query\SqlTopReducer.cs" />
     <Compile Include="SqlClient\Query\SqlTypeConverter.cs" />
     <Compile Include="SqlClient\Query\SqlUnionizer.cs" />
-    <Compile Include="SqlClient\Query\Translator.cs" />
-    <Compile Include="SqlClient\Query\TypeSource.cs" />
-    <Compile Include="SqlClient\Reader\ObjectReader.cs" />
-    <Compile Include="SqlClient\Reader\ObjectReaderCompiler.cs" />
+    <Compile Include="Provider\Common\Translator.cs" />
+    <Compile Include="Provider\Common\TypeSource.cs" />
+    <Compile Include="Provider\Interfaces\IObjectReader.cs" />
+    <Compile Include="Provider\Common\ObjectReaderCompiler.cs" />
     <Compile Include="SqlClient\SqlBuilder.cs" />
-    <Compile Include="SqlClient\SqlConnectionManager.cs" />
-    <Compile Include="SqlClient\SqlMethods.cs" />
-    <Compile Include="SqlClient\SqlProvider.cs" />
-    <Compile Include="SqlClient\SqlTypeSystemProvider.cs" />
-    <Compile Include="SqlClient\SR.cs" />
-    <Compile Include="SqlClient\Strings.cs" />
+    <Compile Include="Provider\Common\ConnectionManager.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlMethods.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlProvider.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlTypeSystem.cs" />
     <Compile Include="SR.cs" />
     <Compile Include="ChangeManagement\StandardChangeDirector.cs" />
     <Compile Include="Strings.cs" />
@@ -271,18 +347,11 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Main.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Mapping.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Mapping.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\SqlClient.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SqlClient.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DbEngines\Common\" />
+    <Folder Include="SqlClient\Reader\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

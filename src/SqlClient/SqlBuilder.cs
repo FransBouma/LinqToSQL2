@@ -10,7 +10,7 @@ using System.Text;
 
 namespace System.Data.Linq.SqlClient {
     using System.Data.Linq.Mapping;
-    using System.Data.Linq.Provider;
+    using Linq;
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>

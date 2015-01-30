@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
-	using System.Data.Linq.Provider;
+	using Linq;
 
 	internal class IdentityCache<T, K> : IdentityCache
 	{

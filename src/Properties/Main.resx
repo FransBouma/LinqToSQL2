@@ -117,72 +117,416 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-	<data name="UnhandledBindingType" xml:space="preserve"><value>Unhandled Binding Type: {0}</value></data>
-	<data name="CannotAddChangeConflicts" xml:space="preserve"><value>Cannot add change conflicts. They are added automatically during SubmitChanges.</value></data>
-	<data name="ColumnMappedMoreThanOnce" xml:space="preserve"><value>Mapping Problem: The database column '{0}' is mapped more than once.</value></data>
-	<data name="IncludeNotAllowedAfterFreeze" xml:space="preserve"><value>LoadWith is not allowed after freeze or attach to DataContext.</value></data>
-	<data name="OwningTeam" xml:space="preserve"><value>DLinq</value></data>
-	<data name="CouldNotConvert" xml:space="preserve"><value>Could not convert from type '{0}' to type '{1}'.</value></data>
-	<data name="InsertAutoSyncFailure" xml:space="preserve"><value>Member AutoSync failure. For members to be Auto-Synced after insert, the type must either have an auto-generated identity, or a key that is not modified by the database after insert.</value></data>
-	<data name="SubqueryNotSupportedOn" xml:space="preserve"><value>Subquery is not supported on '{0}'.</value></data>
-	<data name="TypeCouldNotBeRemoved" xml:space="preserve"><value>Instance of type '{0}' could not be removed. This type is not part of the mapped type system.</value></data>
-	<data name="LoadOptionsChangeNotAllowedAfterQuery" xml:space="preserve"><value>Setting load options is not allowed after results have been returned from a query.</value></data>
-	<data name="ArgumentTypeHasNoIdentityKey" xml:space="preserve"><value>The type '{0}' has no identity key</value></data>
-	<data name="EntitySetModifiedDuringEnumeration" xml:space="preserve"><value>EntitySet was modified during enumeration.</value></data>
-	<data name="OriginalEntityIsWrongType" xml:space="preserve"><value>The original state instance has the wrong type.</value></data>
-	<data name="CouldNotAttach" xml:space="preserve"><value>Item already exists in data context.</value></data>
-	<data name="UnrecognizedRefreshObject" xml:space="preserve"><value>An object specified for refresh is not recognized.</value></data>
-	<data name="CantAddAlreadyExistingKey" xml:space="preserve"><value>Cannot add an entity with a key that is already in use.</value></data>
-	<data name="TypeIsNotEntity" xml:space="preserve"><value>The type '{0}' is not an entity.</value></data>
-	<data name="ExpectedQueryableArgument" xml:space="preserve"><value>Argument {0} does not implement {1}.</value></data>
-	<data name="InsertCallbackComment" xml:space="preserve"><value>--Callback into user code for insert.</value></data>
-	<data name="OptionsCannotBeModifiedAfterQuery" xml:space="preserve"><value>Data context options cannot be modified after results have been returned from a query.</value></data>
-	<data name="RowNotFoundOrChanged" xml:space="preserve"><value>Row not found or changed.</value></data>
-	<data name="SubqueryDoesNotSupportOperator" xml:space="preserve"><value>The operator '{0}' is not supported in Subquery.</value></data>
-	<data name="CannotPerformCUDOnReadOnlyTable" xml:space="preserve"><value>Can't perform Create, Update or Delete operations on '{0}' because it has no primary key.</value></data>
-	<data name="CannotAttachAsModifiedWithoutOriginalState" xml:space="preserve"><value>An entity can only be attached as modified without original state if it declares a version member or does not have an update check policy.</value></data>
-	<data name="EntitySetDataBindingWithAbstractBaseClass" xml:space="preserve"><value>Cannot add an instance of an abstract class to EntitySet&lt;{0}&gt;.</value></data>
-	<data name="CannotPerformOperationForUntrackedObject" xml:space="preserve"><value>The operation cannot be performed for the entity because it is not being change tracked.</value></data>
-	<data name="KeyIsWrongSize" xml:space="preserve"><value>Key is the wrong size. Expected {0}. Actual {1}.</value></data>
-	<data name="EntityIsTheWrongType" xml:space="preserve"><value>The entity is not of the correct type.</value></data>
-	<data name="DatabaseGeneratedAlreadyExistingKey" xml:space="preserve"><value>The database generated a key that is already in use.</value></data>
-	<data name="CannotChangeInheritanceType" xml:space="preserve"><value>Not allowed: Inheritance discriminator change from '{0}' to '{1}' would change type from '{2}' to '{3}'.</value></data>
-	<data name="DataContextCannotBeUsedAfterDispose" xml:space="preserve"><value>DataContext accessed after Dispose.</value></data>
-	<data name="InvalidLoadOptionsLoadMemberSpecification" xml:space="preserve"><value>The expression specified must be of the form p.A, where p is the parameter and A is a property or field member. </value></data>
-	<data name="EntitySetDataBindingWithNonPublicDefaultConstructor" xml:space="preserve"><value>{0} must have a parameterless constructor when using IBindingList to add new instances.</value></data>
-	<data name="ModifyDuringAddOrRemove" xml:space="preserve"><value>Could not modify EntitySet.</value></data>
-	<data name="SubqueryNotAllowedAfterFreeze" xml:space="preserve"><value>SetSubquery is not allowed after freeze or attach to DataContext.</value></data>
-	<data name="CannotAttachAlreadyExistingEntity" xml:space="preserve"><value>Cannot attach an entity that already exists.</value></data>
-	<data name="ObjectTrackingRequired" xml:space="preserve"><value>Object tracking is not enabled for the current data context instance.</value></data>
-	<data name="InconsistentAssociationAndKeyChange" xml:space="preserve"><value>The member '{0}' was changed to be inconsistent with the association member '{1}'.</value></data>
-	<data name="UnhandledExpressionType" xml:space="preserve"><value>Unhandled Expression Type: {0}</value></data>
-	<data name="TypeIsNotMarkedAsTable" xml:space="preserve"><value>The type '{0}' is not mapped as a Table.</value></data>
-	<data name="UnableToDetermineDataContext" xml:space="preserve"><value>Unable to determine DataContext for compiled query execution.</value></data>
-	<data name="CannotAttachAddNonNewEntities" xml:space="preserve"><value>An attempt has been made to Attach or Add an entity that is not new, perhaps having been loaded from another DataContext.  This is not supported.</value></data>
-	<data name="UpdatesFailedMessage" xml:space="preserve"><value>{0} of {1} updates failed.</value></data>
-	<data name="CannotRemoveChangeConflicts" xml:space="preserve"><value>Cannot remove change conflicts. </value></data>
-	<data name="KeyValueIsWrongType" xml:space="preserve"><value>Key value is the wrong type. Expected assignable from {0}. Actual {1}.</value></data>
-	<data name="DeferredLoadingRequiresObjectTracking" xml:space="preserve"><value>Deferred loading requires that object tracking is also enabled.</value></data>
-	<data name="CannotPerformOperationOutsideSubmitChanges" xml:space="preserve"><value>The operation can only be performed inside a user override method during a call to SubmitChanges.</value></data>
-	<data name="DeleteCallbackComment" xml:space="preserve"><value>--Callback into user code for delete.</value></data>
-	<data name="CantAddAlreadyExistingItem" xml:space="preserve"><value>Cannot add an entity that already exists.</value></data>
-	<data name="EntitySetAlreadyLoaded" xml:space="preserve"><value>The EntitySet is already loaded and the source cannot be changed.</value></data>
-	<data name="NonEntityAssociationMapping" xml:space="preserve"><value>Invalid association mapping for member '{0}.{1}'.  '{2}' is not an entity.</value></data>
-	<data name="DbGeneratedChangeNotAllowed" xml:space="preserve"><value>Value of member '{0}' of an object of type '{1}' changed. A member that is computed or generated by the database cannot be changed.</value></data>
-	<data name="CycleDetected" xml:space="preserve"><value>A cycle was detected in the set of changes</value></data>
-	<data name="CannotRemoveUnattachedEntity" xml:space="preserve"><value>Cannot remove an entity that has not been attached.</value></data>
-	<data name="IdentityChangeNotAllowed" xml:space="preserve"><value>Value of member '{0}' of an object of type '{1}' changed. A member defining the identity of the object cannot be changed. Consider adding a new object with new identity and deleting the existing one instead.</value></data>
-	<data name="ProviderDoesNotImplementRequiredInterface" xml:space="preserve"><value>Specified provider type '{0}' does not implement '{1}'.</value></data>
-	<data name="TypeCouldNotBeTracked" xml:space="preserve"><value>Instance of type '{0}' could not be tracked. This type is not part of the mapped type system.</value></data>
-	<data name="IncludeCycleNotAllowed" xml:space="preserve"><value>Cycles not allowed in LoadOptions LoadWith type graph.</value></data>
-	<data name="ProviderTypeNull" xml:space="preserve"><value>Non-null provider type expected.</value></data>
-	<data name="ExpectedUpdateDeleteOrChange" xml:space="preserve"><value>Expected update, delete or change.</value></data>
-	<data name="CannotPerformOperationDuringSubmitChanges" xml:space="preserve"><value>The operation cannot be performed during a call to SubmitChanges.</value></data>
-	<data name="CouldNotGetTableForSubtype" xml:space="preserve"><value>Could not retrieve a Table for inheritance subtype '{0}', try Table of {1} instead.</value></data>
-	<data name="UpdateCallbackComment" xml:space="preserve"><value>--Callback into user code for update.</value></data>
-	<data name="SubqueryMustBeSequence" xml:space="preserve"><value>Subquery must be a sequence expression.</value></data>
-	<data name="CouldNotRemoveRelationshipBecauseOneSideCannotBeNull" xml:space="preserve"><value>An attempt was made to remove a relationship between a {0} and a {1}. However, one of the relationship's foreign keys ({2}) cannot be set to null.</value></data>
-	<data name="SubqueryNotSupportedOnType" xml:space="preserve"><value>Subquery is not supported on '{0}' of type '{1}'.</value></data>
-	<data name="RefreshOfDeletedObject" xml:space="preserve"><value>Unable to refresh the specified object.  The object no longer exists in the database.</value></data>
-	<data name="TypeCouldNotBeAdded" xml:space="preserve"><value>Instance of type '{0}' could not be added. This type is not part of the mapped type system.</value></data>
+  <data name="UnhandledBindingType" xml:space="preserve">
+    <value>Unhandled Binding Type: {0}</value>
+  </data>
+  <data name="CannotAddChangeConflicts" xml:space="preserve">
+    <value>Cannot add change conflicts. They are added automatically during SubmitChanges.</value>
+  </data>
+  <data name="ColumnMappedMoreThanOnce" xml:space="preserve">
+    <value>Mapping Problem: The database column '{0}' is mapped more than once.</value>
+  </data>
+  <data name="IncludeNotAllowedAfterFreeze" xml:space="preserve">
+    <value>LoadWith is not allowed after freeze or attach to DataContext.</value>
+  </data>
+  <data name="OwningTeam" xml:space="preserve">
+    <value>Linq to Sql 2 team @ GitHub</value>
+  </data>
+  <data name="CouldNotConvert" xml:space="preserve">
+    <value>Could not convert from type '{0}' to type '{1}'.</value>
+  </data>
+  <data name="InsertAutoSyncFailure" xml:space="preserve">
+    <value>Member AutoSync failure. For members to be Auto-Synced after insert, the type must either have an auto-generated identity, or a key that is not modified by the database after insert.</value>
+  </data>
+  <data name="SubqueryNotSupportedOn" xml:space="preserve">
+    <value>Subquery is not supported on '{0}'.</value>
+  </data>
+  <data name="TypeCouldNotBeRemoved" xml:space="preserve">
+    <value>Instance of type '{0}' could not be removed. This type is not part of the mapped type system.</value>
+  </data>
+  <data name="LoadOptionsChangeNotAllowedAfterQuery" xml:space="preserve">
+    <value>Setting load options is not allowed after results have been returned from a query.</value>
+  </data>
+  <data name="ArgumentTypeHasNoIdentityKey" xml:space="preserve">
+    <value>The type '{0}' has no identity key</value>
+  </data>
+  <data name="EntitySetModifiedDuringEnumeration" xml:space="preserve">
+    <value>EntitySet was modified during enumeration.</value>
+  </data>
+  <data name="OriginalEntityIsWrongType" xml:space="preserve">
+    <value>The original state instance has the wrong type.</value>
+  </data>
+  <data name="CouldNotAttach" xml:space="preserve">
+    <value>Item already exists in data context.</value>
+  </data>
+  <data name="UnrecognizedRefreshObject" xml:space="preserve">
+    <value>An object specified for refresh is not recognized.</value>
+  </data>
+  <data name="CantAddAlreadyExistingKey" xml:space="preserve">
+    <value>Cannot add an entity with a key that is already in use.</value>
+  </data>
+  <data name="TypeIsNotEntity" xml:space="preserve">
+    <value>The type '{0}' is not an entity.</value>
+  </data>
+  <data name="ExpectedQueryableArgument" xml:space="preserve">
+    <value>Argument {0} does not implement {1}.</value>
+  </data>
+  <data name="InsertCallbackComment" xml:space="preserve">
+    <value>--Callback into user code for insert.</value>
+  </data>
+  <data name="OptionsCannotBeModifiedAfterQuery" xml:space="preserve">
+    <value>Data context options cannot be modified after results have been returned from a query.</value>
+  </data>
+  <data name="RowNotFoundOrChanged" xml:space="preserve">
+    <value>Row not found or changed.</value>
+  </data>
+  <data name="SubqueryDoesNotSupportOperator" xml:space="preserve">
+    <value>The operator '{0}' is not supported in Subquery.</value>
+  </data>
+  <data name="CannotPerformCUDOnReadOnlyTable" xml:space="preserve">
+    <value>Can't perform Create, Update or Delete operations on '{0}' because it has no primary key.</value>
+  </data>
+  <data name="CannotAttachAsModifiedWithoutOriginalState" xml:space="preserve">
+    <value>An entity can only be attached as modified without original state if it declares a version member or does not have an update check policy.</value>
+  </data>
+  <data name="EntitySetDataBindingWithAbstractBaseClass" xml:space="preserve">
+    <value>Cannot add an instance of an abstract class to EntitySet&lt;{0}&gt;.</value>
+  </data>
+  <data name="CannotPerformOperationForUntrackedObject" xml:space="preserve">
+    <value>The operation cannot be performed for the entity because it is not being change tracked.</value>
+  </data>
+  <data name="KeyIsWrongSize" xml:space="preserve">
+    <value>Key is the wrong size. Expected {0}. Actual {1}.</value>
+  </data>
+  <data name="EntityIsTheWrongType" xml:space="preserve">
+    <value>The entity is not of the correct type.</value>
+  </data>
+  <data name="DatabaseGeneratedAlreadyExistingKey" xml:space="preserve">
+    <value>The database generated a key that is already in use.</value>
+  </data>
+  <data name="CannotChangeInheritanceType" xml:space="preserve">
+    <value>Not allowed: Inheritance discriminator change from '{0}' to '{1}' would change type from '{2}' to '{3}'.</value>
+  </data>
+  <data name="DataContextCannotBeUsedAfterDispose" xml:space="preserve">
+    <value>DataContext accessed after Dispose.</value>
+  </data>
+  <data name="InvalidLoadOptionsLoadMemberSpecification" xml:space="preserve">
+    <value>The expression specified must be of the form p.A, where p is the parameter and A is a property or field member. </value>
+  </data>
+  <data name="EntitySetDataBindingWithNonPublicDefaultConstructor" xml:space="preserve">
+    <value>{0} must have a parameterless constructor when using IBindingList to add new instances.</value>
+  </data>
+  <data name="ModifyDuringAddOrRemove" xml:space="preserve">
+    <value>Could not modify EntitySet.</value>
+  </data>
+  <data name="SubqueryNotAllowedAfterFreeze" xml:space="preserve">
+    <value>SetSubquery is not allowed after freeze or attach to DataContext.</value>
+  </data>
+  <data name="CannotAttachAlreadyExistingEntity" xml:space="preserve">
+    <value>Cannot attach an entity that already exists.</value>
+  </data>
+  <data name="ObjectTrackingRequired" xml:space="preserve">
+    <value>Object tracking is not enabled for the current data context instance.</value>
+  </data>
+  <data name="InconsistentAssociationAndKeyChange" xml:space="preserve">
+    <value>The member '{0}' was changed to be inconsistent with the association member '{1}'.</value>
+  </data>
+  <data name="UnhandledExpressionType" xml:space="preserve">
+    <value>Unhandled Expression Type: {0}</value>
+  </data>
+  <data name="TypeIsNotMarkedAsTable" xml:space="preserve">
+    <value>The type '{0}' is not mapped as a Table.</value>
+  </data>
+  <data name="UnableToDetermineDataContext" xml:space="preserve">
+    <value>Unable to determine DataContext for compiled query execution.</value>
+  </data>
+  <data name="CannotAttachAddNonNewEntities" xml:space="preserve">
+    <value>An attempt has been made to Attach or Add an entity that is not new, perhaps having been loaded from another DataContext.  This is not supported.</value>
+  </data>
+  <data name="UpdatesFailedMessage" xml:space="preserve">
+    <value>{0} of {1} updates failed.</value>
+  </data>
+  <data name="CannotRemoveChangeConflicts" xml:space="preserve">
+    <value>Cannot remove change conflicts. </value>
+  </data>
+  <data name="KeyValueIsWrongType" xml:space="preserve">
+    <value>Key value is the wrong type. Expected assignable from {0}. Actual {1}.</value>
+  </data>
+  <data name="DeferredLoadingRequiresObjectTracking" xml:space="preserve">
+    <value>Deferred loading requires that object tracking is also enabled.</value>
+  </data>
+  <data name="CannotPerformOperationOutsideSubmitChanges" xml:space="preserve">
+    <value>The operation can only be performed inside a user override method during a call to SubmitChanges.</value>
+  </data>
+  <data name="DeleteCallbackComment" xml:space="preserve">
+    <value>--Callback into user code for delete.</value>
+  </data>
+  <data name="CantAddAlreadyExistingItem" xml:space="preserve">
+    <value>Cannot add an entity that already exists.</value>
+  </data>
+  <data name="EntitySetAlreadyLoaded" xml:space="preserve">
+    <value>The EntitySet is already loaded and the source cannot be changed.</value>
+  </data>
+  <data name="NonEntityAssociationMapping" xml:space="preserve">
+    <value>Invalid association mapping for member '{0}.{1}'.  '{2}' is not an entity.</value>
+  </data>
+  <data name="DbGeneratedChangeNotAllowed" xml:space="preserve">
+    <value>Value of member '{0}' of an object of type '{1}' changed. A member that is computed or generated by the database cannot be changed.</value>
+  </data>
+  <data name="CycleDetected" xml:space="preserve">
+    <value>A cycle was detected in the set of changes</value>
+  </data>
+  <data name="CannotRemoveUnattachedEntity" xml:space="preserve">
+    <value>Cannot remove an entity that has not been attached.</value>
+  </data>
+  <data name="IdentityChangeNotAllowed" xml:space="preserve">
+    <value>Value of member '{0}' of an object of type '{1}' changed. A member defining the identity of the object cannot be changed. Consider adding a new object with new identity and deleting the existing one instead.</value>
+  </data>
+  <data name="ProviderDoesNotImplementRequiredInterface" xml:space="preserve">
+    <value>Specified provider type '{0}' does not implement '{1}'.</value>
+  </data>
+  <data name="TypeCouldNotBeTracked" xml:space="preserve">
+    <value>Instance of type '{0}' could not be tracked. This type is not part of the mapped type system.</value>
+  </data>
+  <data name="IncludeCycleNotAllowed" xml:space="preserve">
+    <value>Cycles not allowed in LoadOptions LoadWith type graph.</value>
+  </data>
+  <data name="ProviderTypeNull" xml:space="preserve">
+    <value>Non-null provider type expected.</value>
+  </data>
+  <data name="ExpectedUpdateDeleteOrChange" xml:space="preserve">
+    <value>Expected update, delete or change.</value>
+  </data>
+  <data name="CannotPerformOperationDuringSubmitChanges" xml:space="preserve">
+    <value>The operation cannot be performed during a call to SubmitChanges.</value>
+  </data>
+  <data name="CouldNotGetTableForSubtype" xml:space="preserve">
+    <value>Could not retrieve a Table for inheritance subtype '{0}', try Table of {1} instead.</value>
+  </data>
+  <data name="UpdateCallbackComment" xml:space="preserve">
+    <value>--Callback into user code for update.</value>
+  </data>
+  <data name="SubqueryMustBeSequence" xml:space="preserve">
+    <value>Subquery must be a sequence expression.</value>
+  </data>
+  <data name="CouldNotRemoveRelationshipBecauseOneSideCannotBeNull" xml:space="preserve">
+    <value>An attempt was made to remove a relationship between a {0} and a {1}. However, one of the relationship's foreign keys ({2}) cannot be set to null.</value>
+  </data>
+  <data name="SubqueryNotSupportedOnType" xml:space="preserve">
+    <value>Subquery is not supported on '{0}' of type '{1}'.</value>
+  </data>
+  <data name="RefreshOfDeletedObject" xml:space="preserve">
+    <value>Unable to refresh the specified object.  The object no longer exists in the database.</value>
+  </data>
+  <data name="TypeCouldNotBeAdded" xml:space="preserve">
+    <value>Instance of type '{0}' could not be added. This type is not part of the mapped type system.</value>
+  </data>
+  <data name="NoMethodInTypeMatchingArguments" xml:space="preserve">
+    <value>No method in type '{0}' matching arguments.</value>
+  </data>
+  <data name="UnexpectedNode" xml:space="preserve">
+    <value>Unexpected node: {0}</value>
+  </data>
+	<data name="BinaryOperatorNotRecognized" xml:space="preserve"><value>Binary operator not recognized: {0}</value></data>
+	<data name="IndexOfWithStringComparisonArgNotSupported" xml:space="preserve"><value>The translation of String.IndexOf to SQL does not support versions with a StringComparison argument.</value></data>
+	<data name="TypeColumnWithUnhandledSource" xml:space="preserve"><value>Type column with unhandled source</value></data>
+	<data name="SqlMethodOnlyForSql" xml:space="preserve"><value>Method '{0}' cannot be used on the client; it is only for translation to SQL.</value></data>
+	<data name="SelectManyDoesNotSupportStrings" xml:space="preserve"><value>SelectMany does not support strings.</value></data>
+	<data name="Impossible" xml:space="preserve"><value>Should not have reached this point.</value></data>
+	<data name="QueryOnLocalCollectionNotSupported" xml:space="preserve"><value>Queries with local collections are not supported.</value></data>
+	<data name="UnionIncompatibleConstruction" xml:space="preserve"><value>Types in Union or Concat are constructed incompatibly.</value></data>
+	<data name="ExpectedBitFoundPredicate" xml:space="preserve"><value>Expected a Bit here but found a Predicate.</value></data>
+	<data name="NonCountAggregateFunctionsAreNotValidOnProjections" xml:space="preserve"><value>Parameterless aggregate operator '{0}' is not supported over projections.</value></data>
+	<data name="CannotCompareItemsAssociatedWithDifferentTable" xml:space="preserve"><value>Cannot compare entities associated with different tables.</value></data>
+	<data name="SprocsCannotBeComposed" xml:space="preserve"><value>Stored procedures cannot be used inside queries.</value></data>
+	<data name="VbLikeUnclosedBracket" xml:space="preserve"><value>Pattern contains unclosed bracket.</value></data>
+	<data name="UnsupportedTypeConstructorForm" xml:space="preserve"><value>Constructor for server type '{0}' is not supported.</value></data>
+	<data name="MethodFormHasNoSupportConversionToSql" xml:space="preserve"><value>The method '{0}' has a translation to SQL, but the overload '{1}' does not.</value></data>
+	<data name="TypeBinaryOperatorNotRecognized" xml:space="preserve"><value>Type Binary operator not recognized.</value></data>
+	<data name="CreateDatabaseFailedBecauseOfContextWithNoTables" xml:space="preserve"><value>Unable to create database because data context '{0}' has no tables.</value></data>
+	<data name="TypeCannotBeOrdered" xml:space="preserve"><value>Cannot order by type '{0}'.</value></data>
+	<data name="SimpleCaseShouldNotHold" xml:space="preserve"><value>Simple case should not hold '{0}' should probably have been SqlClientCase.</value></data>
+	<data name="ClrBoolDoesNotAgreeWithSqlType" xml:space="preserve"><value>Expected Node with CLR Type of 'bool' to have SQL type of 'Bit' or 'Predicate'. Instead, it was type '{0}'.</value></data>
+	<data name="MathRoundNotSupported" xml:space="preserve"><value>For translation to SQL, the Math.Round method needs a MidpointRounding parameter. Use 'AwayFromZero' to specify the SQL function ROUND.</value></data>
+	<data name="CouldNotGetClrType" xml:space="preserve"><value>Could not get the ClrType.</value></data>
+	<data name="UnionWithHierarchy" xml:space="preserve"><value>Types in Union or Concat cannot be constructed with hierarchy.</value></data>
+	<data name="UnsupportedDateTimeOffsetConstructorForm" xml:space="preserve"><value>DateTimeOffset constructor form is not supported.</value></data>
+	<data name="CannotDeleteTypesOf" xml:space="preserve"><value>Cannot delete items of type {0}.</value></data>
+	<data name="ArgumentTypeMismatch" xml:space="preserve"><value>One or more type mismatches in argument '{0}'.</value></data>
+	<data name="UnsafeStringConversion" xml:space="preserve"><value>Unsafe string conversion from {0} to {1} may lead to implicit truncation.  Try reshaping the string explicitly with a Substring operation.</value></data>
+	<data name="DidNotExpectAs" xml:space="preserve"><value>Did not expect 'as' operator in '{0}'.</value></data>
+	<data name="ProviderNotInstalled" xml:space="preserve"><value>Cannot open '{0}'. Provider '{1}' not installed.</value></data>
+	<data name="InvalidDbGeneratedType" xml:space="preserve"><value>The primary key column of type '{0}' cannot be generated by the server. </value></data>
+	<data name="CannotTranslateExpressionToSql" xml:space="preserve"><value>Cannot translate expression to SQL for this server version.</value></data>
+	<data name="VbLikeDoesNotSupportMultipleCharacterRanges" xml:space="preserve"><value>Cannot translate multiple character ranges in the pattern argument.</value></data>
+	<data name="MemberCannotBeTranslated" xml:space="preserve"><value>The member '{0}.{1}' has no supported translation to SQL.</value></data>
+	<data name="UnsupportedNodeType" xml:space="preserve"><value>The node type '{0}' is not supported.</value></data>
+	<data name="SequenceOperatorsNotSupportedForType" xml:space="preserve"><value>Sequence operators not supported for type '{0}'.</value></data>
+	<data name="UnexpectedSharedExpressionReference" xml:space="preserve"><value>Unexpected shared-expression reference found.</value></data>
+	<data name="InvalidReferenceToRemovedAliasDuringDeflation" xml:space="preserve"><value>Reference to removed alias discovered during deflation.</value></data>
+	<data name="SkipIsValidOnlyOverOrderedQueries" xml:space="preserve"><value>The Skip operator is valid only over ordered queries.</value></data>
+	<data name="CouldNotConvertToPropertyOrField" xml:space="preserve"><value>MemberInfo '{0}' had no corresponding field or property.</value></data>
+	<data name="DeferredMemberWrongType" xml:space="preserve"><value>Deferred member not one of EntitySet, EntityRef, or Link.</value></data>
+	<data name="RequiredColumnDoesNotExist" xml:space="preserve"><value>The required column '{0}' does not exist in the results.</value></data>
+	<data name="ColumnCannotReferToItself" xml:space="preserve"><value>Column cannot refer to itself.</value></data>
+	<data name="UnableToBindUnmappedMember" xml:space="preserve"><value>Binding error: Member '{0}.{1}' is not a mapped member of '{2}'.</value></data>
+	<data name="InvalidProviderType" xml:space="preserve"><value>The specified type '{0}' is not a valid provider type.</value></data>
+	<data name="UnsupportedTimeSpanConstructorForm" xml:space="preserve"><value>TimeSpan constructor form is not supported.</value></data>
+	<data name="CompiledQueryCannotReturnType" xml:space="preserve"><value>A compiled query cannot return type '{0}'.</value></data>
+	<data name="CouldNotAssignSequence" xml:space="preserve"><value>Could not assign sequence of {0} to type {1}.</value></data>
+	<data name="BadParameterType" xml:space="preserve"><value>A query parameter cannot be of type '{0}'.</value></data>
+	<data name="ConvertToDateTimeOnlyForDateTimeOrString" xml:space="preserve"><value>Only DateTimes or strings can be converted to DateTime.</value></data>
+	<data name="MemberNotPartOfProjection" xml:space="preserve"><value>Binding error: Member '{0}.{1}' not found in projection.</value></data>
+	<data name="ValueHasNoLiteralInSql" xml:space="preserve"><value>Value has no literal in SQL: {0}</value></data>
+	<data name="UnsupportedDateTimeConstructorForm" xml:space="preserve"><value>DateTime constructor form is not supported.</value></data>
+	<data name="InvalidMethodExecution" xml:space="preserve"><value>The method '{0}' is not mapped as a stored procedure or user-defined function.</value></data>
+	<data name="GroupingNotSupportedAsOrderCriterion" xml:space="preserve"><value>A grouping cannot be used as an order criterion; you may want to use its key instead.</value></data>
+	<data name="MaxSizeNotSupported" xml:space="preserve"><value>Translation would contain an out parameter of type Text, NText, or Image: {0}</value></data>
+	<data name="CouldNotDetermineSqlType" xml:space="preserve"><value>Unable to determine SQL type for '{0}'.</value></data>
+	<data name="WrongNumberOfValuesInCollectionArgument" xml:space="preserve"><value>Wrong number of values in '{0}'. Expected {1}. Actually {2}.</value></data>
+	<data name="InvalidSequenceOperatorCall" xml:space="preserve"><value>Sequence operator call is only valid for Sequence, Queryable, or DataQueryExtensions not for '{0}'.</value></data>
+	<data name="ColumnIsNotAccessibleThroughGroupBy" xml:space="preserve"><value>Column '{0}' is not accessible through group by.</value></data>
+	<data name="LenOfTextOrNTextNotSupported" xml:space="preserve"><value>Translation would contain LEN of Text or NText arguments: {0}</value></data>
+	<data name="ExpectedClrTypesToAgree" xml:space="preserve"><value>Expected ClrTypes to agree. One was '{0}' the other was '{1}'.</value></data>
+	<data name="ComparisonNotSupportedForType" xml:space="preserve"><value>Comparison operators not supported for type '{0}'.</value></data>
+	<data name="CouldNotGetSqlType" xml:space="preserve"><value>Could not get the SqlType.</value></data>
+	<data name="QueryOperatorNotSupported" xml:space="preserve"><value>The query operator '{0}' is not supported.</value></data>
+	<data name="UnionOfIncompatibleDynamicTypes" xml:space="preserve"><value>Sources of type GetType or typeof are incompatible for Union-like operation.</value></data>
+	<data name="UnexpectedFloatingColumn" xml:space="preserve"><value>Column declaration found outside row or table declaration.</value></data>
+	<data name="UnionDifferentMembers" xml:space="preserve"><value>Types in Union or Concat have different members assigned.</value></data>
+	<data name="IntersectNotSupportedForHierarchicalTypes" xml:space="preserve"><value>Intersect is not supported for hierarchical result types.</value></data>
+	<data name="IifReturnTypesMustBeEqual" xml:space="preserve"><value>The IIF method returns two separate types: {0}, {1}.  Translation to SQL does not support different return types.</value></data>
+	<data name="InvalidGroupByExpressionType" xml:space="preserve"><value>A group by expression can only contain non-constant scalars that are comparable by the server. The expression with type '{0}' is not comparable.</value></data>
+	<data name="InvalidOrderByExpression" xml:space="preserve"><value>An order by expression can only contain non-constant scalars that are order comparable by the server. The expression with type '{0}' is not order comparable.</value></data>
+	<data name="UnexpectedTypeCode" xml:space="preserve"><value>Unexpected type code: {0}</value></data>
+	<data name="CannotAggregateType" xml:space="preserve"><value>The type '{0}' is not supported in aggregation operations.</value></data>
+	<data name="ReaderUsedAfterDispose" xml:space="preserve"><value>Reader used after dispose.</value></data>
+	<data name="CouldNotTranslateExpressionForReading" xml:space="preserve"><value>Could not translate expression '{0}' into SQL and could not treat it as a local expression.</value></data>
+	<data name="UnrecognizedProviderMode" xml:space="preserve"><value>'{0}' is not a valid provider mode.</value></data>
+	<data name="CouldNotDetermineDbGeneratedSqlType" xml:space="preserve"><value>Unable to determine SQL type for '{0}' that can also be generated by the server.</value></data>
+	<data name="EmptyCaseNotSupported" xml:space="preserve"><value>Empty case is not supported.</value></data>
+	<data name="MethodHasNoSupportConversionToSql" xml:space="preserve"><value>Method '{0}' has no supported translation to SQL.</value></data>
+	<data name="ContextNotInitialized" xml:space="preserve"><value>SqlContext is not initialized.</value></data>
+	<data name="ColumnReferencedIsNotInScope" xml:space="preserve"><value>Column referenced is not in scope: '{0}'.</value></data>
+	<data name="GeneralCollectionMaterializationNotSupported" xml:space="preserve"><value>General collection materialization is not supported.</value></data>
+	<data name="ExpressionNotDeferredQuerySource" xml:space="preserve"><value>Expression is not a deferred query source.</value></data>
+	<data name="MappedTypeMustHaveDefaultConstructor" xml:space="preserve"><value>The type '{0}' must declare a default (parameterless) constructor in order to be constructed during mapping.</value></data>
+	<data name="ExceptNotSupportedForHierarchicalTypes" xml:space="preserve"><value>Except is not supported for hierarchical result types.</value></data>
+	<data name="TransactionDoesNotMatchConnection" xml:space="preserve"><value>Transaction does not match connection.</value></data>
+	<data name="QueryOperatorOverloadNotSupported" xml:space="preserve"><value>Unsupported overload used for query operator '{0}'.</value></data>
+	<data name="ColumnIsDefinedInMultiplePlaces" xml:space="preserve"><value>Column '{0}' is defined in multiple places.</value></data>
+	<data name="UnsupportedStringConstructorForm" xml:space="preserve"><value>String constructor form is not supported.</value></data>
+	<data name="ProviderCannotBeUsedAfterDispose" xml:space="preserve"><value>Provider cannot be accessed after Dispose.</value></data>
+	<data name="ArgumentWrongValue" xml:space="preserve"><value>The argument '{0}' was the wrong value. </value></data>
+	<data name="ColumnClrTypeDoesNotAgreeWithExpressionsClrType" xml:space="preserve"><value>The ClrType of the column did not agree with the ClrType of the expression.</value></data>
+	<data name="SourceExpressionAnnotation" xml:space="preserve"><value>Source Expression: {0}</value></data>
+	<data name="CouldNotHandleAliasRef" xml:space="preserve"><value>Could not handle alias ref of {0}.</value></data>
+	<data name="ConstructedArraysNotSupported" xml:space="preserve"><value>Constructed arrays are only supported for Contains.</value></data>
+	<data name="UnmappedDataMember" xml:space="preserve"><value>Data member '{0}' of type '{1}' is not part of the mapping for type '{2}'. Is the member above the root of an inheritance hierarchy?</value></data>
+	<data name="InvalidConnectionArgument" xml:space="preserve"><value>'{0}' must be string, SqlConnection, SqlCeConnection, SqlTransaction, or SqlCeTransaction.</value></data>
+	<data name="TextNTextAndImageCannotOccurInUnion" xml:space="preserve"><value>Translation would contain an expression of type Text, NText, or Image in a SELECT within a UNION: {0}</value></data>
+	<data name="LogGeneralInfoMessage" xml:space="preserve"><value>{0}: {1}.</value></data>
+	<data name="ClientCaseShouldNotHold" xml:space="preserve"><value>Client case should not hold '{0}'. It should probably have been SqlSimpleCase.</value></data>
+	<data name="InvalidFormatNode" xml:space="preserve"><value>Could not format node '{0}' for execution as SQL.</value></data>
+	<data name="MemberCouldNotBeTranslated" xml:space="preserve"><value>Member '{0}.{1}' could not be translated.</value></data>
+	<data name="CannotAssignNull" xml:space="preserve"><value>The null value cannot be assigned to a member with type {0} which is a non-nullable value type.</value></data>
+	<data name="CannotEnumerateResultsMoreThanOnce" xml:space="preserve"><value>The query results cannot be enumerated more than once.</value></data>
+	<data name="CapturedValuesCannotBeSequences" xml:space="preserve"><value>Local sequence cannot be used in LINQ to SQL implementations of query operators except the Contains operator.</value></data>
+	<data name="ParameterNotInScope" xml:space="preserve"><value>The parameter '{0}' is not in scope.</value></data>
+	<data name="CannotMaterializeEntityType" xml:space="preserve"><value>Explicit construction of entity type '{0}' in query is not allowed.</value></data>
+	<data name="MethodNotMappedToStoredProcedure" xml:space="preserve"><value>The method specified ({0}) is not mapped to a stored procedure.</value></data>
+	<data name="NonConstantExpressionsNotSupportedFor" xml:space="preserve"><value>Only arguments that can be evaluated on the client are supported for the {0} method.</value></data>
+	<data name="TextNTextAndImageCannotOccurInDistinct" xml:space="preserve"><value>Translation would contain an expression of type Text, NText, or Image in a SELECT DISTINCT clause: {0}</value></data>
+	<data name="ToStringOnlySupportedForPrimitiveTypes" xml:space="preserve"><value>Method ToString can only be translated to SQL for primitive types.</value></data>
+	<data name="UpdateItemMustBeConstant" xml:space="preserve"><value>The item of an Update must be a constant value expression.</value></data>
+	<data name="CannotMaterializeList" xml:space="preserve"><value>Cannot create a query result of type '{0}'.</value></data>
+	<data name="DidNotExpectTypeChange" xml:space="preserve"><value>Did not expect operation to change result type. Original type was '{0}' new type is '{1}'.</value></data>
+	<data name="InfiniteDescent" xml:space="preserve"><value>Descent limit exceeded.</value></data>
+	<data name="CannotConvertToEntityRef" xml:space="preserve"><value>Cannot convert type '{0}' to EntityRef/Link.</value></data>
+	<data name="ColumnIsNotAccessibleThroughDistinct" xml:space="preserve"><value>Column '{0}' is not accessible through distinct.</value></data>
+	<data name="UnexpectedSharedExpression" xml:space="preserve"><value>Unexpected shared-expression found.</value></data>
+	<data name="MemberAccessIllegal" xml:space="preserve"><value>Member access '{0}' of '{1}' not legal on type '{2}.</value></data>
+	<data name="CompiledQueryAgainstMultipleShapesNotSupported" xml:space="preserve"><value>Compiled queries across DataContexts with different LoadOptions not supported.</value></data>
+	<data name="ExpectedNoObjectType" xml:space="preserve"><value>Expected no ObjectType nodes to remain.</value></data>
+	<data name="WrongDataContext" xml:space="preserve"><value>The query contains references to items defined on a different data context.</value></data>
+	<data name="LogAttemptingToDeleteDatabase" xml:space="preserve"><value>Attempting to delete the database '{0}'.</value></data>
+	<data name="ExpectedPredicateFoundBit" xml:space="preserve"><value>Expected a Predicate here but found a Bit.</value></data>
+	<data name="CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists" xml:space="preserve"><value>Unable to create database because the database '{0}' already exists.</value></data>
+	<data name="SkipRequiresSingleTableQueryWithPKs" xml:space="preserve"><value>This provider supports Skip only over ordered queries returning entities or projections that contain all identity columns, where the query is a single-table (non-join) query, or is a Distinct, Except, Intersect, or Union (not Concat) operation.</value></data>
+	<data name="CouldNotDetermineCatalogName" xml:space="preserve"><value>Unable to determine catalog name.</value></data>
+	<data name="InsertItemMustBeConstant" xml:space="preserve"><value>The item of an Insert must be a constant value expression.</value></data>
+	<data name="BadProjectionInSelect" xml:space="preserve"><value>Bad projection in Select.</value></data>
+	<data name="NonConstantExpressionsNotSupportedForRounding" xml:space="preserve"><value>Only arguments that can be evaluated on the client are supported for the MidpointRounding argument in Math.Round.</value></data>
+	<data name="DistributedTransactionsAreNotAllowed" xml:space="preserve"><value>Distributed transactions are not allowed.</value></data>
+	<data name="UnrecognizedExpressionNode" xml:space="preserve"><value>Unrecognized expression node: {0}</value></data>
+	<data name="InvalidGroupByExpression" xml:space="preserve"><value>The group by operation contains an expression that cannot be translated.</value></data>
+	<data name="UnhandledStringTypeComparison" xml:space="preserve"><value>SQL Server does not handle comparison of NText, Text, Xml, or Image data types.</value></data>
+	<data name="ClassLiteralsNotAllowed" xml:space="preserve"><value>Class literals are not allowed: {0}.</value></data>
+	<data name="CreateDatabaseFailedBecauseOfClassWithNoMembers" xml:space="preserve"><value>Unable to create database because mapped class '{0}' has zero members.</value></data>
+	<data name="ArgumentWrongType" xml:space="preserve"><value>The argument '{0}' was the wrong type. Expected '{1}'. Actual '{2}'.</value></data>
+	<data name="UnhandledMemberAccess" xml:space="preserve"><value>Member '{0}' on node type '{1}' does not have a known translation to SQL.</value></data>
+	<data name="ArgumentEmpty" xml:space="preserve"><value>The string parameter '{0}' was expected to have length greater than zero.</value></data>
+	<data name="DidNotExpectTypeBinding" xml:space="preserve"><value>Did not expect type binding back. This should result in a type case not a simple case.</value></data>
+	<data name="ConvertToCharFromBoolNotSupported" xml:space="preserve"><value>There is no supported conversion from a Boolean to a Character type.</value></data>
+	<data name="LastIndexOfWithStringComparisonArgNotSupported" xml:space="preserve"><value>The translation of String.LastIndexOf to SQL does not support versions with a StringComparison argument.</value></data>
+	<data name="IQueryableCannotReturnSelfReferencingConstantExpression" xml:space="preserve"><value>An IQueryable that returns a self-referencing Constant expression is not supported.</value></data>
+	<data name="ResultTypeNotMappedToFunction" xml:space="preserve"><value>Result type '{0}' is not mapped to function '{1}'.</value></data>
+	<data name="DatabaseDeleteThroughContext" xml:space="preserve"><value>Operation not allowed after DeleteDatabase call.</value></data>
+	<data name="InvalidReturnFromSproc" xml:space="preserve"><value>'{0}' is not a valid return type for a mapped stored procedure method.</value></data>
+	<data name="LogStoredProcedureExecution" xml:space="preserve"><value>Execute stored procedure: {0}({1}).</value></data>
+	<data name="SkipNotSupportedForSequenceTypes" xml:space="preserve"><value>The Skip operator is not supported for sequences containing sequences (with the exception of IGrouping under SQL Server 2005).</value></data>
+	<data name="CannotAssignToMember" xml:space="preserve"><value>Cannot assign value to member '{0}'. It does not define a setter.</value></data>
+	<data name="ParametersCannotBeSequences" xml:space="preserve"><value>Parameters cannot be sequences.</value></data>
+	<data name="UnionDifferentMemberOrder" xml:space="preserve"><value>Types in Union or Concat have members assigned in different order.</value></data>
+	<data name="TooManyResultTypesDeclaredForFunction" xml:space="preserve"><value>More than one result type declared for function '{0}' that does not return IMultipleResults.</value></data>
+	<data name="InheritanceTypeHasMultipleDefaults" xml:space="preserve"><value>The inheritance type '{0}' has multiple defaults.</value></data>
+	<data name="UnexpectedElement" xml:space="preserve"><value>Expected element '{0}', but found '{1}'.</value></data>
+	<data name="BadFunctionTypeInMethodMapping" xml:space="preserve"><value>Mapping Problem: Bad function type in mapping for method '{0}'.</value></data>
+	<data name="InheritanceTypeDoesNotDeriveFromRoot" xml:space="preserve"><value>Inheritance type '{0}' does not derive from inheritance root type '{1}'.</value></data>
+	<data name="UnexpectedNull" xml:space="preserve"><value>Unexpected null '{0}'.</value></data>
+	<data name="UnableToResolveRootForType" xml:space="preserve"><value>Mapping Problem: Unable to resolve root for type '{0}'.</value></data>
+	<data name="IdentityClrTypeNotSupported" xml:space="preserve"><value>Invalid type mapping for Identity member '{0}.{1}'.  Type '{2}' is not supported for identity members.</value></data>
+	<data name="InheritanceCodeMayNotBeNull" xml:space="preserve"><value>Inheritance code value may not be null.</value></data>
+	<data name="CannotGetInheritanceDefaultFromNonInheritanceClass" xml:space="preserve"><value>Mapping Problem: Cannot get inheritance default from class not mapped into an inheritance hierarchy.</value></data>
+	<data name="DatabaseNodeNotFound" xml:space="preserve"><value>Database node not found.  Is the mapping namespace ({0}) correctly specified?</value></data>
+	<data name="NonInheritanceClassHasDiscriminator" xml:space="preserve"><value>The inheritance type '{0}' has a discriminator but is not part of a mapped inheritance hierarchy.</value></data>
+	<data name="MappingOfInterfacesMemberIsNotSupported" xml:space="preserve"><value>The mapping of interface member {0}.{1} is not supported.</value></data>
+	<data name="InheritanceSubTypeIsAlsoRoot" xml:space="preserve"><value>The inheritance subtype '{0}' is also declared as a root type.</value></data>
+	<data name="CouldNotFindRequiredAttribute" xml:space="preserve"><value>Mapping Problem: Could not find required attribute '{0}': {1}.</value></data>
+	<data name="InvalidDeleteOnNullSpecification" xml:space="preserve"><value>Invalid DeleteOnNull specification for member '{0}'. DeleteOnNull can only be true for singleton association members mapped to non-nullable foreign key columns.</value></data>
+	<data name="CouldNotFindTypeFromMapping" xml:space="preserve"><value>Mapping Problem: Cannot find type '{0}' from mapping.</value></data>
+	<data name="InvalidFieldInfo" xml:space="preserve"><value>Could not create FieldAccessor&lt;{0},{1}&gt; from FieldInfo '{2}'.</value></data>
+	<data name="BadStorageProperty" xml:space="preserve"><value>Bad Storage property: '{0}' on member '{1}.{2}'.</value></data>
+	<data name="InheritanceCodeUsedForMultipleTypes" xml:space="preserve"><value>The inheritance code '{0}' is used for multiple types.</value></data>
+	<data name="TwoMembersMarkedAsPrimaryKeyAndDBGenerated" xml:space="preserve"><value>Members '{0}' and '{1}' both marked as IsPrimaryKey and IsDbGenerated.</value></data>
+	<data name="EntityRefAlreadyLoaded" xml:space="preserve"><value>The EntityRef is already loaded and the source cannot be changed.</value></data>
+	<data name="CouldNotFindRuntimeTypeForMapping" xml:space="preserve"><value>Mapping Problem: Cannot find runtime type for type mapping '{0}'.</value></data>
+	<data name="MethodCannotBeFound" xml:space="preserve"><value>Method '{0}' cannot be found.</value></data>
+	<data name="CouldNotCreateAccessorToProperty" xml:space="preserve"><value>Could not create PropertyAccessor&lt;{0},{1}&gt; to {2}.</value></data>
+	<data name="InheritanceTypeHasMultipleDiscriminators" xml:space="preserve"><value>The inherited type '{0}' cannot have multiple discriminator key values.</value></data>
+	<data name="MismatchedThisKeyOtherKey" xml:space="preserve"><value>The number of ThisKey columns is different from the number of OtherKey columns for the association property '{0}' in the type '{1}'.</value></data>
+	<data name="BadKeyMember" xml:space="preserve"><value>Could not find key member '{0}' of key '{1}' on type '{2}'. The key may be wrong or the field or property on '{2}' has changed names.</value></data>
+	<data name="CouldNotFindElementTypeInModel" xml:space="preserve"><value>Mapping Problem: Could not find element type in model for '{0}'.</value></data>
+	<data name="MemberMappedMoreThanOnce" xml:space="preserve"><value>The member '{0}' is mapped more than once.</value></data>
+	<data name="ProviderTypeNotFound" xml:space="preserve"><value>Specified provider type '{0}' not found.</value></data>
+	<data name="LinkAlreadyLoaded" xml:space="preserve"><value>The Link is already loaded and the source cannot be changed.</value></data>
+	<data name="UnrecognizedAttribute" xml:space="preserve"><value>Unrecognized attribute '{0}' in mapping file.</value></data>
+	<data name="IncorrectNumberOfParametersMappedForMethod" xml:space="preserve"><value>Mapping Problem: Incorrect number of parameters mapped for method '{0}'.</value></data>
+	<data name="TwoMembersMarkedAsInheritanceDiscriminator" xml:space="preserve"><value>Members '{0}' and '{1}' both marked as inheritance discriminator.</value></data>
+	<data name="DiscriminatorClrTypeNotSupported" xml:space="preserve"><value>Discriminator '{0}.{1}' may not be type '{2}'.</value></data>
+	<data name="InvalidUseOfGenericMethodAsMappedFunction" xml:space="preserve"><value>Invalid use of generic method '{0}' as mapped function.</value></data>
+	<data name="MappedMemberHadNoCorrespondingMemberInType" xml:space="preserve"><value>The column or association '{0}' in the mapping had no corresponding member in type '{1}'. Mapping members from above root type is not supported.</value></data>
+	<data name="UnableToAssignValueToReadonlyProperty" xml:space="preserve"><value>Unable to assign value to read only property '{0}'.</value></data>
+	<data name="UnmappedClassMember" xml:space="preserve"><value>Class member {0}.{1} is unmapped.</value></data>
+	<data name="UnhandledDeferredStorageType" xml:space="preserve"><value>Unhandled deferred storage type: {0}.</value></data>
+	<data name="ExpectedEmptyElement" xml:space="preserve"><value>Element '{0}' must be empty, but contains a node of type {1} named '{2}'.</value></data>
+	<data name="AbstractClassAssignInheritanceDiscriminator" xml:space="preserve"><value>Abstract class '{0}' should not be assigned an inheritance discriminator key.</value></data>
+	<data name="InheritanceHierarchyDoesNotDefineDefault" xml:space="preserve"><value>The inheritance hierarchy rooted at '{0}' does not define a default.</value></data>
+	<data name="TwoMembersMarkedAsRowVersion" xml:space="preserve"><value>Members '{0}' and '{1}' both marked as row version.</value></data>
+	<data name="IncorrectAutoSyncSpecification" xml:space="preserve"><value>Incorrect AutoSync specification for member '{0}'.</value></data>
+	<data name="NoDiscriminatorFound" xml:space="preserve"><value>The inheritance type '{0}' does not declare a discriminator column.</value></data>
+	<data name="UnrecognizedElement" xml:space="preserve"><value>Unrecognized element '{0}' in mapping file.</value></data>
+	<data name="MappingForTableUndefined" xml:space="preserve"><value>Mapping Problem: Mapping for table '{0}' is not defined.</value></data>
+	<data name="NoResultTypesDeclaredForFunction" xml:space="preserve"><value>No result types declared for function '{0}' that returns IMultipleResults.</value></data>
+	<data name="PrimaryKeyInSubTypeNotSupported" xml:space="preserve"><value>The subtype '{0}' cannot contain the primary key member '{1}'.</value></data>
 </root>

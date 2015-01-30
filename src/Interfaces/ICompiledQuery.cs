@@ -14,7 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace System.Data.Linq
 {
-	using System.Data.Linq.Provider;
+	using Linq;
 
 	/// <summary>
 	/// A compiled query.

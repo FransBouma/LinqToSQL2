@@ -9,7 +9,7 @@ using System.Security;
 using System.Runtime.CompilerServices;
 
 namespace System.Data.Linq.Mapping {
-    using System.Data.Linq.Provider;
+    using Linq;
     using System.Diagnostics.CodeAnalysis;
 
     internal class EntitySetDefSourceAccessor<T, V> : MetaAccessor<T, IEnumerable<V>> where V : class {

@@ -13,7 +13,7 @@ using LinqToSqlShared.Mapping;
 
 namespace System.Data.Linq.Mapping
 {
-	using System.Data.Linq.Provider;
+	using Linq;
 	using System.Diagnostics.CodeAnalysis;
 
 	/// <summary>

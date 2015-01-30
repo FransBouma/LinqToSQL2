@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Data.Linq {
     using System.Data.Linq.Mapping;
-    using System.Data.Linq.Provider;
+    using Linq;
 
     internal abstract class IdentityManager {
         internal abstract object InsertLookup(MetaType type, object instance);

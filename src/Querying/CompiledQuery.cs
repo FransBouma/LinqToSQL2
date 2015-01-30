@@ -13,7 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Transactions;
-using System.Data.Linq.Provider;
+using System.Data.Linq;
 using System.Diagnostics.CodeAnalysis;
 
 namespace System.Data.Linq {

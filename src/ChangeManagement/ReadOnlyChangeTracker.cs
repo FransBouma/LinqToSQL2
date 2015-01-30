@@ -9,7 +9,7 @@ using System.Text;
 namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
-	using System.Data.Linq.Provider;
+	using Linq;
 
 	/// <summary>
 	/// This is the implementation used when change tracking is disabled.

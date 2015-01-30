@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Data.Linq {
     using System.Data.Linq.Mapping;
-    using System.Data.Linq.Provider;
+    using Linq;
 	using System.Data.Linq.BindingLists;
 
     internal sealed class DataQuery<T> : IOrderedQueryable<T>, IQueryProvider, IEnumerable<T>, IOrderedQueryable, IEnumerable, IListSource {
