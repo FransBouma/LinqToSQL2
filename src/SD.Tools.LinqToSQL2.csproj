@@ -53,6 +53,21 @@
   <ItemGroup>
     <Compile Include="ChangeManagement\ReadOnlyChangeTracker.cs" />
     <Compile Include="ChangeManagement\StandardChangeTracker.cs" />
+    <Compile Include="Properties\Main.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Main.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Mapping.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mapping.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\SqlClient.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SqlClient.resx</DependentUpon>
+    </Compile>
     <Compile Include="Types\Binary.cs" />
     <Compile Include="ChangeManagement\ChangeConflictCollection.cs" />
     <Compile Include="ChangeManagement\MemberChangeConflict.cs" />
@@ -251,9 +266,21 @@
     <None Include="SD.Tools.LinqToDB.snk" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping.resources" />
-    <EmbeddedResource Include="Main.resources" />
-    <EmbeddedResource Include="SqlClient.resources" />
+    <EmbeddedResource Include="Properties\Main.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Main.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Mapping.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Mapping.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\SqlClient.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SqlClient.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

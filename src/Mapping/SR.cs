@@ -1,10 +1,3 @@
-//////////////////////////////////
-//
-//  This is a generated file and for now it's copied from the .NET 3.5 assembly as the original resx file isn't available 
-//  in the reference source.
-//
-//////////////////////////////////
-
 using System;
 using System.Globalization;
 using System.Resources;
@@ -83,7 +76,7 @@ namespace System.Data.Linq.Mapping
 		}
 		internal SR()
 		{
-			this.resources = new ResourceManager("System.Data.Linq.Mapping", base.GetType().Assembly);
+			this.resources = new ResourceManager("System.Data.Linq.Properties.Mapping", base.GetType().Assembly);
 		}
 		private static SR GetLoader()
 		{

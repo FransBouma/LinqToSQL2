@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="BinaryOperatorNotRecognized" xml:space="preserve"><value>Binary operator not recognized: {0}</value></data>
+	<data name="IndexOfWithStringComparisonArgNotSupported" xml:space="preserve"><value>The translation of String.IndexOf to SQL does not support versions with a StringComparison argument.</value></data>
+	<data name="UnhandledBindingType" xml:space="preserve"><value>Unhandled binding type: {0}</value></data>
+	<data name="TypeColumnWithUnhandledSource" xml:space="preserve"><value>Type column with unhandled source</value></data>
+	<data name="SqlMethodOnlyForSql" xml:space="preserve"><value>Method '{0}' cannot be used on the client; it is only for translation to SQL.</value></data>
+	<data name="SelectManyDoesNotSupportStrings" xml:space="preserve"><value>SelectMany does not support strings.</value></data>
+	<data name="Impossible" xml:space="preserve"><value>Should not have reached this point.</value></data>
+	<data name="QueryOnLocalCollectionNotSupported" xml:space="preserve"><value>Queries with local collections are not supported.</value></data>
+	<data name="NoMethodInTypeMatchingArguments" xml:space="preserve"><value>No method in type '{0}' matching arguments.</value></data>
+	<data name="UnionIncompatibleConstruction" xml:space="preserve"><value>Types in Union or Concat are constructed incompatibly.</value></data>
+	<data name="ExpectedBitFoundPredicate" xml:space="preserve"><value>Expected a Bit here but found a Predicate.</value></data>
+	<data name="NonCountAggregateFunctionsAreNotValidOnProjections" xml:space="preserve"><value>Parameterless aggregate operator '{0}' is not supported over projections.</value></data>
+	<data name="CannotCompareItemsAssociatedWithDifferentTable" xml:space="preserve"><value>Cannot compare entities associated with different tables.</value></data>
+	<data name="OwningTeam" xml:space="preserve"><value>DLinq</value></data>
+	<data name="SprocsCannotBeComposed" xml:space="preserve"><value>Stored procedures cannot be used inside queries.</value></data>
+	<data name="VbLikeUnclosedBracket" xml:space="preserve"><value>Pattern contains unclosed bracket.</value></data>
+	<data name="UnsupportedTypeConstructorForm" xml:space="preserve"><value>Constructor for server type '{0}' is not supported.</value></data>
+	<data name="MethodFormHasNoSupportConversionToSql" xml:space="preserve"><value>The method '{0}' has a translation to SQL, but the overload '{1}' does not.</value></data>
+	<data name="TypeBinaryOperatorNotRecognized" xml:space="preserve"><value>Type Binary operator not recognized.</value></data>
+	<data name="CreateDatabaseFailedBecauseOfContextWithNoTables" xml:space="preserve"><value>Unable to create database because data context '{0}' has no tables.</value></data>
+	<data name="TypeCannotBeOrdered" xml:space="preserve"><value>Cannot order by type '{0}'.</value></data>
+	<data name="CouldNotConvert" xml:space="preserve"><value>Could not convert from type '{0}' to type '{1}'.</value></data>
+	<data name="SimpleCaseShouldNotHold" xml:space="preserve"><value>Simple case should not hold '{0}' should probably have been SqlClientCase.</value></data>
+	<data name="ClrBoolDoesNotAgreeWithSqlType" xml:space="preserve"><value>Expected Node with CLR Type of 'bool' to have SQL type of 'Bit' or 'Predicate'. Instead, it was type '{0}'.</value></data>
+	<data name="MathRoundNotSupported" xml:space="preserve"><value>For translation to SQL, the Math.Round method needs a MidpointRounding parameter. Use 'AwayFromZero' to specify the SQL function ROUND.</value></data>
+	<data name="CouldNotGetClrType" xml:space="preserve"><value>Could not get the ClrType.</value></data>
+	<data name="UnexpectedNode" xml:space="preserve"><value>Unexpected node: {0}</value></data>
+	<data name="UnionWithHierarchy" xml:space="preserve"><value>Types in Union or Concat cannot be constructed with hierarchy.</value></data>
+	<data name="UnsupportedDateTimeOffsetConstructorForm" xml:space="preserve"><value>DateTimeOffset constructor form is not supported.</value></data>
+	<data name="CannotDeleteTypesOf" xml:space="preserve"><value>Cannot delete items of type {0}.</value></data>
+	<data name="ArgumentTypeMismatch" xml:space="preserve"><value>One or more type mismatches in argument '{0}'.</value></data>
+	<data name="UnsafeStringConversion" xml:space="preserve"><value>Unsafe string conversion from {0} to {1} may lead to implicit truncation.  Try reshaping the string explicitly with a Substring operation.</value></data>
+	<data name="DidNotExpectAs" xml:space="preserve"><value>Did not expect 'as' operator in '{0}'.</value></data>
+	<data name="ProviderNotInstalled" xml:space="preserve"><value>Cannot open '{0}'. Provider '{1}' not installed.</value></data>
+	<data name="InvalidDbGeneratedType" xml:space="preserve"><value>The primary key column of type '{0}' cannot be generated by the server. </value></data>
+	<data name="CannotTranslateExpressionToSql" xml:space="preserve"><value>Cannot translate expression to SQL for this server version.</value></data>
+	<data name="VbLikeDoesNotSupportMultipleCharacterRanges" xml:space="preserve"><value>Cannot translate multiple character ranges in the pattern argument.</value></data>
+	<data name="MemberCannotBeTranslated" xml:space="preserve"><value>The member '{0}.{1}' has no supported translation to SQL.</value></data>
+	<data name="UnsupportedNodeType" xml:space="preserve"><value>The node type '{0}' is not supported.</value></data>
+	<data name="SequenceOperatorsNotSupportedForType" xml:space="preserve"><value>Sequence operators not supported for type '{0}'.</value></data>
+	<data name="UnexpectedSharedExpressionReference" xml:space="preserve"><value>Unexpected shared-expression reference found.</value></data>
+	<data name="InvalidReferenceToRemovedAliasDuringDeflation" xml:space="preserve"><value>Reference to removed alias discovered during deflation.</value></data>
+	<data name="SkipIsValidOnlyOverOrderedQueries" xml:space="preserve"><value>The Skip operator is valid only over ordered queries.</value></data>
+	<data name="CouldNotConvertToPropertyOrField" xml:space="preserve"><value>MemberInfo '{0}' had no corresponding field or property.</value></data>
+	<data name="DeferredMemberWrongType" xml:space="preserve"><value>Deferred member not one of EntitySet, EntityRef, or Link.</value></data>
+	<data name="RequiredColumnDoesNotExist" xml:space="preserve"><value>The required column '{0}' does not exist in the results.</value></data>
+	<data name="ColumnCannotReferToItself" xml:space="preserve"><value>Column cannot refer to itself.</value></data>
+	<data name="UnableToBindUnmappedMember" xml:space="preserve"><value>Binding error: Member '{0}.{1}' is not a mapped member of '{2}'.</value></data>
+	<data name="InvalidProviderType" xml:space="preserve"><value>The specified type '{0}' is not a valid provider type.</value></data>
+	<data name="UnsupportedTimeSpanConstructorForm" xml:space="preserve"><value>TimeSpan constructor form is not supported.</value></data>
+	<data name="CompiledQueryCannotReturnType" xml:space="preserve"><value>A compiled query cannot return type '{0}'.</value></data>
+	<data name="CouldNotAssignSequence" xml:space="preserve"><value>Could not assign sequence of {0} to type {1}.</value></data>
+	<data name="BadParameterType" xml:space="preserve"><value>A query parameter cannot be of type '{0}'.</value></data>
+	<data name="ConvertToDateTimeOnlyForDateTimeOrString" xml:space="preserve"><value>Only DateTimes or strings can be converted to DateTime.</value></data>
+	<data name="MemberNotPartOfProjection" xml:space="preserve"><value>Binding error: Member '{0}.{1}' not found in projection.</value></data>
+	<data name="ExpectedQueryableArgument" xml:space="preserve"><value>Expected type '{0}' of argument '{1}' to implement IQueryable of '{2}'.</value></data>
+	<data name="ValueHasNoLiteralInSql" xml:space="preserve"><value>Value has no literal in SQL: {0}</value></data>
+	<data name="UnsupportedDateTimeConstructorForm" xml:space="preserve"><value>DateTime constructor form is not supported.</value></data>
+	<data name="InvalidMethodExecution" xml:space="preserve"><value>The method '{0}' is not mapped as a stored procedure or user-defined function.</value></data>
+	<data name="GroupingNotSupportedAsOrderCriterion" xml:space="preserve"><value>A grouping cannot be used as an order criterion; you may want to use its key instead.</value></data>
+	<data name="MaxSizeNotSupported" xml:space="preserve"><value>Translation would contain an out parameter of type Text, NText, or Image: {0}</value></data>
+	<data name="CouldNotDetermineSqlType" xml:space="preserve"><value>Unable to determine SQL type for '{0}'.</value></data>
+	<data name="WrongNumberOfValuesInCollectionArgument" xml:space="preserve"><value>Wrong number of values in '{0}'. Expected {1}. Actually {2}.</value></data>
+	<data name="InvalidSequenceOperatorCall" xml:space="preserve"><value>Sequence operator call is only valid for Sequence, Queryable, or DataQueryExtensions not for '{0}'.</value></data>
+	<data name="ColumnIsNotAccessibleThroughGroupBy" xml:space="preserve"><value>Column '{0}' is not accessible through group by.</value></data>
+	<data name="LenOfTextOrNTextNotSupported" xml:space="preserve"><value>Translation would contain LEN of Text or NText arguments: {0}</value></data>
+	<data name="ExpectedClrTypesToAgree" xml:space="preserve"><value>Expected ClrTypes to agree. One was '{0}' the other was '{1}'.</value></data>
+	<data name="ComparisonNotSupportedForType" xml:space="preserve"><value>Comparison operators not supported for type '{0}'.</value></data>
+	<data name="CouldNotGetSqlType" xml:space="preserve"><value>Could not get the SqlType.</value></data>
+	<data name="QueryOperatorNotSupported" xml:space="preserve"><value>The query operator '{0}' is not supported.</value></data>
+	<data name="UnionOfIncompatibleDynamicTypes" xml:space="preserve"><value>Sources of type GetType or typeof are incompatible for Union-like operation.</value></data>
+	<data name="UnexpectedFloatingColumn" xml:space="preserve"><value>Column declaration found outside row or table declaration.</value></data>
+	<data name="UnionDifferentMembers" xml:space="preserve"><value>Types in Union or Concat have different members assigned.</value></data>
+	<data name="IntersectNotSupportedForHierarchicalTypes" xml:space="preserve"><value>Intersect is not supported for hierarchical result types.</value></data>
+	<data name="IifReturnTypesMustBeEqual" xml:space="preserve"><value>The IIF method returns two separate types: {0}, {1}.  Translation to SQL does not support different return types.</value></data>
+	<data name="InvalidGroupByExpressionType" xml:space="preserve"><value>A group by expression can only contain non-constant scalars that are comparable by the server. The expression with type '{0}' is not comparable.</value></data>
+	<data name="InvalidOrderByExpression" xml:space="preserve"><value>An order by expression can only contain non-constant scalars that are order comparable by the server. The expression with type '{0}' is not order comparable.</value></data>
+	<data name="UnexpectedTypeCode" xml:space="preserve"><value>Unexpected type code: {0}</value></data>
+	<data name="CannotAggregateType" xml:space="preserve"><value>The type '{0}' is not supported in aggregation operations.</value></data>
+	<data name="ReaderUsedAfterDispose" xml:space="preserve"><value>Reader used after dispose.</value></data>
+	<data name="CouldNotTranslateExpressionForReading" xml:space="preserve"><value>Could not translate expression '{0}' into SQL and could not treat it as a local expression.</value></data>
+	<data name="UnrecognizedProviderMode" xml:space="preserve"><value>'{0}' is not a valid provider mode.</value></data>
+	<data name="CouldNotDetermineDbGeneratedSqlType" xml:space="preserve"><value>Unable to determine SQL type for '{0}' that can also be generated by the server.</value></data>
+	<data name="EmptyCaseNotSupported" xml:space="preserve"><value>Empty case is not supported.</value></data>
+	<data name="MethodHasNoSupportConversionToSql" xml:space="preserve"><value>Method '{0}' has no supported translation to SQL.</value></data>
+	<data name="ContextNotInitialized" xml:space="preserve"><value>SqlContext is not initialized.</value></data>
+	<data name="ColumnReferencedIsNotInScope" xml:space="preserve"><value>Column referenced is not in scope: '{0}'.</value></data>
+	<data name="GeneralCollectionMaterializationNotSupported" xml:space="preserve"><value>General collection materialization is not supported.</value></data>
+	<data name="ExpressionNotDeferredQuerySource" xml:space="preserve"><value>Expression is not a deferred query source.</value></data>
+	<data name="MappedTypeMustHaveDefaultConstructor" xml:space="preserve"><value>The type '{0}' must declare a default (parameterless) constructor in order to be constructed during mapping.</value></data>
+	<data name="ExceptNotSupportedForHierarchicalTypes" xml:space="preserve"><value>Except is not supported for hierarchical result types.</value></data>
+	<data name="TransactionDoesNotMatchConnection" xml:space="preserve"><value>Transaction does not match connection.</value></data>
+	<data name="QueryOperatorOverloadNotSupported" xml:space="preserve"><value>Unsupported overload used for query operator '{0}'.</value></data>
+	<data name="ColumnIsDefinedInMultiplePlaces" xml:space="preserve"><value>Column '{0}' is defined in multiple places.</value></data>
+	<data name="UnsupportedStringConstructorForm" xml:space="preserve"><value>String constructor form is not supported.</value></data>
+	<data name="ProviderCannotBeUsedAfterDispose" xml:space="preserve"><value>Provider cannot be accessed after Dispose.</value></data>
+	<data name="ArgumentWrongValue" xml:space="preserve"><value>The argument '{0}' was the wrong value. </value></data>
+	<data name="ColumnClrTypeDoesNotAgreeWithExpressionsClrType" xml:space="preserve"><value>The ClrType of the column did not agree with the ClrType of the expression.</value></data>
+	<data name="SourceExpressionAnnotation" xml:space="preserve"><value>Source Expression: {0}</value></data>
+	<data name="CouldNotHandleAliasRef" xml:space="preserve"><value>Could not handle alias ref of {0}.</value></data>
+	<data name="ConstructedArraysNotSupported" xml:space="preserve"><value>Constructed arrays are only supported for Contains.</value></data>
+	<data name="UnmappedDataMember" xml:space="preserve"><value>Data member '{0}' of type '{1}' is not part of the mapping for type '{2}'. Is the member above the root of an inheritance hierarchy?</value></data>
+	<data name="InvalidConnectionArgument" xml:space="preserve"><value>'{0}' must be string, SqlConnection, SqlCeConnection, SqlTransaction, or SqlCeTransaction.</value></data>
+	<data name="TextNTextAndImageCannotOccurInUnion" xml:space="preserve"><value>Translation would contain an expression of type Text, NText, or Image in a SELECT within a UNION: {0}</value></data>
+	<data name="LogGeneralInfoMessage" xml:space="preserve"><value>{0}: {1}.</value></data>
+	<data name="ClientCaseShouldNotHold" xml:space="preserve"><value>Client case should not hold '{0}'. It should probably have been SqlSimpleCase.</value></data>
+	<data name="InvalidFormatNode" xml:space="preserve"><value>Could not format node '{0}' for execution as SQL.</value></data>
+	<data name="MemberCouldNotBeTranslated" xml:space="preserve"><value>Member '{0}.{1}' could not be translated.</value></data>
+	<data name="CannotAssignNull" xml:space="preserve"><value>The null value cannot be assigned to a member with type {0} which is a non-nullable value type.</value></data>
+	<data name="CannotEnumerateResultsMoreThanOnce" xml:space="preserve"><value>The query results cannot be enumerated more than once.</value></data>
+	<data name="CapturedValuesCannotBeSequences" xml:space="preserve"><value>Local sequence cannot be used in LINQ to SQL implementations of query operators except the Contains operator.</value></data>
+	<data name="ParameterNotInScope" xml:space="preserve"><value>The parameter '{0}' is not in scope.</value></data>
+	<data name="CannotMaterializeEntityType" xml:space="preserve"><value>Explicit construction of entity type '{0}' in query is not allowed.</value></data>
+	<data name="MethodNotMappedToStoredProcedure" xml:space="preserve"><value>The method specified ({0}) is not mapped to a stored procedure.</value></data>
+	<data name="UnhandledExpressionType" xml:space="preserve"><value>Unhandled Expression Type: {0}</value></data>
+	<data name="NonConstantExpressionsNotSupportedFor" xml:space="preserve"><value>Only arguments that can be evaluated on the client are supported for the {0} method.</value></data>
+	<data name="TextNTextAndImageCannotOccurInDistinct" xml:space="preserve"><value>Translation would contain an expression of type Text, NText, or Image in a SELECT DISTINCT clause: {0}</value></data>
+	<data name="ToStringOnlySupportedForPrimitiveTypes" xml:space="preserve"><value>Method ToString can only be translated to SQL for primitive types.</value></data>
+	<data name="UpdateItemMustBeConstant" xml:space="preserve"><value>The item of an Update must be a constant value expression.</value></data>
+	<data name="CannotMaterializeList" xml:space="preserve"><value>Cannot create a query result of type '{0}'.</value></data>
+	<data name="DidNotExpectTypeChange" xml:space="preserve"><value>Did not expect operation to change result type. Original type was '{0}' new type is '{1}'.</value></data>
+	<data name="InfiniteDescent" xml:space="preserve"><value>Descent limit exceeded.</value></data>
+	<data name="CannotConvertToEntityRef" xml:space="preserve"><value>Cannot convert type '{0}' to EntityRef/Link.</value></data>
+	<data name="ColumnIsNotAccessibleThroughDistinct" xml:space="preserve"><value>Column '{0}' is not accessible through distinct.</value></data>
+	<data name="UnexpectedSharedExpression" xml:space="preserve"><value>Unexpected shared-expression found.</value></data>
+	<data name="MemberAccessIllegal" xml:space="preserve"><value>Member access '{0}' of '{1}' not legal on type '{2}.</value></data>
+	<data name="CompiledQueryAgainstMultipleShapesNotSupported" xml:space="preserve"><value>Compiled queries across DataContexts with different LoadOptions not supported.</value></data>
+	<data name="ExpectedNoObjectType" xml:space="preserve"><value>Expected no ObjectType nodes to remain.</value></data>
+	<data name="WrongDataContext" xml:space="preserve"><value>The query contains references to items defined on a different data context.</value></data>
+	<data name="LogAttemptingToDeleteDatabase" xml:space="preserve"><value>Attempting to delete the database '{0}'.</value></data>
+	<data name="ExpectedPredicateFoundBit" xml:space="preserve"><value>Expected a Predicate here but found a Bit.</value></data>
+	<data name="CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists" xml:space="preserve"><value>Unable to create database because the database '{0}' already exists.</value></data>
+	<data name="SkipRequiresSingleTableQueryWithPKs" xml:space="preserve"><value>This provider supports Skip only over ordered queries returning entities or projections that contain all identity columns, where the query is a single-table (non-join) query, or is a Distinct, Except, Intersect, or Union (not Concat) operation.</value></data>
+	<data name="CouldNotDetermineCatalogName" xml:space="preserve"><value>Unable to determine catalog name.</value></data>
+	<data name="InsertItemMustBeConstant" xml:space="preserve"><value>The item of an Insert must be a constant value expression.</value></data>
+	<data name="BadProjectionInSelect" xml:space="preserve"><value>Bad projection in Select.</value></data>
+	<data name="NonConstantExpressionsNotSupportedForRounding" xml:space="preserve"><value>Only arguments that can be evaluated on the client are supported for the MidpointRounding argument in Math.Round.</value></data>
+	<data name="DistributedTransactionsAreNotAllowed" xml:space="preserve"><value>Distributed transactions are not allowed.</value></data>
+	<data name="UnrecognizedExpressionNode" xml:space="preserve"><value>Unrecognized expression node: {0}</value></data>
+	<data name="InvalidGroupByExpression" xml:space="preserve"><value>The group by operation contains an expression that cannot be translated.</value></data>
+	<data name="UnhandledStringTypeComparison" xml:space="preserve"><value>SQL Server does not handle comparison of NText, Text, Xml, or Image data types.</value></data>
+	<data name="ClassLiteralsNotAllowed" xml:space="preserve"><value>Class literals are not allowed: {0}.</value></data>
+	<data name="CreateDatabaseFailedBecauseOfClassWithNoMembers" xml:space="preserve"><value>Unable to create database because mapped class '{0}' has zero members.</value></data>
+	<data name="ArgumentWrongType" xml:space="preserve"><value>The argument '{0}' was the wrong type. Expected '{1}'. Actual '{2}'.</value></data>
+	<data name="UnhandledMemberAccess" xml:space="preserve"><value>Member '{0}' on node type '{1}' does not have a known translation to SQL.</value></data>
+	<data name="ArgumentEmpty" xml:space="preserve"><value>The string parameter '{0}' was expected to have length greater than zero.</value></data>
+	<data name="DidNotExpectTypeBinding" xml:space="preserve"><value>Did not expect type binding back. This should result in a type case not a simple case.</value></data>
+	<data name="ConvertToCharFromBoolNotSupported" xml:space="preserve"><value>There is no supported conversion from a Boolean to a Character type.</value></data>
+	<data name="LastIndexOfWithStringComparisonArgNotSupported" xml:space="preserve"><value>The translation of String.LastIndexOf to SQL does not support versions with a StringComparison argument.</value></data>
+	<data name="IQueryableCannotReturnSelfReferencingConstantExpression" xml:space="preserve"><value>An IQueryable that returns a self-referencing Constant expression is not supported.</value></data>
+	<data name="ResultTypeNotMappedToFunction" xml:space="preserve"><value>Result type '{0}' is not mapped to function '{1}'.</value></data>
+	<data name="DatabaseDeleteThroughContext" xml:space="preserve"><value>Operation not allowed after DeleteDatabase call.</value></data>
+	<data name="InvalidReturnFromSproc" xml:space="preserve"><value>'{0}' is not a valid return type for a mapped stored procedure method.</value></data>
+	<data name="LogStoredProcedureExecution" xml:space="preserve"><value>Execute stored procedure: {0}({1}).</value></data>
+	<data name="SkipNotSupportedForSequenceTypes" xml:space="preserve"><value>The Skip operator is not supported for sequences containing sequences (with the exception of IGrouping under SQL Server 2005).</value></data>
+	<data name="CannotAssignToMember" xml:space="preserve"><value>Cannot assign value to member '{0}'. It does not define a setter.</value></data>
+	<data name="ParametersCannotBeSequences" xml:space="preserve"><value>Parameters cannot be sequences.</value></data>
+	<data name="UnionDifferentMemberOrder" xml:space="preserve"><value>Types in Union or Concat have members assigned in different order.</value></data>
+</root>

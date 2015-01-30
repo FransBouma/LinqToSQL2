@@ -1,10 +1,3 @@
-//////////////////////////////////
-//
-//  This is a generated file and for now it's copied from the .NET 3.5 assembly as the original resx file isn't available 
-//  in the reference source.
-//
-//////////////////////////////////
-
 using System;
 namespace System.Data.Linq.Mapping
 {

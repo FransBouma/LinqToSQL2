@@ -1,10 +1,3 @@
-//////////////////////////////////
-//
-//  This is a generated file and for now it's copied from the .NET 3.5 assembly as the original resx file isn't available 
-//  in the reference source.
-//
-//////////////////////////////////
-
 using System;
 using System.Globalization;
 using System.Resources;
@@ -186,7 +179,7 @@ namespace System.Data.Linq.SqlClient
 		}
 		internal SR()
 		{
-			this.resources = new ResourceManager("System.Data.Linq.SqlClient", base.GetType().Assembly);
+			this.resources = new ResourceManager("System.Data.Linq.Properties.SqlClient", base.GetType().Assembly);
 		}
 		private static SR GetLoader()
 		{
