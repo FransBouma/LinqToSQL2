@@ -12,6 +12,7 @@ namespace System.Data.Linq {
     using System.Data.Linq.Mapping;
     using Linq;
 	using System.Data.Linq.BindingLists;
+	using System.Data.Linq.Provider.Common;
 
     internal sealed class DataQuery<T> : IOrderedQueryable<T>, IQueryProvider, IEnumerable<T>, IOrderedQueryable, IEnumerable, IListSource {
         DataContext context;
@@ -35,7 +36,7 @@ namespace System.Data.Linq {
         IQueryable IQueryProvider.CreateQuery(Expression expression) {
             if (expression == null)
                 throw Error.ArgumentNull("expression");
-            Type eType = System.Data.Linq.SqlClient.TypeSystem.GetElementType(expression.Type);
+            Type eType = TypeSystem.GetElementType(expression.Type);
             Type qType = typeof(IQueryable<>).MakeGenericType(eType);
             if (!qType.IsAssignableFrom(expression.Type))
                 throw Error.ExpectedQueryableArgument("expression", qType);

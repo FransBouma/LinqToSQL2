@@ -7,7 +7,8 @@ using System.Data;
 using System.Data.Common;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.Data.SqlClient;
+using System.Data.Linq.Provider.Visitor;
+using System.Data.Linq.Provider.Visitors;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,6 @@ using System.Reflection;
 using System.Text;
 using System.Globalization;
 using System.Diagnostics.CodeAnalysis;
-using Me = System.Data.Linq.SqlClient;
 using System.Runtime.Versioning;
 using System.Runtime.CompilerServices;
 
@@ -27,6 +27,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 	using System.Data.Linq.Provider.Common;
 	using System.Data.Linq.Provider.Interfaces;
 	using System.Data.Linq.Provider.NodeTypes;
+	using System.Data.SqlClient;
 
 
 	[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Unknown reason.")]
@@ -531,31 +532,28 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			{
 				return fileOrServerOrConnectionString;
 			}
+			DbConnectionStringBuilder builder = new DbConnectionStringBuilder();
+			if(fileOrServerOrConnectionString.EndsWith(".mdf", StringComparison.OrdinalIgnoreCase))
+			{
+				// if just a database file is specified, default to local SqlExpress instance
+				builder.Add("AttachDBFileName", fileOrServerOrConnectionString);
+				builder.Add("Server", "localhost\\sqlexpress");
+				builder.Add("Integrated Security", "SSPI");
+				builder.Add("User Instance", "true");
+				builder.Add("MultipleActiveResultSets", "true");
+			}
+			else if(fileOrServerOrConnectionString.EndsWith(".sdf", StringComparison.OrdinalIgnoreCase))
+			{
+				// A SqlCE database file has been specified
+				builder.Add("Data Source", fileOrServerOrConnectionString);
+			}
 			else
 			{
-				DbConnectionStringBuilder builder = new DbConnectionStringBuilder();
-				if(fileOrServerOrConnectionString.EndsWith(".mdf", StringComparison.OrdinalIgnoreCase))
-				{
-					// if just a database file is specified, default to local SqlExpress instance
-					builder.Add("AttachDBFileName", fileOrServerOrConnectionString);
-					builder.Add("Server", "localhost\\sqlexpress");
-					builder.Add("Integrated Security", "SSPI");
-					builder.Add("User Instance", "true");
-					builder.Add("MultipleActiveResultSets", "true");
-				}
-				else if(fileOrServerOrConnectionString.EndsWith(".sdf", StringComparison.OrdinalIgnoreCase))
-				{
-					// A SqlCE database file has been specified
-					builder.Add("Data Source", fileOrServerOrConnectionString);
-				}
-				else
-				{
-					builder.Add("Server", fileOrServerOrConnectionString);
-					builder.Add("Database", this.services.Model.DatabaseName);
-					builder.Add("Integrated Security", "SSPI");
-				}
-				return builder.ToString();
+				builder.Add("Server", fileOrServerOrConnectionString);
+				builder.Add("Database", this.services.Model.DatabaseName);
+				builder.Add("Integrated Security", "SSPI");
 			}
+			return builder.ToString();
 		}
 
 		private string GetDatabaseName(string constr)
@@ -965,7 +963,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			return new CompiledQuery(this, query, qis, factory, subQueries);
 		}
 
-		private ICompiledSubQuery CompileSubQuery(SqlNode query, Type elementType, ReadOnlyCollection<Me.SqlParameter> parameters)
+		private ICompiledSubQuery CompileSubQuery(SqlNode query, Type elementType, ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters)
 		{
 			query = SqlDuplicator.Copy(query);
 			SqlNodeAnnotations annotations = new SqlNodeAnnotations();
@@ -1624,7 +1622,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		}
 
 		[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "These issues are related to our use of if-then and case statements for node types, which adds to the complexity count however when reviewed they are easy to navigate and understand.")]
-		private QueryInfo[] BuildQuery(ResultShape resultShape, Type resultType, SqlNode node, ReadOnlyCollection<Me.SqlParameter> parentParameters, SqlNodeAnnotations annotations)
+		private QueryInfo[] BuildQuery(ResultShape resultShape, Type resultType, SqlNode node, ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parentParameters, SqlNodeAnnotations annotations)
 		{
 			System.Diagnostics.Debug.Assert(resultType != null);
 			System.Diagnostics.Debug.Assert(node != null);
@@ -1663,7 +1661,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			node = PostBindDotNetConverter.Convert(node, this.sqlFactory, this.Mode);
 
 			// identify true flow of sql data types 
-			SqlRetyper retyper = new SqlRetyper(this.typeProvider, this.services.Model);
+			SqlRetyper retyper = new SqlRetyper(new SqlFactory(this.typeProvider, this.services.Model));
 			node = retyper.Retype(node);
 			validator.Validate(node);
 
@@ -1678,10 +1676,10 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			validator.Validate(node);
 
 			// convert multisets into separate queries
-			SqlMultiplexer.Options options = (this.Mode == SqlServerProviderMode.Sql2008 ||
+			SqlMultiplexerOptionType options = (this.Mode == SqlServerProviderMode.Sql2008 ||
 											  this.Mode == SqlServerProviderMode.Sql2005 ||
 											  this.Mode == SqlServerProviderMode.SqlCE)
-				? SqlMultiplexer.Options.EnableBigJoin : SqlMultiplexer.Options.None;
+				? SqlMultiplexerOptionType.EnableBigJoin : SqlMultiplexerOptionType.None;
 			SqlMultiplexer mux = new SqlMultiplexer(options, parentParameters, this.sqlFactory);
 			node = mux.Multiplex(node);
 			validator.Validate(node);
@@ -1736,7 +1734,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			validator.Validate(node);
 
 			// SQL2K enablers.
-			node = SqlLiftWhereClauses.Lift(node, this.typeProvider, this.services.Model);
+			node = SqlLiftWhereClauses.Lift(node, new SqlFactory(this.typeProvider, this.services.Model));
 			node = SqlLiftIndependentRowExpressions.Lift(node);
 			node = SqlOuterApplyReducer.Reduce(node, this.sqlFactory, annotations);
 			node = SqlTopReducer.Reduce(node, annotations, this.sqlFactory);
@@ -1962,10 +1960,11 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		{
 			QueryInfo queryInfo;
 			IObjectReaderFactory factory;
-			ReadOnlyCollection<Me.SqlParameter> parameters;
+			ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters;
 			ICompiledSubQuery[] subQueries;
 
-			internal CompiledSubQuery(QueryInfo queryInfo, IObjectReaderFactory factory, ReadOnlyCollection<Me.SqlParameter> parameters, ICompiledSubQuery[] subQueries)
+			internal CompiledSubQuery(QueryInfo queryInfo, IObjectReaderFactory factory, ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters, 
+										ICompiledSubQuery[] subQueries)
 			{
 				this.queryInfo = queryInfo;
 				this.factory = factory;

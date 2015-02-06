@@ -7,10 +7,10 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using LinqToSqlShared.Mapping;
 using System.Runtime.CompilerServices;
+using System.Data.Linq.Provider.Common;
 
 namespace System.Data.Linq.Mapping {
 
@@ -39,7 +39,8 @@ namespace System.Data.Linq.Mapping {
             if (attrs != null && attrs.Length == 1) { // Provider attribute is !AllowMultiple
                 this.providerType = attrs[0].Type;
             } else {
-                this.providerType = typeof(SqlProvider);
+#warning [FB] REFACTOR SQL Server specific. Requires change to have its provider type injected instead of it tries to discover it on its own using sql server's specific namespace.
+				this.providerType = typeof(System.Data.Linq.DbEngines.SqlServer.SqlProvider);
             }
 
             // Database name 

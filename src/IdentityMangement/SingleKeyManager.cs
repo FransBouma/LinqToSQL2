@@ -11,6 +11,7 @@ namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
 	using Linq;
+	using System.Data.Linq.Provider.Common;
 
 	internal class SingleKeyManager<T, V> : KeyManager<T, V>
 	{
@@ -23,7 +24,7 @@ namespace System.Data.Linq
 		{
 			this.accessor = accessor;
 			this.offset = offset;
-			this.isKeyNullAssignable = System.Data.Linq.SqlClient.TypeSystem.IsNullAssignable(typeof(V));
+			this.isKeyNullAssignable = TypeSystem.IsNullAssignable(typeof(V));
 		}
 
 		internal override V CreateKeyFromInstance(T instance)

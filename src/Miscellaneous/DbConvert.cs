@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Data.Linq.Provider.Common;
 
 namespace System.Data.Linq {
 
@@ -28,7 +29,7 @@ namespace System.Data.Linq {
                 return null;
             MethodInfo mi;
 #warning [FB] REFACTOR: TYPE OBTAINED FROM SQLCLIENT. WILL CAUSE CONFLICTS WHEN OTHER DBs ARE ADDED.
-			Type toType = System.Data.Linq.SqlClient.TypeSystem.GetNonNullableType(type);
+			Type toType = TypeSystem.GetNonNullableType(type);
             Type fromType = value.GetType();
             if (toType.IsAssignableFrom(fromType))
                 return value;

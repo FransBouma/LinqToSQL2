@@ -30,6 +30,20 @@ namespace System.Data.Linq
 	}
 
 
+	internal enum SqlMultiplexerOptionType
+	{
+		None,
+		EnableBigJoin
+	}
+
+	internal enum SqlParameterType
+	{
+		Value,
+		UserArgument,
+		PreviousResult
+	}
+
+
 	/// <summary>
 	/// Used to specify how a submit should behave when one
 	/// or more updates fail due to optimistic concurrency

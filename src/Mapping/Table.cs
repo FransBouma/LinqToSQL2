@@ -22,6 +22,7 @@ namespace System.Data.Linq
 	using Linq;
 	using System.Diagnostics.CodeAnalysis;
 	using System.Data.Linq.BindingLists;
+	using System.Data.Linq.Provider.Common;
 
 	/// <summary>
 	/// Table is a collection of persistent entities. It always contains the set of entities currently 
@@ -83,7 +84,7 @@ namespace System.Data.Linq
 			{
 				throw Error.ArgumentNull("expression");
 			}
-			Type eType = System.Data.Linq.SqlClient.TypeSystem.GetElementType(expression.Type);
+			Type eType = TypeSystem.GetElementType(expression.Type);
 			Type qType = typeof(IQueryable<>).MakeGenericType(eType);
 			if(!qType.IsAssignableFrom(expression.Type))
 			{

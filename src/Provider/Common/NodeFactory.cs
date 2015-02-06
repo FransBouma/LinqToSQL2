@@ -71,8 +71,7 @@ namespace System.Data.Linq.Provider.Common
 		{
 			return expr;
 		}
-
-
+		
 
 		/// <summary>
 		/// Creates a function call using DATEADD, with the part specified and adds the element in value 
@@ -791,10 +790,33 @@ namespace System.Data.Linq.Provider.Common
 			return new SqlRowNumber(typeof(long), this.TypeProvider.From(typeof(long)), orderBy, sourceExpression);
 		}
 
+		[SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Unknown reason.")]
+		internal SqlUnary UnaryValueOf(SqlExpression expression, Expression sourceExpression)
+		{
+			Type valueType = TypeSystem.GetNonNullableType(expression.ClrType);
+			return new SqlUnary(SqlNodeType.ValueOf, valueType, expression.SqlType, expression, null, sourceExpression);
+		}
+
 		#region Property Declarations
 		protected internal TypeSystemProvider TypeProvider
 		{
 			get { return typeProvider; }
+		}
+
+		/// <summary>
+		/// Gets the name of the length function. By default it returns 'LEN'.
+		/// </summary>
+		internal virtual string LengthFunctionName
+		{
+			get { return "LEN"; }
+		}
+
+		/// <summary>
+		/// Gets the name of the data add function. By default it returns 'DATAADD'
+		/// </summary>
+		internal virtual string DataAddFunctionName
+		{
+			get { return "DATAADD"; }
 		}
 		#endregion
 	}

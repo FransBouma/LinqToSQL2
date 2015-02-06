@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data.Linq.Provider.Common;
 using System.Data.Linq.Provider.NodeTypes;
+using System.Data.Linq.Provider.Visitors;
 using System.Text;
 
 namespace System.Data.Linq.DbEngines.SqlServer {
@@ -17,10 +18,11 @@ namespace System.Data.Linq.DbEngines.SqlServer {
         /// </summary>
         private class Visitor : SqlVisitor {
 
-            private SqlProvider.ProviderMode provider;
+            private SqlServerProviderMode provider;
             internal SqlNodeAnnotations annotations;
 
-            internal Visitor(SqlProvider.ProviderMode provider) {
+			internal Visitor(SqlServerProviderMode provider)
+			{
                 this.provider = provider;
             }
 
@@ -45,7 +47,8 @@ namespace System.Data.Linq.DbEngines.SqlServer {
         /// <summary>
         /// Checks whether the given node is supported on the given server.
         /// </summary>
-        internal static void ThrowIfUnsupported(SqlNode node, SqlNodeAnnotations annotations, SqlProvider.ProviderMode provider) {
+		internal static void ThrowIfUnsupported(SqlNode node, SqlNodeAnnotations annotations, SqlServerProviderMode provider)
+		{
             // Check to see whether there's at least one SqlServerCompatibilityAnnotation.
             if (annotations.HasAnnotationType(typeof(SqlServerCompatibilityAnnotation))) {
                 Visitor visitor = new Visitor(provider);

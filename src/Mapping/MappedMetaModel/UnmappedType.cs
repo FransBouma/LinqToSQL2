@@ -7,11 +7,11 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using System.Runtime.Versioning;
 using LinqToSqlShared.Mapping;
 using System.Runtime.CompilerServices;
+using System.Data.Linq.Provider.Common;
 
 namespace System.Data.Linq.Mapping
 {

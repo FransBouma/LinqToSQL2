@@ -7,40 +7,41 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using System.Runtime.Versioning;
 using LinqToSqlShared.Mapping;
 using System.Runtime.CompilerServices;
+using System.Data.Linq.Provider.Common;
 
 namespace System.Data.Linq.Mapping
 {
 	internal class MappedType : MetaType
 	{
-		MetaModel model;
-		MetaTable table;
-		Type type;
-		TypeMapping typeMapping;
-		Dictionary<object, MetaDataMember> dataMemberMap;
-		ReadOnlyCollection<MetaDataMember> dataMembers;
-		ReadOnlyCollection<MetaDataMember> persistentDataMembers;
-		ReadOnlyCollection<MetaDataMember> identities;
-		MetaDataMember dbGeneratedIdentity;
-		MetaDataMember version;
-		MetaDataMember discriminator;
-		MetaType inheritanceRoot;
-		bool inheritanceBaseSet;
-		MetaType inheritanceBase;
-		internal object inheritanceCode;
-		ReadOnlyCollection<MetaType> derivedTypes;
-		ReadOnlyCollection<MetaAssociation> associations;
-		bool hasMethods;
-		bool hasAnyLoadMethod;
-		bool hasAnyValidateMethod;
-		MethodInfo onLoadedMethod;
-		MethodInfo onValidateMethod;
-
-		object locktarget = new object(); // Hold locks on private object rather than public MetaType.
+		#region Member Declarations
+		private MetaModel model;
+		private MetaTable table;
+		private Type type;
+		private TypeMapping typeMapping;
+		private Dictionary<object, MetaDataMember> dataMemberMap;
+		private ReadOnlyCollection<MetaDataMember> dataMembers;
+		private ReadOnlyCollection<MetaDataMember> persistentDataMembers;
+		private ReadOnlyCollection<MetaDataMember> identities;
+		private MetaDataMember dbGeneratedIdentity;
+		private MetaDataMember version;
+		private MetaDataMember discriminator;
+		private MetaType inheritanceRoot;
+		private bool inheritanceBaseSet;
+		private MetaType inheritanceBase;
+		private object inheritanceCode;
+		private ReadOnlyCollection<MetaType> derivedTypes;
+		private ReadOnlyCollection<MetaAssociation> associations;
+		private bool hasMethods;
+		private bool hasAnyLoadMethod;
+		private bool hasAnyValidateMethod;
+		private MethodInfo onLoadedMethod;
+		private MethodInfo onValidateMethod;
+		private object locktarget = new object(); // Hold locks on private object rather than public MetaType.
+		#endregion
 
 		internal MappedType(MetaModel model, MetaTable table, TypeMapping typeMapping, Type type, MetaType inheritanceRoot)
 		{
@@ -54,6 +55,7 @@ namespace System.Data.Linq.Mapping
 			this.identities = this.dataMembers.Where(m => m.IsPrimaryKey).ToList().AsReadOnly();
 			this.persistentDataMembers = this.dataMembers.Where(m => m.IsPersistent).ToList().AsReadOnly();
 		}
+
 		#region Initialization
 		private void ValidatePrimaryKeyMember(MetaDataMember mm)
 		{
@@ -227,6 +229,7 @@ namespace System.Data.Linq.Mapping
 			}
 		}
 		#endregion
+
 		public override MetaModel Model
 		{
 			get { return this.model; }
@@ -479,6 +482,12 @@ namespace System.Data.Linq.Mapping
 		public override string ToString()
 		{
 			return this.Name;
+		}
+
+
+		internal void SetInheritanceCode(object value)
+		{
+			this.inheritanceCode = value;
 		}
 	}
 }

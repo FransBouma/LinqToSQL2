@@ -12,6 +12,7 @@ namespace System.Data.Linq
 {
 	using System.Data.Linq.Mapping;
 	using Linq;
+	using System.Data.Linq.Provider.Common;
 
 	/// <summary>
 	/// Class which provides general data oriented services for the ORM core, like change tracking, identity map, mapping control etc. It is a
@@ -507,14 +508,14 @@ Expression.ArrayIndex(p, Expression.Constant(i)),
 					thisSource = Expression.Call(typeof(Enumerable), "Cast", new Type[] { association.ThisMember.DeclaringType.Type }, thisSource);
 				}
 				Expression thisInstance = Expression.Call(typeof(Enumerable), "FirstOrDefault", new Type[] { association.ThisMember.DeclaringType.Type },
-					System.Data.Linq.SqlClient.Translator.WhereClauseFromSourceAndKeys(thisSource, association.ThisKey.ToArray(), keyValues)
+					Translator.WhereClauseFromSourceAndKeys(thisSource, association.ThisKey.ToArray(), keyValues)
 					);
 				Expression otherSource = Expression.Constant(_context.GetTable(association.OtherType.InheritanceRoot.Type));
 				if(association.OtherType.Type != association.OtherType.InheritanceRoot.Type)
 				{
 					otherSource = Expression.Call(typeof(Enumerable), "Cast", new Type[] { association.OtherType.Type }, otherSource);
 				}
-				Expression expr = System.Data.Linq.SqlClient.Translator.TranslateAssociation(
+				Expression expr = Translator.TranslateAssociation(
 					this._context, association, otherSource, keyValues, thisInstance
 					);
 				return expr;
@@ -522,7 +523,7 @@ Expression.ArrayIndex(p, Expression.Constant(i)),
 			else
 			{
 				Expression query = this.GetObjectQuery(member.DeclaringType, keyValues);
-				Type elementType = System.Data.Linq.SqlClient.TypeSystem.GetElementType(query.Type);
+				Type elementType = TypeSystem.GetElementType(query.Type);
 				ParameterExpression p = Expression.Parameter(elementType, "p");
 				Expression e = p;
 				if(elementType != member.DeclaringType.Type)
@@ -560,7 +561,7 @@ Expression.ArrayIndex(p, Expression.Constant(i)),
 				return factory;
 			}
 			Type elemType = member.IsAssociation && member.Association.IsMany
-				? System.Data.Linq.SqlClient.TypeSystem.GetElementType(member.Type)
+				? TypeSystem.GetElementType(member.Type)
 				: member.Type;
 			factory = (IDeferredSourceFactory)Activator.CreateInstance(
 				typeof(DeferredSourceFactory<>).MakeGenericType(elemType),
@@ -629,7 +630,7 @@ Expression.ArrayIndex(p, Expression.Constant(i)),
 			ITable t = cex.Value as ITable;
 			if(t == null)
 				return null;
-			Type elementType = System.Data.Linq.SqlClient.TypeSystem.GetElementType(query.Type);
+			Type elementType = TypeSystem.GetElementType(query.Type);
 			if(elementType != t.ElementType)
 				return null;
 			MetaTable metaTable = this._metaModel.GetTable(t.ElementType);

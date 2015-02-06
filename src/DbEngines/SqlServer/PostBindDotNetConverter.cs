@@ -15,7 +15,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 	internal static class PostBindDotNetConverter
 	{
 
-		internal static SqlNode Convert(SqlNode node, SqlFactory nodeFactory, SqlProvider.ProviderMode providerMode)
+		internal static SqlNode Convert(SqlNode node, SqlFactory nodeFactory, SqlServerProviderMode providerMode)
 		{
 			return new Visitor(nodeFactory, providerMode).Visit(node);
 		}
@@ -736,10 +736,10 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		private class Visitor : SqlVisitor
 		{
 			SqlFactory sql;
-			SqlProvider.ProviderMode providerMode;
+			SqlServerProviderMode providerMode;
 			SqlSelectionSkipper skipper;
 
-			internal Visitor(SqlFactory sql, SqlProvider.ProviderMode providerMode)
+			internal Visitor(SqlFactory sql, SqlServerProviderMode providerMode)
 			{
 				this.sql = sql;
 				this.providerMode = providerMode;
@@ -892,7 +892,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							SqlExpression msRaw = sql.FunctionCall(typeof(string), "CONVERT", new SqlExpression[2] {char4,
                                        sql.Add(sql.ValueFromObject(1000, false, source),sox.Args[6])}, source);
 							SqlExpression ms;
-							if(this.providerMode == SqlProvider.ProviderMode.SqlCE)
+							if(this.providerMode == SqlServerProviderMode.SqlCE)
 							{
 								//SqlCE doesn't have "RIGHT", so need to use "SUBSTRING"
 								SqlExpression len = sql.FunctionCall(typeof(int), "LEN", new SqlExpression[1] { msRaw }, source);
@@ -1218,7 +1218,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				}
 				else if(name == "RawLength")
 				{
-					SqlExpression length = sql.DATALENGTH(mc.Arguments[0]);
+					SqlExpression length = sql.FunctionCallDataLength(mc.Arguments[0]);
 					return length;
 				}
 
@@ -1251,12 +1251,12 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				{
 					// 
 					SqlExpression sqlTicks = mc.Arguments[0];
-					if(SqlFactory.IsSqlTimeType(mc.Arguments[0]))
+					if(sql.IsTimeType(mc.Arguments[0]))
 					{
-						SqlExpression ns = this.sql.DATEPART("NANOSECOND", mc.Arguments[0]);
-						SqlExpression ss = this.sql.DATEPART("SECOND", mc.Arguments[0]);
-						SqlExpression mm = this.sql.DATEPART("MINUTE", mc.Arguments[0]);
-						SqlExpression hh = this.sql.DATEPART("HOUR", mc.Arguments[0]);
+						SqlExpression ns = this.sql.FunctionCallDatePart("NANOSECOND", mc.Arguments[0]);
+						SqlExpression ss = this.sql.FunctionCallDatePart("SECOND", mc.Arguments[0]);
+						SqlExpression mm = this.sql.FunctionCallDatePart("MINUTE", mc.Arguments[0]);
+						SqlExpression hh = this.sql.FunctionCallDatePart("HOUR", mc.Arguments[0]);
 						sqlTicks = sql.Add(
 									 sql.Divide(ns, 100),
 									 sql.Multiply(
@@ -1273,12 +1273,12 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				else if(mc.Method.Name == "AddMonths")
 				{
 					// date + m --> DATEADD(month, @m, @date)
-					returnValue = sql.DATEADD("MONTH", mc.Arguments[0], mc.Object);
+					returnValue = sql.FunctionCallDateAdd("MONTH", mc.Arguments[0], mc.Object);
 				}
 				else if(mc.Method.Name == "AddYears")
 				{
 					// date + y --> DATEADD(year, @y, @date)
-					returnValue = sql.DATEADD("YEAR", mc.Arguments[0], mc.Object);
+					returnValue = sql.FunctionCallDateAdd("YEAR", mc.Arguments[0], mc.Object);
 				}
 				else if(mc.Method.Name == "AddMilliseconds")
 				{
@@ -1321,10 +1321,10 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				else if((mc.Method.Name == "Add" && mc.Arguments.Count == 1 && mc.Arguments[0].ClrType == typeof(TimeSpan))
 					   || (mc.Method.Name == "AddTicks"))
 				{
-					SqlExpression ns = sql.DATEPART("NANOSECOND", mc.Arguments[0]);
-					SqlExpression ss = sql.DATEPART("SECOND", mc.Arguments[0]);
-					SqlExpression mi = sql.DATEPART("MINUTE", mc.Arguments[0]);
-					SqlExpression hh = sql.DATEPART("HOUR", mc.Arguments[0]);
+					SqlExpression ns = sql.FunctionCallDatePart("NANOSECOND", mc.Arguments[0]);
+					SqlExpression ss = sql.FunctionCallDatePart("SECOND", mc.Arguments[0]);
+					SqlExpression mi = sql.FunctionCallDatePart("MINUTE", mc.Arguments[0]);
+					SqlExpression hh = sql.FunctionCallDatePart("HOUR", mc.Arguments[0]);
 
 					SqlExpression ticks = sql.Add(
 					   sql.Divide(ns, 100),
@@ -1342,12 +1342,12 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				else if(mc.Method.Name == "AddMonths")
 				{
 					// date + m --> DATEADD(month, @m, @date)
-					returnValue = sql.DATETIMEOFFSETADD("MONTH", mc.Arguments[0], mc.Object);
+					returnValue = sql.FunctionCallDateTimeOffsetAdd("MONTH", mc.Arguments[0], mc.Object);
 				}
 				else if(mc.Method.Name == "AddYears")
 				{
 					// date + y --> DATEADD(year, @y, @date)
-					returnValue = sql.DATETIMEOFFSETADD("YEAR", mc.Arguments[0], mc.Object);
+					returnValue = sql.FunctionCallDateTimeOffsetAdd("YEAR", mc.Arguments[0], mc.Object);
 				}
 				else if(mc.Method.Name == "AddMilliseconds")
 				{
@@ -1397,7 +1397,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				}
 				else if(mc.Method.Name == "Duration")
 				{
-					if(SqlFactory.IsSqlTimeType(mc.Object))
+					if(sql.IsTimeType(mc.Object))
 						return mc.Object;
 
 					returnValue = sql.FunctionCall(typeof(TimeSpan), "ABS", new SqlExpression[] { mc.Object }, source);
@@ -1572,12 +1572,12 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						else if(rightType == typeof(TimeSpan))
 						{
 							SqlExpression right = bo.Right;
-							if(SqlFactory.IsSqlTimeType(bo.Right))
+							if(sql.IsTimeType(bo.Right))
 							{
-								SqlExpression ns = sql.DATEPART("NANOSECOND", right);
-								SqlExpression ss = sql.DATEPART("SECOND", right);
-								SqlExpression mi = sql.DATEPART("MINUTE", right);
-								SqlExpression hh = sql.DATEPART("HOUR", right);
+								SqlExpression ns = sql.FunctionCallDatePart("NANOSECOND", right);
+								SqlExpression ss = sql.FunctionCallDatePart("SECOND", right);
+								SqlExpression mi = sql.FunctionCallDatePart("MINUTE", right);
+								SqlExpression hh = sql.FunctionCallDatePart("HOUR", right);
 
 								right = sql.Add(
 											sql.Divide(ns, 100),
@@ -1608,7 +1608,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					case SqlNodeType.Add:
 						if(rightType == typeof(TimeSpan))
 						{
-							if(SqlFactory.IsSqlTimeType(bo.Right))
+							if(sql.IsTimeType(bo.Right))
 							{
 								return sql.AddTimeSpan(bo.Left, bo.Right, resultNullable);
 							}
@@ -1885,7 +1885,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 								throw Error.ArgumentNull("value");
 							}
 							// if the search string is empty, return zero
-							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Arguments[0]), sql.ValueFromObject(0, source));
+							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Arguments[0]), sql.ValueFromObject(0, source));
 							SqlWhen when = new SqlWhen(lenZeroExpr, sql.ValueFromObject(0, source));
 							SqlExpression @else = sql.Subtract(sql.FunctionCall(typeof(int), "CHARINDEX",
 										new SqlExpression[] { 
@@ -1907,8 +1907,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							}
 							// if the search string is empty and the start index is in bounds,
 							// return the start index
-							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Arguments[0]), sql.ValueFromObject(0, source));
-							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.CLRLENGTH(mc.Object)));
+							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Arguments[0]), sql.ValueFromObject(0, source));
+							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.FunctionCallChrLength(mc.Object)));
 							SqlWhen when = new SqlWhen(lenZeroExpr, mc.Arguments[1]);
 							SqlExpression @else = sql.Subtract(sql.FunctionCall(typeof(int), "CHARINDEX",
 										new SqlExpression[] { 
@@ -1933,8 +1933,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							// s1.IndexOf(s2, start, count) -> CHARINDEX(@s2, SUBSTRING(@s1, 1, @start + @count), @start + 1)
 							// if the search string is empty and the start index is in bounds,
 							// return the start index
-							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Arguments[0]), sql.ValueFromObject(0, source));
-							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.CLRLENGTH(mc.Object)));
+							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Arguments[0]), sql.ValueFromObject(0, source));
+							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.FunctionCallChrLength(mc.Object)));
 							SqlWhen when = new SqlWhen(lenZeroExpr, mc.Arguments[1]);
 							SqlExpression substring = sql.FunctionCall(
 								typeof(string), "SUBSTRING",
@@ -1972,15 +1972,15 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							SqlExpression charIndex = sql.FunctionCall(typeof(int), "CHARINDEX", new SqlExpression[] { exprPart, exprS }, source);
 							SqlExpression charIndexOfReverse = sql.FunctionCall(typeof(int), "CHARINDEX", new SqlExpression[] { reversePart, reverseS }, source);
 							SqlExpression notContained = sql.Binary(SqlNodeType.EQ, charIndex, sql.ValueFromObject(0, false, source));
-							SqlExpression len1 = sql.CLRLENGTH(exprS);
-							SqlExpression len2 = sql.CLRLENGTH(exprPart);
+							SqlExpression len1 = sql.FunctionCallChrLength(exprS);
+							SqlExpression len2 = sql.FunctionCallChrLength(exprPart);
 							SqlExpression elseCase = sql.Add(sql.ValueFromObject(1, false, source), sql.Subtract(len1, sql.Add(len2, charIndexOfReverse)));
 
 							SqlWhen whenNotContained = new SqlWhen(notContained, sql.ValueFromObject(-1, false, source));
 
 							// if the search string is empty, return zero
-							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Arguments[0]), sql.ValueFromObject(0, source));
-							SqlWhen whenLenZero = new SqlWhen(lenZeroExpr, sql.Subtract(sql.CLRLENGTH(exprS), 1));
+							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Arguments[0]), sql.ValueFromObject(0, source));
+							SqlWhen whenLenZero = new SqlWhen(lenZeroExpr, sql.Subtract(sql.FunctionCallChrLength(exprS), 1));
 
 							return sql.SearchedCase(new SqlWhen[] { whenLenZero, whenNotContained },
 								elseCase, source);
@@ -2009,16 +2009,16 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							SqlExpression charIndex = sql.FunctionCall(typeof(int), "CHARINDEX", new SqlExpression[] { part, first }, source);
 							SqlExpression charIndexOfReverse = sql.FunctionCall(typeof(int), "CHARINDEX", new SqlExpression[] { reversePart, reverseFirst }, source);
 							SqlExpression notContained = sql.Binary(SqlNodeType.EQ, charIndex, sql.ValueFromObject(0, false, source));
-							SqlExpression len1 = sql.CLRLENGTH(first);
-							SqlExpression len2 = sql.CLRLENGTH(part);
+							SqlExpression len1 = sql.FunctionCallChrLength(first);
+							SqlExpression len2 = sql.FunctionCallChrLength(part);
 							SqlExpression elseCase = sql.Add(sql.ValueFromObject(1, false, source), sql.Subtract(len1, sql.Add(len2, charIndexOfReverse)));
 
 							SqlWhen whenNotContained = new SqlWhen(notContained, sql.ValueFromObject(-1, false, source));
 
 							// if the search string is empty and the start index is in bounds,
 							// return the start index
-							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Arguments[0]), sql.ValueFromObject(0, source));
-							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.CLRLENGTH(s)));
+							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Arguments[0]), sql.ValueFromObject(0, source));
+							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.FunctionCallChrLength(s)));
 							SqlWhen whenLenZero = new SqlWhen(lenZeroExpr, mc.Arguments[1]);
 
 							return sql.SearchedCase(new SqlWhen[] { whenLenZero, whenNotContained },
@@ -2048,8 +2048,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							SqlExpression reversePart = sql.FunctionCall(typeof(string), "REVERSE", new SqlExpression[] { part }, source);
 							SqlExpression charIndex = sql.FunctionCall(typeof(int), "CHARINDEX", new SqlExpression[] { part, first }, source);
 							SqlExpression charIndexOfReverse = sql.FunctionCall(typeof(int), "CHARINDEX", new SqlExpression[] { reversePart, reverseFirst }, source);
-							SqlExpression len1 = sql.CLRLENGTH(first);
-							SqlExpression len2 = sql.CLRLENGTH(part);
+							SqlExpression len1 = sql.FunctionCallChrLength(first);
+							SqlExpression len2 = sql.FunctionCallChrLength(part);
 							SqlExpression elseCase = sql.Add(sql.ValueFromObject(1, false, source), sql.Subtract(len1, sql.Add(len2, charIndexOfReverse)));
 							SqlExpression notContained = sql.Binary(SqlNodeType.EQ, charIndex, sql.ValueFromObject(0, false, source));
 							notContained = sql.OrAccumulate(notContained, sql.Binary(SqlNodeType.LE, elseCase, sql.Subtract(i, count)));
@@ -2058,8 +2058,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 							// if the search string is empty and the start index is in bounds,
 							// return the start index
-							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Arguments[0]), sql.ValueFromObject(0, source));
-							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.CLRLENGTH(s)));
+							SqlExpression lenZeroExpr = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Arguments[0]), sql.ValueFromObject(0, source));
+							lenZeroExpr = sql.AndAccumulate(lenZeroExpr, sql.Binary(SqlNodeType.LE, sql.Add(mc.Arguments[1], 1), sql.FunctionCallChrLength(s)));
 							SqlWhen whenLenZero = new SqlWhen(lenZeroExpr, mc.Arguments[1]);
 
 							return sql.SearchedCase(new SqlWhen[] { whenLenZero, whenNotContained },
@@ -2088,7 +2088,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							// the insert pos is 0, or when the string is not empty, and the insert pos indicates
 							// the end of the string.
 							// CASE WHEN (CLRLENGTH(str) = insertPos) THEN str + strToInsert ELSE STUFF(...)                       
-							SqlExpression insertingAtEnd = sql.Binary(SqlNodeType.EQ, sql.CLRLENGTH(mc.Object), mc.Arguments[0]);
+							SqlExpression insertingAtEnd = sql.Binary(SqlNodeType.EQ, sql.FunctionCallChrLength(mc.Object), mc.Arguments[0]);
 							SqlExpression stringConcat = sql.Concat(mc.Object, mc.Arguments[1]);
 
 							return sql.SearchedCase(new SqlWhen[] { new SqlWhen(insertingAtEnd, stringConcat) }, stuffCall, source);
@@ -2103,7 +2103,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							// END
 							SqlExpression exprS = mc.Object;
 							SqlExpression exprI = mc.Arguments[0];
-							SqlExpression len2 = sql.CLRLENGTH(exprS);
+							SqlExpression len2 = sql.FunctionCallChrLength(exprS);
 							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, len2, exprI);
 							SqlExpression numSpaces = sql.Subtract(exprI, len2);
 							SqlExpression padding = sql.FunctionCall(typeof(string), "SPACE", new SqlExpression[] { numSpaces }, source);
@@ -2120,8 +2120,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							SqlExpression exprS = mc.Object;
 							SqlExpression exprI = mc.Arguments[0];
 							SqlExpression exprC = mc.Arguments[1];
-							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, sql.CLRLENGTH(exprS), exprI);
-							SqlExpression len2 = sql.CLRLENGTH(exprS);
+							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, sql.FunctionCallChrLength(exprS), exprI);
+							SqlExpression len2 = sql.FunctionCallChrLength(exprS);
 							SqlExpression numSpaces = sql.Subtract(exprI, len2);
 							SqlExpression padding = sql.FunctionCall(typeof(string), "REPLICATE", new SqlExpression[] { exprC, numSpaces }, source);
 							SqlExpression elseCase = sql.Concat(padding, exprS);
@@ -2138,8 +2138,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							// END
 							SqlExpression exprS = mc.Object;
 							SqlExpression exprI = mc.Arguments[0];
-							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, sql.CLRLENGTH(exprS), exprI);
-							SqlExpression len2 = sql.CLRLENGTH(exprS);
+							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, sql.FunctionCallChrLength(exprS), exprI);
+							SqlExpression len2 = sql.FunctionCallChrLength(exprS);
 							SqlExpression numSpaces = sql.Subtract(exprI, len2);
 							SqlExpression padding = sql.FunctionCall(typeof(string), "SPACE", new SqlExpression[] { numSpaces }, source);
 							SqlExpression elseCase = sql.Concat(exprS, padding);
@@ -2155,8 +2155,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							SqlExpression exprS = mc.Object;
 							SqlExpression exprI = mc.Arguments[0];
 							SqlExpression exprC = mc.Arguments[1];
-							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, sql.CLRLENGTH(exprS), exprI);
-							SqlExpression len2 = sql.CLRLENGTH(exprS);
+							SqlExpression dontChange = sql.Binary(SqlNodeType.GE, sql.FunctionCallChrLength(exprS), exprI);
+							SqlExpression len2 = sql.FunctionCallChrLength(exprS);
 							SqlExpression numSpaces = sql.Subtract(exprI, len2);
 							SqlExpression padding = sql.FunctionCall(typeof(string), "REPLICATE", new SqlExpression[] { exprC, numSpaces }, source);
 							SqlExpression elseCase = sql.Concat(exprS, padding);
@@ -2173,7 +2173,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 								new SqlExpression[] {
                                     mc.Object,
                                     sql.Add(mc.Arguments[0], 1),
-                                    sql.CLRLENGTH(mc.Object),
+                                    sql.FunctionCallChrLength(mc.Object),
                                     sql.ValueFromObject("", false, source)
                                 },
 								source);
@@ -2216,7 +2216,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 								new SqlExpression[] {
                                     mc.Object,
                                     sql.Add(mc.Arguments[0], 1),
-                                    sql.CLRLENGTH(mc.Object)
+                                    sql.FunctionCallChrLength(mc.Object)
                                     },
 								source);
 						}
@@ -2514,22 +2514,22 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					// This gives a different result than .Net would if the string ends in spaces.
 					// We decided not to fix this up (e.g. LEN(@s+'#') - 1) since it would incur a performance hit and 
 					// people may actually expect that it translates to the SQL LEN function.
-					return sql.LEN(exp);
+					return sql.FunctionCallStringLength(exp);
 				}
 				else if(baseClrTypeOfExpr == typeof(Binary) && member.Name == "Length")
 				{
-					return sql.DATALENGTH(exp);
+					return sql.FunctionCallDataLength(exp);
 				}
 				else if(baseClrTypeOfExpr == typeof(DateTime) || baseClrTypeOfExpr == typeof(DateTimeOffset))
 				{
 					string datePart = GetDatePart(member.Name);
 					if(datePart != null)
 					{
-						return sql.DATEPART(datePart, exp);
+						return sql.FunctionCallDatePart(datePart, exp);
 					}
 					else if(member.Name == "Date")
 					{
-						if(this.providerMode == SqlProvider.ProviderMode.Sql2008)
+						if(this.providerMode == SqlServerProviderMode.Sql2008)
 						{
 							SqlExpression date = new SqlVariable(typeof(void), null, "DATE", source);
 							return sql.FunctionCall(typeof(DateTime), "CONVERT", new SqlExpression[2] { date, exp }, source);
@@ -2540,17 +2540,17 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						//          dateadd(ms, -(datepart(ms, @date)), 
 						//          @date))))
 
-						SqlExpression ms = sql.DATEPART("MILLISECOND", exp);
-						SqlExpression ss = sql.DATEPART("SECOND", exp);
-						SqlExpression mi = sql.DATEPART("MINUTE", exp);
-						SqlExpression hh = sql.DATEPART("HOUR", exp);
+						SqlExpression ms = sql.FunctionCallDatePart("MILLISECOND", exp);
+						SqlExpression ss = sql.FunctionCallDatePart("SECOND", exp);
+						SqlExpression mi = sql.FunctionCallDatePart("MINUTE", exp);
+						SqlExpression hh = sql.FunctionCallDatePart("HOUR", exp);
 
 						SqlExpression result = exp;
 
-						result = sql.DATEADD("MILLISECOND", sql.Unary(SqlNodeType.Negate, ms), result);
-						result = sql.DATEADD("SECOND", sql.Unary(SqlNodeType.Negate, ss), result);
-						result = sql.DATEADD("MINUTE", sql.Unary(SqlNodeType.Negate, mi), result);
-						result = sql.DATEADD("HOUR", sql.Unary(SqlNodeType.Negate, hh), result);
+						result = sql.FunctionCallDateAdd("MILLISECOND", sql.Unary(SqlNodeType.Negate, ms), result);
+						result = sql.FunctionCallDateAdd("SECOND", sql.Unary(SqlNodeType.Negate, ss), result);
+						result = sql.FunctionCallDateAdd("MINUTE", sql.Unary(SqlNodeType.Negate, mi), result);
+						result = sql.FunctionCallDateAdd("HOUR", sql.Unary(SqlNodeType.Negate, hh), result);
 
 						return result;
 					}
@@ -2562,10 +2562,10 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					}
 					else if(member.Name == "TimeOfDay")
 					{
-						SqlExpression hours = sql.DATEPART("HOUR", exp);
-						SqlExpression minutes = sql.DATEPART("MINUTE", exp);
-						SqlExpression seconds = sql.DATEPART("SECOND", exp);
-						SqlExpression milliseconds = sql.DATEPART("MILLISECOND", exp);
+						SqlExpression hours = sql.FunctionCallDatePart("HOUR", exp);
+						SqlExpression minutes = sql.FunctionCallDatePart("MINUTE", exp);
+						SqlExpression seconds = sql.FunctionCallDatePart("SECOND", exp);
+						SqlExpression milliseconds = sql.FunctionCallDatePart("MILLISECOND", exp);
 
 						SqlExpression ticksFromHour = sql.Multiply(sql.ConvertToBigint(hours), TimeSpan.TicksPerHour);
 						SqlExpression ticksFromMinutes = sql.Multiply(sql.ConvertToBigint(minutes), TimeSpan.TicksPerMinute);
@@ -2576,7 +2576,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					else if(member.Name == "DayOfWeek")
 					{
 						//(DATEPART(dw,@date) + @@Datefirst + 6) % 7 to make it independent from SQL settings
-						SqlExpression sqlDay = sql.DATEPART("dw", exp);
+						SqlExpression sqlDay = sql.FunctionCallDatePart("dw", exp);
 
 						// 
 						// .DayOfWeek returns a System.DayOfWeek, so ConvertTo that enum.
@@ -2593,103 +2593,103 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					switch(member.Name)
 					{
 						case "Ticks":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.Divide(
 											sql.ConvertToBigint(
 												sql.Add(
-													this.sql.Multiply(sql.ConvertToBigint(sql.DATEPART("HOUR", exp)), 3600000000000),
-													this.sql.Multiply(sql.ConvertToBigint(sql.DATEPART("MINUTE", exp)), 60000000000),
-													this.sql.Multiply(sql.ConvertToBigint(sql.DATEPART("SECOND", exp)), 1000000000),
-													sql.DATEPART("NANOSECOND", exp))
+													this.sql.Multiply(sql.ConvertToBigint(sql.FunctionCallDatePart("HOUR", exp)), 3600000000000),
+													this.sql.Multiply(sql.ConvertToBigint(sql.FunctionCallDatePart("MINUTE", exp)), 60000000000),
+													this.sql.Multiply(sql.ConvertToBigint(sql.FunctionCallDatePart("SECOND", exp)), 1000000000),
+													sql.FunctionCallDatePart("NANOSECOND", exp))
 												),
 											100
 									);
 							}
 							return sql.ConvertToBigint(exp);
 						case "TotalMilliseconds":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.Add(
-											this.sql.Multiply(sql.DATEPART("HOUR", exp), 3600000),
-											this.sql.Multiply(sql.DATEPART("MINUTE", exp), 60000),
-											this.sql.Multiply(sql.DATEPART("SECOND", exp), 1000),
-											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.DATEPART("NANOSECOND", exp))), 1000000)
+											this.sql.Multiply(sql.FunctionCallDatePart("HOUR", exp), 3600000),
+											this.sql.Multiply(sql.FunctionCallDatePart("MINUTE", exp), 60000),
+											this.sql.Multiply(sql.FunctionCallDatePart("SECOND", exp), 1000),
+											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.FunctionCallDatePart("NANOSECOND", exp))), 1000000)
 										);
 							}
 							return sql.Divide(sql.ConvertToDouble(exp), TimeSpan.TicksPerMillisecond);
 						case "TotalSeconds":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.Add(
-											this.sql.Multiply(sql.DATEPART("HOUR", exp), 3600),
-											this.sql.Multiply(sql.DATEPART("MINUTE", exp), 60),
-											this.sql.DATEPART("SECOND", exp),
-											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.DATEPART("NANOSECOND", exp))), 1000000000)
+											this.sql.Multiply(sql.FunctionCallDatePart("HOUR", exp), 3600),
+											this.sql.Multiply(sql.FunctionCallDatePart("MINUTE", exp), 60),
+											this.sql.FunctionCallDatePart("SECOND", exp),
+											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.FunctionCallDatePart("NANOSECOND", exp))), 1000000000)
 										);
 							}
 							return sql.Divide(sql.ConvertToDouble(exp), TimeSpan.TicksPerSecond);
 						case "TotalMinutes":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.Add(
-											this.sql.Multiply(sql.DATEPART("HOUR", exp), 60),
-											this.sql.DATEPART("MINUTE", exp),
-											this.sql.Divide(sql.ConvertToDouble(sql.DATEPART("SECOND", exp)), 60),
-											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.DATEPART("NANOSECOND", exp))), 60000000000)
+											this.sql.Multiply(sql.FunctionCallDatePart("HOUR", exp), 60),
+											this.sql.FunctionCallDatePart("MINUTE", exp),
+											this.sql.Divide(sql.ConvertToDouble(sql.FunctionCallDatePart("SECOND", exp)), 60),
+											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.FunctionCallDatePart("NANOSECOND", exp))), 60000000000)
 										);
 							}
 							return sql.Divide(sql.ConvertToDouble(exp), TimeSpan.TicksPerMinute);
 						case "TotalHours":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.Add(
-											this.sql.DATEPART("HOUR", exp),
-											this.sql.Divide(sql.ConvertToDouble(sql.DATEPART("MINUTE", exp)), 60),
-											this.sql.Divide(sql.ConvertToDouble(sql.DATEPART("SECOND", exp)), 3600),
-											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.DATEPART("NANOSECOND", exp))), 3600000000000)
+											this.sql.FunctionCallDatePart("HOUR", exp),
+											this.sql.Divide(sql.ConvertToDouble(sql.FunctionCallDatePart("MINUTE", exp)), 60),
+											this.sql.Divide(sql.ConvertToDouble(sql.FunctionCallDatePart("SECOND", exp)), 3600),
+											this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.FunctionCallDatePart("NANOSECOND", exp))), 3600000000000)
 										);
 							}
 							return sql.Divide(sql.ConvertToDouble(exp), TimeSpan.TicksPerHour);
 						case "TotalDays":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.Divide(
 											this.sql.Add(
-												this.sql.DATEPART("HOUR", exp),
-												this.sql.Divide(sql.ConvertToDouble(sql.DATEPART("MINUTE", exp)), 60),
-												this.sql.Divide(sql.ConvertToDouble(sql.DATEPART("SECOND", exp)), 3600),
-												this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.DATEPART("NANOSECOND", exp))), 3600000000000)),
+												this.sql.FunctionCallDatePart("HOUR", exp),
+												this.sql.Divide(sql.ConvertToDouble(sql.FunctionCallDatePart("MINUTE", exp)), 60),
+												this.sql.Divide(sql.ConvertToDouble(sql.FunctionCallDatePart("SECOND", exp)), 3600),
+												this.sql.Divide(sql.ConvertToDouble(sql.ConvertToBigint(sql.FunctionCallDatePart("NANOSECOND", exp))), 3600000000000)),
 											24
 										);
 							}
 							return sql.Divide(sql.ConvertToDouble(exp), TimeSpan.TicksPerDay);
 						case "Milliseconds":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
-								return this.sql.DATEPART("MILLISECOND", exp);
+								return this.sql.FunctionCallDatePart("MILLISECOND", exp);
 							}
 							return sql.ConvertToInt(sql.Mod(sql.ConvertToBigint(sql.Divide(exp, TimeSpan.TicksPerMillisecond)), 1000));
 						case "Seconds":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
-								return this.sql.DATEPART("SECOND", exp);
+								return this.sql.FunctionCallDatePart("SECOND", exp);
 							}
 							return sql.ConvertToInt(sql.Mod(sql.ConvertToBigint(sql.Divide(exp, TimeSpan.TicksPerSecond)), 60));
 						case "Minutes":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
-								return this.sql.DATEPART("MINUTE", exp);
+								return this.sql.FunctionCallDatePart("MINUTE", exp);
 							}
 							return sql.ConvertToInt(sql.Mod(sql.ConvertToBigint(sql.Divide(exp, TimeSpan.TicksPerMinute)), 60));
 						case "Hours":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
-								return this.sql.DATEPART("HOUR", exp);
+								return this.sql.FunctionCallDatePart("HOUR", exp);
 							}
 							return sql.ConvertToInt(sql.Mod(sql.ConvertToBigint(sql.Divide(exp, TimeSpan.TicksPerHour)), 24));
 						case "Days":
-							if(SqlFactory.IsSqlTimeType(exp))
+							if(sql.IsTimeType(exp))
 							{
 								return this.sql.ValueFromObject(0, false, exp.SourceExpression);
 							}
@@ -2709,8 +2709,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 			private SqlExpression CreateDateTimeFromDateAndTicks(SqlExpression sqlDate, SqlExpression sqlTicks, Expression source, bool asNullable)
 			{
-				SqlExpression daysAdded = sql.DATEADD("day", sql.Divide(sqlTicks, TimeSpan.TicksPerDay), sqlDate, source, asNullable);
-				return sql.DATEADD("ms", sql.Mod(sql.Divide(sqlTicks, TimeSpan.TicksPerMillisecond), 86400000), daysAdded, source, asNullable);
+				SqlExpression daysAdded = sql.FunctionCallDateAdd("day", sql.Divide(sqlTicks, TimeSpan.TicksPerDay), sqlDate, source, asNullable);
+				return sql.FunctionCallDateAdd("ms", sql.Mod(sql.Divide(sqlTicks, TimeSpan.TicksPerMillisecond), 86400000), daysAdded, source, asNullable);
 			}
 
 			// date + ms --> DATEADD( day, @ms/86400000, DATEADD(ms, @ms % 86400000 , @date))
@@ -2722,8 +2722,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			private SqlExpression CreateDateTimeFromDateAndMs(SqlExpression sqlDate, SqlExpression ms, Expression source, bool asNullable)
 			{
 				SqlExpression msBigint = sql.ConvertToBigint(ms);
-				SqlExpression daysAdded = sql.DATEADD("day", sql.Divide(msBigint, 86400000), sqlDate, source, asNullable);
-				return sql.DATEADD("ms", sql.Mod(msBigint, 86400000), daysAdded, source, asNullable);
+				SqlExpression daysAdded = sql.FunctionCallDateAdd("day", sql.Divide(msBigint, 86400000), sqlDate, source, asNullable);
+				return sql.FunctionCallDateAdd("ms", sql.Mod(msBigint, 86400000), daysAdded, source, asNullable);
 			}
 
 			// date + timespan --> DATEADD( day, @timespan/864000000000, DATEADD(ms,(@timespan/1000) % 86400000 , @date))
@@ -2734,8 +2734,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 			private SqlExpression CreateDateTimeOffsetFromDateAndTicks(SqlExpression sqlDate, SqlExpression sqlTicks, Expression source, bool asNullable)
 			{
-				SqlExpression daysAdded = sql.DATETIMEOFFSETADD("day", sql.Divide(sqlTicks, TimeSpan.TicksPerDay), sqlDate, source, asNullable);
-				return sql.DATETIMEOFFSETADD("ms", sql.Mod(sql.Divide(sqlTicks, TimeSpan.TicksPerMillisecond), 86400000), daysAdded, source, asNullable);
+				SqlExpression daysAdded = sql.FunctionCallDateTimeOffsetAdd("day", sql.Divide(sqlTicks, TimeSpan.TicksPerDay), sqlDate, source, asNullable);
+				return sql.FunctionCallDateTimeOffsetAdd("ms", sql.Mod(sql.Divide(sqlTicks, TimeSpan.TicksPerMillisecond), 86400000), daysAdded, source, asNullable);
 			}
 
 			// date + ms --> DATEADD( day, @ms/86400000, DATEADD(ms, @ms % 86400000 , @date))
@@ -2747,8 +2747,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			private SqlExpression CreateDateTimeOffsetFromDateAndMs(SqlExpression sqlDate, SqlExpression ms, Expression source, bool asNullable)
 			{
 				SqlExpression msBigint = sql.ConvertToBigint(ms);
-				SqlExpression daysAdded = sql.DATETIMEOFFSETADD("day", sql.Divide(msBigint, 86400000), sqlDate, source, asNullable);
-				return sql.DATETIMEOFFSETADD("ms", sql.Mod(msBigint, 86400000), daysAdded, source, asNullable);
+				SqlExpression daysAdded = sql.FunctionCallDateTimeOffsetAdd("day", sql.Divide(msBigint, 86400000), sqlDate, source, asNullable);
+				return sql.FunctionCallDateTimeOffsetAdd("ms", sql.Mod(msBigint, 86400000), daysAdded, source, asNullable);
 			}
 
 			private SqlExpression TranslateVbConversionMethod(SqlMethodCall mc)

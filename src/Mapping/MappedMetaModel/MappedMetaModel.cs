@@ -8,11 +8,11 @@ using System.Text;
 using System.Linq;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using System.Runtime.Versioning;
 using LinqToSqlShared.Mapping;
 using System.Runtime.CompilerServices;
+using System.Data.Linq.Provider.Common;
 
 namespace System.Data.Linq.Mapping {
 
@@ -40,15 +40,16 @@ namespace System.Data.Linq.Mapping {
             this.metaTypes = new Dictionary<Type, MetaType>();
             this.metaTables = new Dictionary<Type, MetaTable>();
             this.types = new Dictionary<string, Type>();
+#warning [FB] REFACTOR SQL Server specific. Requires change to have its provider type injected instead of it tries to discover it on its own using sql server's specific namespace.
             // Provider type
             if (this.providerType == null && !String.IsNullOrEmpty(this.mapping.Provider)) {
-                this.providerType = this.FindType(this.mapping.Provider, typeof(SqlProvider).Namespace);
+                this.providerType = this.FindType(this.mapping.Provider, typeof(System.Data.Linq.DbEngines.SqlServer.SqlProvider).Namespace);
                 if (this.providerType == null) {
                     throw Error.ProviderTypeNotFound(this.mapping.Provider);
                 }
             }
             else if (this.providerType == null) {
-                this.providerType = typeof(SqlProvider);
+                this.providerType = typeof(System.Data.Linq.DbEngines.SqlServer.SqlProvider);
             }
             this.Init();
         }

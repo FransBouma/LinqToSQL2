@@ -5,7 +5,6 @@ using System.Data.Linq;
 using System.Data.Linq.Provider.NodeTypes;
 using System.Data.Linq.Provider.Common;
 using System.Data.Linq.Provider.Visitors;
-using System.Data.Linq.DbEngines.Common;
 
 namespace System.Data.Linq.DbEngines.SqlServer
 {
@@ -92,7 +91,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					if(containsLongExpressions)
 					{
 						this.annotations.Add(select, new SqlServerCompatibilityAnnotation(
-											 Strings.TextNTextAndImageCannotOccurInDistinct(select.SourceExpression), SqlProvider.ProviderMode.Sql2000, SqlProvider.ProviderMode.SqlCE));
+											 Strings.TextNTextAndImageCannotOccurInDistinct(select.SourceExpression), SqlServerProviderMode.Sql2000, SqlServerProviderMode.SqlCE));
 					}
 
 				}
@@ -120,7 +119,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					// unless the UNION is 'ALL', the server will perform a DISTINCT operation,
 					// which isn't valid for large types (text, ntext, image)
 					this.annotations.Add(su, new SqlServerCompatibilityAnnotation(
-						Strings.TextNTextAndImageCannotOccurInUnion(su.SourceExpression), SqlProvider.ProviderMode.Sql2000, SqlProvider.ProviderMode.SqlCE));
+						Strings.TextNTextAndImageCannotOccurInUnion(su.SourceExpression), SqlServerProviderMode.Sql2000, SqlServerProviderMode.SqlCE));
 				}
 				return base.VisitUnion(su);
 			}
@@ -134,7 +133,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					if(fc.Arguments[0].SqlType.IsLargeType)
 					{
 						this.annotations.Add(fc, new SqlServerCompatibilityAnnotation(
-												   Strings.LenOfTextOrNTextNotSupported(fc.SourceExpression), SqlProvider.ProviderMode.Sql2000));
+												   Strings.LenOfTextOrNTextNotSupported(fc.SourceExpression), SqlServerProviderMode.Sql2000));
 					}
 				}
 				return base.VisitFunctionCall(fc);

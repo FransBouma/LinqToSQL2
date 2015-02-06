@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using System.Runtime.Versioning;
 using LinqToSqlShared.Mapping;
@@ -17,8 +16,8 @@ namespace System.Data.Linq.Mapping
 {
 	internal abstract class MetaAssociationImpl : MetaAssociation
 	{
-
 		private static char[] keySeparators = new char[] { ',' };
+
 		/// <summary>
 		/// Given a MetaType and a set of key fields, return the set of MetaDataMembers
 		/// corresponding to the key.

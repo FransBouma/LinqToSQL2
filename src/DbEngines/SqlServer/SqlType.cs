@@ -200,7 +200,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					case SqlDbType.NVarChar:
 					case SqlDbType.VarChar:
 					case SqlDbType.VarBinary:
-						return (this.size == SqlTypeSystem.LargeTypeSizeIndicator);
+						return (this.size == ProviderConstants.LargeTypeSizeIndicator);
 					default:
 						return false;
 				}
@@ -297,7 +297,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					if((size.HasValue && size != 0) && (formatFlags & QueryFormatOptions.SuppressSize) == 0)
 					{
 						sb.Append("(");
-						if(size == SqlTypeSystem.LargeTypeSizeIndicator)
+						if(size == ProviderConstants.LargeTypeSizeIndicator)
 						{
 							sb.Append("MAX");
 						}
@@ -451,7 +451,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					case SqlDbType.NVarChar:
 					case SqlDbType.VarChar:
 						// -1 is used for large types to represent MAX
-						return Size == 0 || Size > 1 || Size == SqlTypeSystem.LargeTypeSizeIndicator;
+						return Size == 0 || Size > 1 || Size == ProviderConstants.LargeTypeSizeIndicator;
 					case SqlDbType.Text:
 					case SqlDbType.NText:
 						return true;

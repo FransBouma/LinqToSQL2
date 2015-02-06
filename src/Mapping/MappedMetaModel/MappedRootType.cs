@@ -7,21 +7,24 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using System.Runtime.Versioning;
 using LinqToSqlShared.Mapping;
 using System.Runtime.CompilerServices;
+using System.Data.Linq.Provider.Common;
 
 namespace System.Data.Linq.Mapping
 {
 	internal sealed class MappedRootType : MappedType
 	{
-		Dictionary<Type, MetaType> derivedTypes;
-		Dictionary<object, MetaType> inheritanceCodes;
-		ReadOnlyCollection<MetaType> inheritanceTypes;
-		MetaType inheritanceDefault;
-		bool hasInheritance;
+		#region Member Declarations
+		private Dictionary<Type, MetaType> derivedTypes;
+		private Dictionary<object, MetaType> inheritanceCodes;
+		private ReadOnlyCollection<MetaType> inheritanceTypes;
+		private MetaType inheritanceDefault;
+		private bool hasInheritance;
+		#endregion
+
 
 		[ResourceExposure(ResourceScope.Assembly | ResourceScope.Machine)] // Various parameters can contain type names.
 		[ResourceConsumption(ResourceScope.Assembly | ResourceScope.Machine)] // InitInheritedType method call.
@@ -47,7 +50,7 @@ namespace System.Data.Linq.Mapping
 				this.InitInheritedType(typeMapping, this);
 			}
 
-			if(this.inheritanceDefault == null && (this.inheritanceCode != null || this.inheritanceCodes != null && this.inheritanceCodes.Count > 0))
+			if(this.inheritanceDefault == null && (this.InheritanceCode != null || this.inheritanceCodes != null && this.inheritanceCodes.Count > 0))
 				throw Error.InheritanceHierarchyDoesNotDefineDefault(type);
 
 			if(this.derivedTypes != null)
@@ -139,9 +142,9 @@ namespace System.Data.Linq.Mapping
 						throw Error.InheritanceCodeUsedForMultipleTypes(keyValue);
 					}
 				}
-				if(type.inheritanceCode != null)
+				if(type.InheritanceCode != null)
 					throw Error.InheritanceTypeHasMultipleDiscriminators(type);
-				type.inheritanceCode = keyValue;
+				type.SetInheritanceCode(keyValue);
 				this.inheritanceCodes.Add(keyValue, type);
 				if(typeMap.IsInheritanceDefault)
 				{

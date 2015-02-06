@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Linq.Provider.Common;
-using System.Data.Linq.SqlClient;
 using System.Text;
 
 namespace System.Data.Linq.DbEngines.SqlServer {
@@ -11,14 +10,14 @@ namespace System.Data.Linq.DbEngines.SqlServer {
     /// for the indicated set of providers.
     /// </summary>
     internal class SqlServerCompatibilityAnnotation : SqlNodeAnnotation {
-        SqlProvider.ProviderMode[] providers;
+		SqlServerProviderMode[] providers;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="message">The compatibility message.</param>
         /// <param name="providers">The set of providers this compatibility issue applies to.</param>
-        internal SqlServerCompatibilityAnnotation(string message, params SqlProvider.ProviderMode[] providers)
+		internal SqlServerCompatibilityAnnotation(string message, params SqlServerProviderMode[] providers)
             : base(message) {
             this.providers = providers;
         }
@@ -26,8 +25,10 @@ namespace System.Data.Linq.DbEngines.SqlServer {
         /// <summary>
         /// Returns true if this annotation applies to the specified provider.
         /// </summary>
-        internal bool AppliesTo(SqlProvider.ProviderMode provider) {
-            foreach (SqlProvider.ProviderMode p in providers) {
+		internal bool AppliesTo(SqlServerProviderMode provider)
+		{
+			foreach(SqlServerProviderMode p in providers)
+			{
                 if (p == provider) {
                     return true;
                 }

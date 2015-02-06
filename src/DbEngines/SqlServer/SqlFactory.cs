@@ -218,13 +218,5 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			SqlDbType sqlDbType = ((SqlType)(exp.SqlType)).SqlDbType;
 			return (sqlDbType == SqlDbType.Time || sqlDbType == SqlDbType.DateTime2 || sqlDbType == SqlDbType.DateTimeOffset);
 		}
-
-
-		[SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Unknown reason.")]
-		internal SqlUnary UnaryValueOf(SqlExpression expression, Expression sourceExpression)
-		{
-			Type valueType = TypeSystem.GetNonNullableType(expression.ClrType);
-			return new SqlUnary(SqlNodeType.ValueOf, valueType, expression.SqlType, expression, null, sourceExpression);
-		}
 	}
 }

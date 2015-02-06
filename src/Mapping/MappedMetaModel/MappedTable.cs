@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Linq;
 using System.Data.Linq;
-using System.Data.Linq.SqlClient;
 using System.Threading;
 using System.Runtime.Versioning;
 using LinqToSqlShared.Mapping;
@@ -17,13 +16,15 @@ namespace System.Data.Linq.Mapping
 {
 	internal sealed class MappedTable : MetaTable
 	{
-		MappedMetaModel model;
-		TableMapping mapping;
-		MetaType rowType;
-		bool hasMethods;
-		MethodInfo insertMethod;
-		MethodInfo updateMethod;
-		MethodInfo deleteMethod;
+		#region Member Declarations
+		private MappedMetaModel model;
+		private TableMapping mapping;
+		private MetaType rowType;
+		private bool hasMethods;
+		private MethodInfo insertMethod;
+		private MethodInfo updateMethod;
+		private MethodInfo deleteMethod;
+		#endregion
 
 		[ResourceExposure(ResourceScope.Assembly | ResourceScope.Machine)] // Parameter contains various type references.
 		[ResourceConsumption(ResourceScope.Assembly | ResourceScope.Machine)] // MappedRootType constructor call.
@@ -33,18 +34,22 @@ namespace System.Data.Linq.Mapping
 			this.mapping = mapping;
 			this.rowType = new MappedRootType(model, this, mapping.RowType, rowType);
 		}
+
 		public override MetaModel Model
 		{
 			get { return this.model; }
 		}
+
 		public override string TableName
 		{
 			get { return this.mapping.TableName; }
 		}
+
 		public override MetaType RowType
 		{
 			get { return this.rowType; }
 		}
+
 		public override MethodInfo InsertMethod
 		{
 			get
