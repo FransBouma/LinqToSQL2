@@ -7,7 +7,10 @@ There's no official release yet, as this project has just been started. After ev
 
 ## Does the code in 'Trunk' compile?
 
-This is the case: NO
+(No CI system setup (yet), so we'll have to do with the manually written elements below)
+
+This is the case: YES
+Will the tests run: NO.
 
 Reason: A massive refactoring is currently under way and it's not possible to commit a compiling code base at all times during this massive refactoring. As soon as the code has passed this massive refactoring (which is related to issue #6), we'll update this section.
 
