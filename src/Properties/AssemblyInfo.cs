@@ -16,4 +16,4 @@ using System.Security;
 
 
 [assembly: AssemblyVersionAttribute("1.0.0.0")]
-[assembly: AssemblyFileVersionAttribute("1.0.15.0130")]			// x.y.yy.mmdd
+[assembly: AssemblyFileVersionAttribute("1.0.15.0206")]			// x.y.yy.mmdd
