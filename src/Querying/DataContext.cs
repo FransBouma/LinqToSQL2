@@ -42,6 +42,14 @@ namespace System.Data.Linq
 		private bool _isInSubmitChanges;
 		private DataLoadOptions _loadOptions;
 		private ChangeConflictCollection _conflicts;
+		private Enum _perInstanceProviderMode;
+		#endregion
+
+		#region Statics
+		/// <summary>
+		/// General provider mode for all DataContext instances. Set this static member to have all instances use the same value. 
+		/// </summary>
+		public static Enum ProviderMode = SqlServerProviderMode.Sql2008;
 		#endregion
 
 		/// <summary>
@@ -161,6 +169,7 @@ namespace System.Data.Linq
 
 		private void Init(object connection, MappingSource mapping)
 		{
+			_perInstanceProviderMode = DataContext.ProviderMode;
 			MetaModel model = mapping.GetModel(this.GetType());
 			this._services = new CommonDataServices(this, model);
 			this._conflicts = new ChangeConflictCollection();
@@ -182,10 +191,20 @@ namespace System.Data.Linq
 			}
 
 			this._provider = (IProvider)Activator.CreateInstance(providerType);
+			SetProviderMode();
 			this._provider.Initialize(this._services, connection);
 
 			this._tables = new Dictionary<MetaTable, ITable>();
 			this.InitTables(this);
+		}
+
+		private void SetProviderMode()
+		{
+			if(_provider == null)
+			{
+				return;
+			}
+			_provider.ProviderMode = _perInstanceProviderMode;
 		}
 
 		internal void ClearCache()
@@ -1048,6 +1067,8 @@ namespace System.Data.Linq
 			this._loadOptions = null;
 		}
 
+
+		#region Property Declarations
 		/// <summary>
 		/// The DataLoadOptions used to define prefetch behavior for defer loaded members
 		/// and membership of related collections.
@@ -1086,5 +1107,25 @@ namespace System.Data.Linq
 				return this._conflicts;
 			}
 		}
+
+
+		/// <summary>
+		/// Gets or sets the per instance provider mode. The per-instance provider mode is initialized with the static DataContext.ProviderMode value at class instantiation and
+		/// can be overriden per instance with this property. The enum has to match the provider used, otherwise the default of the provider will be used.
+		/// </summary>
+		public Enum PerInstanceProviderMode
+		{
+			get {  return _perInstanceProviderMode; }
+			set
+			{
+				if(value == null)
+				{
+					throw Error.ArgumentNull("value");
+				}
+				_perInstanceProviderMode = value;
+				SetProviderMode();
+			}
+		}
+		#endregion
 	}
 }

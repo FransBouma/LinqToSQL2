@@ -449,6 +449,24 @@ namespace ReadWriteTests.SqlServer
 
 
 		[Test]
+		public void FetchingSecondPageUsingSkipTakeUsingSql2000Pagin()
+		{
+			using(var ctx = GetContext())
+			{
+				ctx.PerInstanceProviderMode = SqlServerProviderMode.Sql2000;
+				var q = ctx.Customers.Skip(11).Take(10);
+				int count = 0;
+
+				foreach(var v in q)
+				{
+					count++;
+				}
+				Assert.AreEqual(10, count);
+			}
+		}
+
+
+		[Test]
 		public void MultipleTimesSameJoinSameAliasProblem()
 		{
 			using(var ctx = GetContext())

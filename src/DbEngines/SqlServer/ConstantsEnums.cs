@@ -6,16 +6,6 @@ using System.Threading.Tasks;
 
 namespace System.Data.Linq.DbEngines.SqlServer
 {
-	internal enum SqlServerProviderMode
-	{
-		NotYetDecided,
-		Sql2000,
-		Sql2005,
-		Sql2008,
-		SqlCE
-		// Add more here.
-	}
-
 	internal class ProviderConstants
 	{
 		// -1 is used to indicate a MAX size.  In ADO.NET, -1 is specified as the size

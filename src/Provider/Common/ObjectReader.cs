@@ -60,12 +60,12 @@ namespace System.Data.Linq.Provider.Common
 		}
 		#endregion
 
-		#region Property Declarations
-		public IObjectReaderSession Session
+		IObjectReaderSession IObjectReader.Session
 		{
 			get { return base.Session; }
 		}
 
+		#region Property Declarations
 		public TObject Current
 		{
 			get { return _current; }

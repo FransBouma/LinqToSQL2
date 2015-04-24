@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq;
 using System.Data.Common;
+using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,9 @@ using System.Text;
 using System.Transactions;
 using System.Reflection;
 using System.Diagnostics.CodeAnalysis;
+using System.Data.Linq.Provider.Common;
+using System.Data.Linq.Provider.Interfaces;
+using System.Data.Linq.Provider.NodeTypes;
 
 namespace System.Data.Linq {
 
@@ -75,7 +79,31 @@ namespace System.Data.Linq {
         /// <param name="query"></param>
         /// <returns>A result object from which you can obtain the return value and output parameters.</returns>
         IExecuteResult Execute(Expression query);
+		
+		/// <summary>
+		/// Executes the specified query. Used from compiled queries. 
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="queryInfo">The query information.</param>
+		/// <param name="factory">The factory.</param>
+		/// <param name="parentArgs">The parent arguments.</param>
+		/// <param name="userArgs">The user arguments.</param>
+		/// <param name="subQueries">The sub queries.</param>
+		/// <param name="lastResult">The last result.</param>
+		/// <returns></returns>
+	    IExecuteResult Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, object[] parentArgs, object[] userArgs, ICompiledSubQuery[] subQueries, object lastResult);
 
+		/// <summary>
+		/// Executes all queries
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="queryInfos">The query infos.</param>
+		/// <param name="factory">The factory.</param>
+		/// <param name="userArguments">The user arguments.</param>
+		/// <param name="subQueries">The sub queries.</param>
+		/// <returns></returns>
+	    IExecuteResult ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, object[] userArguments, ICompiledSubQuery[] subQueries);
+		
         /// <summary>
         /// Compiles the query specified as a LINQ expression tree.
         /// </summary>
@@ -114,5 +142,27 @@ namespace System.Data.Linq {
         /// <param name="query"></param>
         /// <returns></returns>
         DbCommand GetCommand(Expression query);
+
+		/// <summary>
+		/// Gets the default object reader factory.
+		/// </summary>
+		/// <param name="rowType">Type of the row.</param>
+		/// <returns></returns>
+	    IObjectReaderFactory GetDefaultFactory(MetaType rowType);
+
+		/// <summary>
+		/// Compiles the sub query.
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="elementType">Type of the element.</param>
+		/// <param name="parameters">The parameters.</param>
+		/// <returns></returns>
+	    ICompiledSubQuery CompileSubQuery(SqlNode query, Type elementType, IReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters);
+
+		/// <summary>
+		/// Gets or sets the provider mode. The enum used has to be understood by the provider implementing the interface. If not, the default of the
+		/// provider is used.
+		/// </summary>
+		Enum ProviderMode { get; set; }
     }
 }

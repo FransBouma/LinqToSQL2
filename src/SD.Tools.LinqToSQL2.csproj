@@ -55,6 +55,12 @@
     <Compile Include="ChangeManagement\StandardChangeTracker.cs" />
     <Compile Include="DbEngines\SqlServer\ColumnNominator.cs" />
     <Compile Include="DbEngines\SqlServer\CommandTextProducer.cs" />
+    <Compile Include="Provider\Common\ExecuteResult.cs" />
+    <Compile Include="Provider\Common\CompiledQuery.cs" />
+    <Compile Include="Provider\Common\CompiledSubQuery.cs" />
+    <Compile Include="Provider\Common\MultipleResults.cs" />
+    <Compile Include="Provider\Common\OneTimeEnumerable.cs" />
+    <Compile Include="Provider\Common\QueryInfo.cs" />
     <Compile Include="DbEngines\SqlServer\Sql2000Provider.cs" />
     <Compile Include="DbEngines\SqlServer\Sql2005Provider.cs" />
     <Compile Include="DbEngines\SqlServer\Sql2008Provider.cs" />
@@ -84,6 +90,8 @@
     <Compile Include="Provider\Common\OrderedResults.cs" />
     <Compile Include="Provider\Common\QueryExtractor.cs" />
     <Compile Include="Provider\Common\Rereader.cs" />
+    <Compile Include="Provider\Common\SequenceOfOne.cs" />
+    <Compile Include="Provider\Common\SingleResult.cs" />
     <Compile Include="Provider\Common\SqlAliasDependencyChecker.cs" />
     <Compile Include="Provider\Common\SqlAliasesReferenced.cs" />
     <Compile Include="Provider\Common\SqlCaseSimplifier.cs" />
@@ -246,6 +254,7 @@
     <Compile Include="Provider\Visitors\SqlSupersetValidator.cs" />
     <Compile Include="Provider\Visitors\SqlTopSelectDeflator.cs" />
     <Compile Include="Provider\Visitors\SqlValueDeflator.cs" />
+    <Compile Include="Provider\Visitors\SubQueryCompiler.cs" />
     <Compile Include="Provider\Visitors\SubqueryValidator.cs" />
     <Compile Include="Provider\Visitors\SubSelectDuplicator.cs" />
     <Compile Include="Provider\Visitors\TypeCorrector.cs" />

@@ -2,14 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 using System.Data.Linq.Provider.Visitor;
 using System.Data.Linq.Provider.Visitors;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -23,7 +21,6 @@ using System.Runtime.CompilerServices;
 
 namespace System.Data.Linq.DbEngines.SqlServer
 {
-	using System.Data.Linq.BindingLists;
 	using System.Data.Linq.Provider.Common;
 	using System.Data.Linq.Provider.Interfaces;
 	using System.Data.Linq.Provider.NodeTypes;
@@ -33,326 +30,54 @@ namespace System.Data.Linq.DbEngines.SqlServer
 	[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Unknown reason.")]
 	public class SqlProvider : IReaderProvider, IConnectionUser
 	{
-		private IDataServices services;
-		private ConnectionManager conManager;
-		private TypeSystemProvider typeProvider;
-		private SqlFactory sqlFactory;
-		private Translator translator;
-		private IObjectReaderCompiler readerCompiler;
-		private bool disposed;
-		private int commandTimeout;
-
-		private TextWriter log;
-		string dbName = string.Empty;
+		#region Class Members
+		private IDataServices _services;
+		private ConnectionManager _conManager;
+		private TypeSystemProvider _typeProvider;
+		private SqlFactory _sqlFactory;
+		private Translator _translator;
+		private IObjectReaderCompiler _readerCompiler;
+		private bool _disposed;
+		private int _commandTimeout;
+		private TextWriter _log;
+		private string _dbName = string.Empty;
 
 		// stats and flags
-		private int queryCount;
-		private bool checkQueries;
-		private OptimizationFlags optimizationFlags = OptimizationFlags.All;
-		private bool enableCacheLookup = true;
-		private SqlServerProviderMode mode = SqlServerProviderMode.NotYetDecided;
-		private bool deleted = false;
+		private int _queryCount;
+		private bool _checkQueries;
+		private OptimizationFlags _optimizationFlags = OptimizationFlags.All;
+		private bool _enableCacheLookup = true;
+		private SqlServerProviderMode _mode;
+		private bool _deleted;
+		#endregion
 
+		#region Constants
 		const string SqlCeProviderInvariantName = "System.Data.SqlServerCe.3.5";
 		const string SqlCeDataReaderTypeName = "System.Data.SqlServerCe.SqlCeDataReader";
 		const string SqlCeConnectionTypeName = "System.Data.SqlServerCe.SqlCeConnection";
 		const string SqlCeTransactionTypeName = "System.Data.SqlServerCe.SqlCeTransaction";
-
-		internal SqlServerProviderMode Mode
-		{
-			get
-			{
-				this.CheckDispose();
-				this.CheckInitialized();
-				this.InitializeProviderMode();
-				return this.mode;
-			}
-		}
-
-		private void InitializeProviderMode()
-		{
-			if(this.mode == SqlServerProviderMode.NotYetDecided)
-			{
-				if(this.IsSqlCe)
-				{
-					this.mode = SqlServerProviderMode.SqlCE;
-				}
-				else if(this.IsServer2KOrEarlier)
-				{
-					this.mode = SqlServerProviderMode.Sql2000;
-				}
-				else if(this.IsServer2005)
-				{
-					this.mode = SqlServerProviderMode.Sql2005;
-				}
-				else
-				{
-					this.mode = SqlServerProviderMode.Sql2008;
-				}
-			}
-			if(this.typeProvider == null)
-			{
-				switch(this.mode)
-				{
-					case SqlServerProviderMode.Sql2000:
-						this.typeProvider = SqlTypeSystem.Create2000Provider();
-						break;
-					case SqlServerProviderMode.Sql2005:
-						this.typeProvider = SqlTypeSystem.Create2005Provider();
-						break;
-					case SqlServerProviderMode.Sql2008:
-						this.typeProvider = SqlTypeSystem.Create2008Provider();
-						break;
-					case SqlServerProviderMode.SqlCE:
-						this.typeProvider = SqlTypeSystem.CreateCEProvider();
-						break;
-					default:
-						System.Diagnostics.Debug.Assert(false);
-						break;
-				}
-			}
-			if(this.sqlFactory == null)
-			{
-				this.sqlFactory = new SqlFactory(this.typeProvider, this.services.Model);
-				this.translator = new Translator(this.services, this.sqlFactory, this.typeProvider);
-			}
-		}
-
-		/// <summary>
-		/// Return true if the current connection is SQLCE.
-		/// </summary>
-		private bool IsSqlCe
-		{
-			get
-			{
-				DbConnection con = conManager.UseConnection(this);
-				try
-				{
-					if(String.CompareOrdinal(con.GetType().FullName, SqlCeConnectionTypeName) == 0)
-					{
-						return true;
-					}
-				}
-				finally
-				{
-					conManager.ReleaseConnection(this);
-				}
-				return false;
-			}
-		}
-
-		/// <summary>
-		/// Return true if this is a 2K (or earlier) server. This may be a round trip to the server.
-		/// </summary>
-		private bool IsServer2KOrEarlier
-		{
-			get
-			{
-				DbConnection con = conManager.UseConnection(this);
-				try
-				{
-					string serverVersion = con.ServerVersion;
-					if(serverVersion.StartsWith("06.00.", StringComparison.Ordinal))
-					{
-						return true;
-					}
-					else if(serverVersion.StartsWith("06.50.", StringComparison.Ordinal))
-					{
-						return true;
-					}
-					else if(serverVersion.StartsWith("07.00.", StringComparison.Ordinal))
-					{
-						return true;
-					}
-					else if(serverVersion.StartsWith("08.00.", StringComparison.Ordinal))
-					{
-						return true;
-					}
-					return false;
-				}
-				finally
-				{
-					conManager.ReleaseConnection(this);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Return true if this is a SQL 2005 server. This may be a round trip to the server.
-		/// </summary>
-		private bool IsServer2005
-		{
-			get
-			{
-				DbConnection con = conManager.UseConnection(this);
-				try
-				{
-					string serverVersion = con.ServerVersion;
-					if(serverVersion.StartsWith("09.00.", StringComparison.Ordinal))
-					{
-						return true;
-					}
-					return false;
-				}
-				finally
-				{
-					conManager.ReleaseConnection(this);
-				}
-			}
-		}
-
-		DbConnection IProvider.Connection
-		{
-			get
-			{
-				this.CheckDispose();
-				this.CheckInitialized();
-				return this.conManager.Connection;
-			}
-		}
-
-		TextWriter IProvider.Log
-		{
-			get
-			{
-				this.CheckDispose();
-				this.CheckInitialized();
-				return this.log;
-			}
-			set
-			{
-				this.CheckDispose();
-				this.CheckInitialized();
-				this.log = value;
-			}
-		}
-
-		DbTransaction IProvider.Transaction
-		{
-			get
-			{
-				this.CheckDispose();
-				this.CheckInitialized();
-				return this.conManager.Transaction;
-			}
-			set
-			{
-				this.CheckDispose();
-				this.CheckInitialized();
-				this.conManager.Transaction = value;
-			}
-		}
-
-		int IProvider.CommandTimeout
-		{
-			get
-			{
-				this.CheckDispose();
-				return this.commandTimeout;
-			}
-			set
-			{
-				this.CheckDispose();
-				this.commandTimeout = value;
-			}
-		}
-
-		/// <summary>
-		/// Expose a test hook which controls which SQL optimizations are executed.
-		/// </summary>
-		internal OptimizationFlags OptimizationFlags
-		{
-			get
-			{
-				CheckDispose();
-				return this.optimizationFlags;
-			}
-			set
-			{
-				CheckDispose();
-				this.optimizationFlags = value;
-			}
-		}
-
-		/// <summary>
-		/// Validate queries as they are generated.
-		/// </summary>
-		internal bool CheckQueries
-		{
-			get
-			{
-				CheckDispose();
-				return checkQueries;
-			}
-			set
-			{
-				CheckDispose();
-				checkQueries = value;
-			}
-		}
-
-		internal bool EnableCacheLookup
-		{
-			get
-			{
-				CheckDispose();
-				return this.enableCacheLookup;
-			}
-			set
-			{
-				CheckDispose();
-				this.enableCacheLookup = value;
-			}
-		}
-
-		internal int QueryCount
-		{
-			get
-			{
-				CheckDispose();
-				return this.queryCount;
-			}
-		}
-
-		internal int MaxUsers
-		{
-			get
-			{
-				CheckDispose();
-				return this.conManager.MaxUsers;
-			}
-		}
-
-		IDataServices IReaderProvider.Services
-		{
-			get { return this.services; }
-		}
-
-		IConnectionManager IReaderProvider.ConnectionManager
-		{
-			get { return this.conManager; }
-		}
+		#endregion
 
 		public SqlProvider()
 		{
-			this.mode = SqlServerProviderMode.NotYetDecided;
+			_mode = SqlServerProviderMode.Sql2008;
 		}
 
 		internal SqlProvider(SqlServerProviderMode mode)
 		{
-			this.mode = mode;
+			_mode = mode;
 		}
 
 		private void CheckInitialized()
 		{
-			if(this.services == null)
+			if(_services == null)
 			{
 				throw Error.ContextNotInitialized();
 			}
 		}
 		private void CheckNotDeleted()
 		{
-			if(this.deleted)
+			if(_deleted)
 			{
 				throw Error.DatabaseDeleteThroughContext();
 			}
@@ -365,7 +90,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			{
 				throw Error.ArgumentNull("dataServices");
 			}
-			this.services = dataServices;
+			_services = dataServices;
 
 			DbConnection con;
 			DbTransaction tx = null;
@@ -374,17 +99,17 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			if(fileOrServerOrConnectionString != null)
 			{
 				string connectionString = this.GetConnectionString(fileOrServerOrConnectionString);
-				this.dbName = this.GetDatabaseName(connectionString);
-				if(this.dbName.EndsWith(".sdf", StringComparison.OrdinalIgnoreCase))
+				_dbName = this.GetDatabaseName(connectionString);
+				if(_dbName.EndsWith(".sdf", StringComparison.OrdinalIgnoreCase))
 				{
-					this.mode = SqlServerProviderMode.SqlCE;
+					_mode = SqlServerProviderMode.SqlCE;
 				}
-				if(this.mode == SqlServerProviderMode.SqlCE)
+				if(_mode == SqlServerProviderMode.SqlCE)
 				{
 					DbProviderFactory factory = SqlProvider.GetProvider(SqlCeProviderInvariantName);
 					if(factory == null)
 					{
-						throw Error.ProviderNotInstalled(this.dbName, SqlCeProviderInvariantName);
+						throw Error.ProviderNotInstalled(_dbName, SqlCeProviderInvariantName);
 					}
 					con = factory.CreateConnection();
 				}
@@ -417,15 +142,15 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				}
 				if(con.GetType().FullName == SqlCeConnectionTypeName)
 				{
-					this.mode = SqlServerProviderMode.SqlCE;
+					_mode = SqlServerProviderMode.SqlCE;
 				}
-				this.dbName = this.GetDatabaseName(con.ConnectionString);
+				_dbName = this.GetDatabaseName(con.ConnectionString);
 			}
 
 			// initialize to the default command timeout
 			using(DbCommand c = con.CreateCommand())
 			{
-				this.commandTimeout = c.CommandTimeout;
+				_commandTimeout = c.CommandTimeout;
 			}
 
 			int maxUsersPerConnection = 1;
@@ -442,10 +167,10 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			// If fileOrServerOrConnectionString != null, that means we just created the connection instance and we have to tell
 			// the SqlConnectionManager that it should dispose the connection when the context is disposed. Otherwise the user owns
 			// the connection and should dispose of it themselves.
-			this.conManager = new ConnectionManager(this, con, maxUsersPerConnection, fileOrServerOrConnectionString != null /*disposeConnection*/);
+			_conManager = new ConnectionManager(this, con, maxUsersPerConnection, fileOrServerOrConnectionString != null /*disposeConnection*/);
 			if(tx != null)
 			{
-				this.conManager.Transaction = tx;
+				_conManager.Transaction = tx;
 			}
 
 #if DEBUG
@@ -454,7 +179,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 
 			Type readerType;
-			if(this.mode == SqlServerProviderMode.SqlCE)
+			if(_mode == SqlServerProviderMode.SqlCE)
 			{
 				readerType = con.GetType().Module.GetType(SqlCeDataReaderTypeName);
 			}
@@ -466,7 +191,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			{
 				readerType = typeof(DbDataReader);
 			}
-			this.readerCompiler = new ObjectReaderCompiler(readerType, this.services);
+			_readerCompiler = new ObjectReaderCompiler(readerType, _services);
 		}
 
 		private static DbProviderFactory GetProvider(string providerName)
@@ -485,7 +210,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		#region Dispose\Finalize
 		public void Dispose()
 		{
-			this.disposed = true;
+			_disposed = true;
 			Dispose(true);
 			// Technically, calling GC.SuppressFinalize is not required because the class does not
 			// have a finalizer, but it does no harm, protects against the case where a finalizer is added
@@ -503,23 +228,23 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			// a finalizer that potentially cleans up unmanaged resources.
 			if(disposing)
 			{
-				this.services = null;
-				if(this.conManager != null)
+				_services = null;
+				if(_conManager != null)
 				{
-					this.conManager.DisposeConnection();
+					_conManager.DisposeConnection();
 				}
-				this.conManager = null;
-				this.typeProvider = null;
-				this.sqlFactory = null;
-				this.translator = null;
-				this.readerCompiler = null;
-				this.log = null;
+				_conManager = null;
+				_typeProvider = null;
+				_sqlFactory = null;
+				_translator = null;
+				_readerCompiler = null;
+				_log = null;
 			}
 		}
 
 		internal void CheckDispose()
 		{
-			if(this.disposed)
+			if(_disposed)
 			{
 				throw Error.ProviderCannotBeUsedAfterDispose();
 			}
@@ -550,7 +275,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			else
 			{
 				builder.Add("Server", fileOrServerOrConnectionString);
-				builder.Add("Database", this.services.Model.DatabaseName);
+				builder.Add("Database", _services.Model.DatabaseName);
 				builder.Add("Integrated Security", "SSPI");
 			}
 			return builder.ToString();
@@ -580,7 +305,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			}
 			else
 			{
-				return this.services.Model.DatabaseName;
+				return _services.Model.DatabaseName;
 			}
 		}
 
@@ -597,15 +322,15 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			string filename = null;
 
 			DbConnectionStringBuilder builder = new DbConnectionStringBuilder();
-			builder.ConnectionString = this.conManager.Connection.ConnectionString;
+			builder.ConnectionString = _conManager.Connection.ConnectionString;
 
-			if(this.conManager.Connection.State == ConnectionState.Closed)
+			if(_conManager.Connection.State == ConnectionState.Closed)
 			{
-				if(this.mode == SqlServerProviderMode.SqlCE)
+				if(_mode == SqlServerProviderMode.SqlCE)
 				{
-					if(!File.Exists(this.dbName))
+					if(!File.Exists(_dbName))
 					{
-						Type engineType = this.conManager.Connection.GetType().Module.GetType("System.Data.SqlServerCe.SqlCeEngine");
+						Type engineType = _conManager.Connection.GetType().Module.GetType("System.Data.SqlServerCe.SqlCeEngine");
 						object engine = Activator.CreateInstance(engineType, new object[] { builder.ToString() });
 						try
 						{
@@ -626,7 +351,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					}
 					else
 					{
-						throw Error.CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists(this.dbName);
+						throw Error.CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists(_dbName);
 					}
 				}
 				else
@@ -649,15 +374,15 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						builder.Remove("AttachDBFileName");
 					}
 				}
-				this.conManager.Connection.ConnectionString = builder.ToString();
+				_conManager.Connection.ConnectionString = builder.ToString();
 			}
 			else
 			{
-				if(this.mode == SqlServerProviderMode.SqlCE)
+				if(_mode == SqlServerProviderMode.SqlCE)
 				{
-					if(File.Exists(this.dbName))
+					if(File.Exists(_dbName))
 					{
-						throw Error.CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists(this.dbName);
+						throw Error.CreateDatabaseFailedBecauseSqlCEDatabaseAlreadyExists(_dbName);
 					}
 				}
 				object val;
@@ -681,9 +406,9 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				{
 					catalog = Path.GetFullPath(filename);
 				}
-				else if(!String.IsNullOrEmpty(this.dbName))
+				else if(!String.IsNullOrEmpty(_dbName))
 				{
-					catalog = this.dbName;
+					catalog = _dbName;
 				}
 				else
 				{
@@ -691,25 +416,25 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				}
 			}
 
-			this.conManager.UseConnection(this);
-			this.conManager.AutoClose = false;
+			_conManager.UseConnection(this);
+			_conManager.AutoClose = false;
 
 			try
 			{
-				if(this.services.Model.GetTables().FirstOrDefault() == null)
+				if(_services.Model.GetTables().FirstOrDefault() == null)
 				{
 					// we have no tables to create
-					throw Error.CreateDatabaseFailedBecauseOfContextWithNoTables(this.services.Model.DatabaseName);
+					throw Error.CreateDatabaseFailedBecauseOfContextWithNoTables(_services.Model.DatabaseName);
 				}
 
-				this.deleted = false;
+				_deleted = false;
 
 				// create database
-				if(this.mode == SqlServerProviderMode.SqlCE)
+				if(_mode == SqlServerProviderMode.SqlCE)
 				{
 
 					// create tables
-					foreach(MetaTable table in this.services.Model.GetTables())
+					foreach(MetaTable table in _services.Model.GetTables())
 					{
 						string command = SqlBuilder.GetCreateTableCommand(table);
 						if(!String.IsNullOrEmpty(command))
@@ -718,7 +443,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						}
 					}
 					// create all foreign keys after all tables are defined
-					foreach(MetaTable table in this.services.Model.GetTables())
+					foreach(MetaTable table in _services.Model.GetTables())
 					{
 						foreach(string command in SqlBuilder.GetCreateForeignKeyCommands(table))
 						{
@@ -733,15 +458,15 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				{
 					string createdb = SqlBuilder.GetCreateDatabaseCommand(catalog, filename, Path.ChangeExtension(filename, ".ldf"));
 					this.ExecuteCommand(createdb);
-					this.conManager.Connection.ChangeDatabase(catalog);
+					_conManager.Connection.ChangeDatabase(catalog);
 
 					// create the schemas that our tables will need
 					// cannot be batched together with the rest of the CREATE TABLES
-					if(this.mode == SqlServerProviderMode.Sql2005 || this.mode == SqlServerProviderMode.Sql2008)
+					if(_mode == SqlServerProviderMode.Sql2005 || _mode == SqlServerProviderMode.Sql2008)
 					{
 						HashSet<string> schemaCommands = new HashSet<string>();
 
-						foreach(MetaTable table in this.services.Model.GetTables())
+						foreach(MetaTable table in _services.Model.GetTables())
 						{
 							string schemaCommand = SqlBuilder.GetCreateSchemaForTableCommand(table);
 							if(!string.IsNullOrEmpty(schemaCommand))
@@ -759,7 +484,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					StringBuilder sb = new StringBuilder();
 
 					// create tables
-					foreach(MetaTable table in this.services.Model.GetTables())
+					foreach(MetaTable table in _services.Model.GetTables())
 					{
 						string createTable = SqlBuilder.GetCreateTableCommand(table);
 						if(!string.IsNullOrEmpty(createTable))
@@ -769,7 +494,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					}
 
 					// create all foreign keys after all tables are defined
-					foreach(MetaTable table in this.services.Model.GetTables())
+					foreach(MetaTable table in _services.Model.GetTables())
 					{
 						foreach(string createFK in SqlBuilder.GetCreateForeignKeyCommands(table))
 						{
@@ -790,8 +515,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			}
 			finally
 			{
-				this.conManager.ReleaseConnection(this);
-				if(this.conManager.Connection is SqlConnection)
+				_conManager.ReleaseConnection(this);
+				if(_conManager.Connection is SqlConnection)
 				{
 					SqlConnection.ClearAllPools();
 				}
@@ -805,23 +530,23 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			this.CheckDispose();
 			this.CheckInitialized();
 			// Don't need to call InitializeProviderMode() here since we don't need to know the provider to do this.
-			if(this.deleted)
+			if(_deleted)
 			{
 				// 2nd delete is no-op.
 				return;
 			}
 
-			if(this.mode == SqlServerProviderMode.SqlCE)
+			if(_mode == SqlServerProviderMode.SqlCE)
 			{
 				((IProvider)this).ClearConnection();
-				System.Diagnostics.Debug.Assert(this.conManager.Connection.State == ConnectionState.Closed);
-				File.Delete(this.dbName);
-				this.deleted = true;
+				System.Diagnostics.Debug.Assert(_conManager.Connection.State == ConnectionState.Closed);
+				File.Delete(_dbName);
+				_deleted = true;
 			}
 			else
 			{
-				string holdConnStr = conManager.Connection.ConnectionString;
-				DbConnection con = this.conManager.UseConnection(this);
+				string holdConnStr = _conManager.Connection.ConnectionString;
+				DbConnection con = _conManager.UseConnection(this);
 				try
 				{
 					con.ChangeDatabase("master");
@@ -829,23 +554,23 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					{
 						SqlConnection.ClearAllPools();
 					}
-					if(this.log != null)
+					if(_log != null)
 					{
-						this.log.WriteLine(Strings.LogAttemptingToDeleteDatabase(this.dbName));
+						_log.WriteLine(Strings.LogAttemptingToDeleteDatabase(_dbName));
 					}
-					this.ExecuteCommand(SqlBuilder.GetDropDatabaseCommand(this.dbName));
-					this.deleted = true;
+					this.ExecuteCommand(SqlBuilder.GetDropDatabaseCommand(_dbName));
+					_deleted = true;
 				}
 				finally
 				{
-					this.conManager.ReleaseConnection(this);
-					if(conManager.Connection.State == ConnectionState.Closed &&
-						string.Compare(conManager.Connection.ConnectionString, holdConnStr, StringComparison.Ordinal) != 0)
+					_conManager.ReleaseConnection(this);
+					if(_conManager.Connection.State == ConnectionState.Closed &&
+						string.Compare(_conManager.Connection.ConnectionString, holdConnStr, StringComparison.Ordinal) != 0)
 					{
 						// Credential information may have been stripped from the connection
 						// string as a result of opening the connection. Restore the full
 						// connection string.
-						conManager.Connection.ConnectionString = holdConnStr;
+						_conManager.Connection.ConnectionString = holdConnStr;
 					}
 				}
 			}
@@ -858,28 +583,28 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		{
 			this.CheckDispose();
 			this.CheckInitialized();
-			if(this.deleted)
+			if(_deleted)
 			{
 				return false;
 			}
 			// Don't need to call InitializeProviderMode() here since we don't need to know the provider to do this.
 
 			bool exists = false;
-			if(this.mode == SqlServerProviderMode.SqlCE)
+			if(_mode == SqlServerProviderMode.SqlCE)
 			{
-				exists = File.Exists(this.dbName);
+				exists = File.Exists(_dbName);
 			}
 			else
 			{
-				string holdConnStr = conManager.Connection.ConnectionString;
+				string holdConnStr = _conManager.Connection.ConnectionString;
 				try
 				{
 					// If no database name is explicitly specified on the connection,
 					// UseConnection will connect to 'Master', which is why after connecting
 					// we call ChangeDatabase to verify that the database actually exists.
-					this.conManager.UseConnection(this);
-					this.conManager.Connection.ChangeDatabase(this.dbName);
-					this.conManager.ReleaseConnection(this);
+					_conManager.UseConnection(this);
+					_conManager.Connection.ChangeDatabase(_dbName);
+					_conManager.ReleaseConnection(this);
 					exists = true;
 				}
 				catch(Exception)
@@ -887,13 +612,13 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				}
 				finally
 				{
-					if(conManager.Connection.State == ConnectionState.Closed &&
-						string.Compare(conManager.Connection.ConnectionString, holdConnStr, StringComparison.Ordinal) != 0)
+					if(_conManager.Connection.State == ConnectionState.Closed &&
+						string.Compare(_conManager.Connection.ConnectionString, holdConnStr, StringComparison.Ordinal) != 0)
 					{
 						// Credential information may have been stripped from the connection
 						// string as a result of opening the connection. Restore the full
 						// connection string.
-						conManager.Connection.ConnectionString = holdConnStr;
+						_conManager.Connection.ConnectionString = holdConnStr;
 					}
 				}
 			}
@@ -908,19 +633,19 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		{
 			this.CheckDispose();
 			this.CheckInitialized();
-			this.conManager.ClearConnection();
+			_conManager.ClearConnection();
 		}
 
 		private void ExecuteCommand(string command)
 		{
-			if(this.log != null)
+			if(_log != null)
 			{
-				this.log.WriteLine(command);
-				this.log.WriteLine();
+				_log.WriteLine(command);
+				_log.WriteLine();
 			}
-			IDbCommand cmd = this.conManager.Connection.CreateCommand();
-			cmd.CommandTimeout = this.commandTimeout;
-			cmd.Transaction = this.conManager.Transaction;
+			IDbCommand cmd = _conManager.Connection.CreateCommand();
+			cmd.CommandTimeout = _commandTimeout;
+			cmd.Transaction = _conManager.Transaction;
 			cmd.CommandText = command;
 			cmd.ExecuteNonQuery();
 		}
@@ -960,7 +685,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				factory = this.GetReaderFactory(qi.Query, TypeSystem.GetElementType(qi.ResultType));
 			}
 
-			return new CompiledQuery(this, query, qis, factory, subQueries);
+			return new AdoCompiledQuery(this, query, qis, factory, subQueries);
 		}
 
 		private ICompiledSubQuery CompileSubQuery(SqlNode query, Type elementType, ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters)
@@ -979,6 +704,230 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			return new CompiledSubQuery(qi, factory, parameters, subQueries);
 		}
 
+		
+
+		private ICompiledSubQuery[] CompileSubQueries(SqlNode query)
+		{
+			return new SubQueryCompiler(this).Compile(query);
+		}
+
+
+		/// <summary>
+		/// Look for compatibility annotations for the set of providers we
+		/// add annotations for.
+		/// </summary>
+		private void CheckSqlCompatibility(QueryInfo[] queries, SqlNodeAnnotations annotations)
+		{
+			if(this.Mode == SqlServerProviderMode.Sql2000 ||
+				this.Mode == SqlServerProviderMode.SqlCE)
+			{
+				for(int i = 0, n = queries.Length; i < n; i++)
+				{
+					SqlServerCompatibilityCheck.ThrowIfUnsupported(queries[i].Query, annotations, this.Mode);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		private IExecuteResult GetCachedResult(Expression query)
+		{
+			object obj = _services.GetCachedObject(query);
+			if(obj != null)
+			{
+				switch(this.GetResultShape(query))
+				{
+					case ResultShape.Singleton:
+						return new ExecuteResult(null, null, null, obj);
+					case ResultShape.Sequence:
+						return new ExecuteResult(null, null, null,
+							Activator.CreateInstance(
+								typeof(SequenceOfOne<>).MakeGenericType(TypeSystem.GetElementType(this.GetResultType(query))),
+								BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { obj }, null
+								));
+				}
+			}
+			return null;
+		}
+
+		private MetaFunction GetFunction(Expression query)
+		{
+			LambdaExpression lambda = query as LambdaExpression;
+			if(lambda != null)
+			{
+				query = lambda.Body;
+			}
+			MethodCallExpression mc = query as MethodCallExpression;
+			if(mc != null && typeof(DataContext).IsAssignableFrom(mc.Method.DeclaringType))
+			{
+				return _services.Model.GetFunction(mc.Method);
+			}
+			return null;
+		}
+
+		private void LogCommand(TextWriter writer, DbCommand cmd)
+		{
+			if(writer != null)
+			{
+				writer.WriteLine(cmd.CommandText);
+				foreach(DbParameter p in cmd.Parameters)
+				{
+					int prec = 0;
+					int scale = 0;
+					PropertyInfo piPrecision = p.GetType().GetProperty("Precision");
+					if(piPrecision != null)
+					{
+						prec = (int)Convert.ChangeType(piPrecision.GetValue(p, null), typeof(int), CultureInfo.InvariantCulture);
+					}
+					PropertyInfo piScale = p.GetType().GetProperty("Scale");
+					if(piScale != null)
+					{
+						scale = (int)Convert.ChangeType(piScale.GetValue(p, null), typeof(int), CultureInfo.InvariantCulture);
+					}
+					var sp = p as System.Data.SqlClient.SqlParameter;
+					writer.WriteLine("-- {0}: {1} {2} (Size = {3}; Prec = {4}; Scale = {5}) [{6}]",
+						p.ParameterName,
+						p.Direction,
+						sp == null ? p.DbType.ToString() : sp.SqlDbType.ToString(),
+						p.Size.ToString(System.Globalization.CultureInfo.CurrentCulture),
+						prec,
+						scale,
+						sp == null ? p.Value : sp.SqlValue);
+				}
+#warning [FB] IMPLEMENT FILE VERSION RETRIEVAL HERE AND REPLACE "1.0"
+				writer.WriteLine("-- Context: {0}({1}) Model: {2} Build: {3}", this.GetType().Name, this.Mode, _services.Model.GetType().Name, "1.0 (placeholder)");
+				writer.WriteLine();
+			}
+		}
+
+		private void AssignParameters(DbCommand cmd, ReadOnlyCollection<SqlParameterInfo> parms, object[] userArguments, object lastResult)
+		{
+			if(parms != null)
+			{
+				foreach(SqlParameterInfo pi in parms)
+				{
+					DbParameter p = cmd.CreateParameter();
+					p.ParameterName = pi.Parameter.Name;
+					p.Direction = pi.Parameter.Direction;
+					if(pi.Parameter.Direction == ParameterDirection.Input ||
+						pi.Parameter.Direction == ParameterDirection.InputOutput)
+					{
+						object value = pi.Value;
+						switch(pi.Type)
+						{
+							case SqlParameterType.UserArgument:
+								try
+								{
+									value = pi.Accessor.DynamicInvoke(new object[] { userArguments });
+								}
+								catch(System.Reflection.TargetInvocationException e)
+								{
+									throw e.InnerException;
+								}
+								break;
+							case SqlParameterType.PreviousResult:
+								value = lastResult;
+								break;
+						}
+						_typeProvider.InitializeParameter(pi.Parameter.SqlType, p, value);
+					}
+					else
+					{
+						_typeProvider.InitializeParameter(pi.Parameter.SqlType, p, null);
+					}
+					cmd.Parameters.Add(p);
+				}
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		IEnumerable IProvider.Translate(Type elementType, DbDataReader reader)
+		{
+			this.CheckDispose();
+			this.CheckInitialized();
+			this.InitializeProviderMode();
+			if(elementType == null)
+			{
+				throw Error.ArgumentNull("elementType");
+			}
+			if(reader == null)
+			{
+				throw Error.ArgumentNull("reader");
+			}
+			MetaType rowType = _services.Model.GetMetaType(elementType);
+			IObjectReaderFactory factory = this.GetDefaultFactory(rowType);
+			IEnumerator e = factory.Create(reader, true, this, null, null, null);
+			Type enumerableType = typeof(OneTimeEnumerable<>).MakeGenericType(elementType);
+			return (IEnumerable)Activator.CreateInstance(enumerableType, BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { e }, null);
+		}
+
+		IMultipleResults IProvider.Translate(DbDataReader reader)
+		{
+			this.CheckDispose();
+			this.CheckInitialized();
+			this.InitializeProviderMode();
+			if(reader == null)
+			{
+				throw Error.ArgumentNull("reader");
+			}
+			IObjectReaderSession session = _readerCompiler.CreateSession(reader, this, null, null, null);
+			return new MultipleResults(this, null, session, null);
+		}
+
+		string IProvider.GetQueryText(Expression query)
+		{
+			this.CheckDispose();
+			this.CheckInitialized();
+			if(query == null)
+			{
+				throw Error.ArgumentNull("query");
+			}
+			this.InitializeProviderMode();
+			SqlNodeAnnotations annotations = new SqlNodeAnnotations();
+			QueryInfo[] qis = this.BuildQuery(query, annotations);
+
+			StringBuilder sb = new StringBuilder();
+			for(int i = 0, n = qis.Length; i < n; i++)
+			{
+				QueryInfo qi = qis[i];
+#if DEBUG
+				StringWriter writer = new StringWriter(System.Globalization.CultureInfo.InvariantCulture);
+				DbCommand cmd = _conManager.Connection.CreateCommand();
+				cmd.CommandText = qi.CommandText;
+				AssignParameters(cmd, qi.Parameters, null, null);
+				LogCommand(writer, cmd);
+				sb.Append(writer.ToString());
+#else
+                sb.Append(qi.CommandText);
+                sb.AppendLine();
+#endif
+			}
+			return sb.ToString();
+		}
+
+
+		/// <summary>
+		/// Gets the default object reader factory.
+		/// </summary>
+		/// <param name="rowType">Type of the row.</param>
+		/// <returns></returns>
+		IObjectReaderFactory IProvider.GetDefaultFactory(MetaType rowType)
+		{
+			return this.GetDefaultFactory(rowType);
+		}
+
+
+		/// <summary>
+		/// Compiles the sub query.
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="elementType">Type of the element.</param>
+		/// <param name="parameters">The parameters.</param>
+		/// <returns></returns>
+		ICompiledSubQuery IProvider.CompileSubQuery(SqlNode query, Type elementType, IReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters)
+		{
+			return this.CompileSubQuery(query, elementType, parameters as ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter>);
+		}
+		
 
 		/// <summary>
 		/// Executes the query specified as a LINQ expression tree.
@@ -988,6 +937,53 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		/// A result object from which you can obtain the return value and output parameters.
 		/// </returns>
 		IExecuteResult IProvider.Execute(Expression query)
+		{
+			return this.Execute(query);
+		}
+
+
+		/// <summary>
+		/// Executes the specified query. Used from compiled queries. 
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="queryInfo">The query information.</param>
+		/// <param name="factory">The factory.</param>
+		/// <param name="parentArgs">The parent arguments.</param>
+		/// <param name="userArgs">The user arguments.</param>
+		/// <param name="subQueries">The sub queries.</param>
+		/// <param name="lastResult">The last result.</param>
+		/// <returns></returns>
+		[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Unknown reason.")]
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		IExecuteResult IProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, object[] parentArgs, object[] userArgs, ICompiledSubQuery[] subQueries, object lastResult)
+		{
+			return this.Execute(query, queryInfo, factory, parentArgs, userArgs, subQueries, lastResult);
+		}
+
+
+		/// <summary>
+		/// Executes all queries
+		/// </summary>
+		/// <param name="query">The query.</param>
+		/// <param name="queryInfos">The query infos.</param>
+		/// <param name="factory">The factory.</param>
+		/// <param name="userArguments">The user arguments.</param>
+		/// <param name="subQueries">The sub queries.</param>
+		/// <returns></returns>
+		IExecuteResult IProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, object[] userArguments, ICompiledSubQuery[] subQueries)
+		{
+			return this.ExecuteAll(query, queryInfos, factory, userArguments, subQueries);
+		}
+
+
+		/// <summary>
+		/// Executes the query specified as a LINQ expression tree.
+		/// </summary>
+		/// <param name="query"></param>
+		/// <returns>
+		/// A result object from which you can obtain the return value and output parameters.
+		/// </returns>
+		private IExecuteResult Execute(Expression query)
 		{
 			this.CheckDispose();
 			this.CheckInitialized();
@@ -1035,124 +1031,34 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			return result;
 		}
 
-		private ICompiledSubQuery[] CompileSubQueries(SqlNode query)
-		{
-			return new SubQueryCompiler(this).Compile(query);
-		}
-
-		class SubQueryCompiler : SqlVisitor
-		{
-			SqlProvider provider;
-			List<ICompiledSubQuery> subQueries;
-
-			internal SubQueryCompiler(SqlProvider provider)
-			{
-				this.provider = provider;
-			}
-
-			internal ICompiledSubQuery[] Compile(SqlNode node)
-			{
-				this.subQueries = new List<ICompiledSubQuery>();
-				this.Visit(node);
-				return this.subQueries.ToArray();
-			}
-
-			internal override SqlSelect VisitSelect(SqlSelect select)
-			{
-				this.Visit(select.Selection);
-				return select;
-			}
-
-			internal override SqlExpression VisitSubSelect(SqlSubSelect ss)
-			{
-				return ss;
-			}
-
-			internal override SqlExpression VisitClientQuery(SqlClientQuery cq)
-			{
-				Type clientElementType = cq.Query.NodeType == SqlNodeType.Multiset ? TypeSystem.GetElementType(cq.ClrType) : cq.ClrType;
-				ICompiledSubQuery c = this.provider.CompileSubQuery(cq.Query.Select, clientElementType, cq.Parameters.AsReadOnly());
-				cq.Ordinal = this.subQueries.Count;
-				this.subQueries.Add(c);
-				return cq;
-			}
-		}
 
 		/// <summary>
-		/// Look for compatibility annotations for the set of providers we
-		/// add annotations for.
+		/// Executes the specified query. Used from compiled queries. 
 		/// </summary>
-		private void CheckSqlCompatibility(QueryInfo[] queries, SqlNodeAnnotations annotations)
-		{
-			if(this.Mode == SqlServerProviderMode.Sql2000 ||
-				this.Mode == SqlServerProviderMode.SqlCE)
-			{
-				for(int i = 0, n = queries.Length; i < n; i++)
-				{
-					SqlServerCompatibilityCheck.ThrowIfUnsupported(queries[i].Query, annotations, this.Mode);
-				}
-			}
-		}
-
-		private IExecuteResult ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, object[] userArguments, ICompiledSubQuery[] subQueries)
-		{
-			IExecuteResult result = null;
-			object lastResult = null;
-			for(int i = 0, n = queryInfos.Length; i < n; i++)
-			{
-				if(i < n - 1)
-				{
-					result = this.Execute(query, queryInfos[i], null, null, userArguments, subQueries, lastResult);
-				}
-				else
-				{
-					result = this.Execute(query, queryInfos[i], factory, null, userArguments, subQueries, lastResult);
-				}
-				if(queryInfos[i].ResultShape == ResultShape.Return)
-				{
-					lastResult = result.ReturnValue;
-				}
-			}
-			return result;
-		}
-
-		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-		private IExecuteResult GetCachedResult(Expression query)
-		{
-			object obj = this.services.GetCachedObject(query);
-			if(obj != null)
-			{
-				switch(this.GetResultShape(query))
-				{
-					case ResultShape.Singleton:
-						return new ExecuteResult(null, null, null, obj);
-					case ResultShape.Sequence:
-						return new ExecuteResult(null, null, null,
-							Activator.CreateInstance(
-								typeof(SequenceOfOne<>).MakeGenericType(TypeSystem.GetElementType(this.GetResultType(query))),
-								BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { obj }, null
-								));
-				}
-			}
-			return null;
-		}
-
+		/// <param name="query">The query.</param>
+		/// <param name="queryInfo">The query information.</param>
+		/// <param name="factory">The factory.</param>
+		/// <param name="parentArgs">The parent arguments.</param>
+		/// <param name="userArgs">The user arguments.</param>
+		/// <param name="subQueries">The sub queries.</param>
+		/// <param name="lastResult">The last result.</param>
+		/// <returns></returns>
 		[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Unknown reason.")]
 		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 		private IExecuteResult Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, object[] parentArgs, object[] userArgs, ICompiledSubQuery[] subQueries, object lastResult)
 		{
 			this.InitializeProviderMode();
 
-			DbConnection con = this.conManager.UseConnection(this);
+			DbConnection con = _conManager.UseConnection(this);
 			try
 			{
 				DbCommand cmd = con.CreateCommand();
 				cmd.CommandText = queryInfo.CommandText;
-				cmd.Transaction = this.conManager.Transaction;
-				cmd.CommandTimeout = this.commandTimeout;
+				cmd.Transaction = _conManager.Transaction;
+				cmd.CommandTimeout = _commandTimeout;
 				AssignParameters(cmd, queryInfo.Parameters, userArgs, lastResult);
-				LogCommand(this.log, cmd);
-				this.queryCount += 1;
+				LogCommand(_log, cmd);
+				_queryCount += 1;
 
 				switch(queryInfo.ResultShape)
 				{
@@ -1165,7 +1071,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						{
 							DbDataReader reader = cmd.ExecuteReader();
 							IObjectReader objReader = factory.Create(reader, true, this, parentArgs, userArgs, subQueries);
-							this.conManager.UseConnection(objReader.Session);
+							_conManager.UseConnection(objReader.Session);
 							try
 							{
 								IEnumerable sequence = (IEnumerable)Activator.CreateInstance(
@@ -1228,7 +1134,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						{
 							DbDataReader reader = cmd.ExecuteReader();
 							IObjectReader objReader = factory.Create(reader, true, this, parentArgs, userArgs, subQueries);
-							this.conManager.UseConnection(objReader.Session);
+							_conManager.UseConnection(objReader.Session);
 							IEnumerable sequence = (IEnumerable)Activator.CreateInstance(
 								typeof(OneTimeEnumerable<>).MakeGenericType(TypeSystem.GetElementType(queryInfo.ResultType)),
 								BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null,
@@ -1245,7 +1151,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 								sequence = (IEnumerable)Activator.CreateInstance(
 								typeof(SingleResult<>).MakeGenericType(TypeSystem.GetElementType(queryInfo.ResultType)),
 								BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null,
-								new object[] { sequence, result, this.services.Context }, null
+								new object[] { sequence, result, _services.Context }, null
 								);
 							}
 							result.ReturnValue = sequence;
@@ -1254,8 +1160,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					case ResultShape.MultipleResults:
 						{
 							DbDataReader reader = cmd.ExecuteReader();
-							IObjectReaderSession session = this.readerCompiler.CreateSession(reader, this, parentArgs, userArgs, subQueries);
-							this.conManager.UseConnection(session);
+							IObjectReaderSession session = _readerCompiler.CreateSession(reader, this, parentArgs, userArgs, subQueries);
+							_conManager.UseConnection(session);
 							MetaFunction function = this.GetFunction(query);
 							ExecuteResult result = new ExecuteResult(cmd, queryInfo.Parameters, session);
 							result.ReturnValue = new MultipleResults(this, function, session, result);
@@ -1265,164 +1171,33 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			}
 			finally
 			{
-				this.conManager.ReleaseConnection(this);
+				_conManager.ReleaseConnection(this);
 			}
 		}
 
-		private MetaFunction GetFunction(Expression query)
-		{
-			LambdaExpression lambda = query as LambdaExpression;
-			if(lambda != null)
-			{
-				query = lambda.Body;
-			}
-			MethodCallExpression mc = query as MethodCallExpression;
-			if(mc != null && typeof(DataContext).IsAssignableFrom(mc.Method.DeclaringType))
-			{
-				return this.services.Model.GetFunction(mc.Method);
-			}
-			return null;
-		}
 
-		private void LogCommand(TextWriter writer, DbCommand cmd)
+		private IExecuteResult ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, object[] userArguments, ICompiledSubQuery[] subQueries)
 		{
-			if(writer != null)
+			IExecuteResult result = null;
+			object lastResult = null;
+			for(int i = 0, n = queryInfos.Length; i < n; i++)
 			{
-				writer.WriteLine(cmd.CommandText);
-				foreach(DbParameter p in cmd.Parameters)
+				if(i < n - 1)
 				{
-					int prec = 0;
-					int scale = 0;
-					PropertyInfo piPrecision = p.GetType().GetProperty("Precision");
-					if(piPrecision != null)
-					{
-						prec = (int)Convert.ChangeType(piPrecision.GetValue(p, null), typeof(int), CultureInfo.InvariantCulture);
-					}
-					PropertyInfo piScale = p.GetType().GetProperty("Scale");
-					if(piScale != null)
-					{
-						scale = (int)Convert.ChangeType(piScale.GetValue(p, null), typeof(int), CultureInfo.InvariantCulture);
-					}
-					var sp = p as System.Data.SqlClient.SqlParameter;
-					writer.WriteLine("-- {0}: {1} {2} (Size = {3}; Prec = {4}; Scale = {5}) [{6}]",
-						p.ParameterName,
-						p.Direction,
-						sp == null ? p.DbType.ToString() : sp.SqlDbType.ToString(),
-						p.Size.ToString(System.Globalization.CultureInfo.CurrentCulture),
-						prec,
-						scale,
-						sp == null ? p.Value : sp.SqlValue);
+					result = this.Execute(query, queryInfos[i], null, null, userArguments, subQueries, lastResult);
 				}
-#warning [FB] IMPLEMENT FILE VERSION RETRIEVAL HERE AND REPLACE "1.0"
-				writer.WriteLine("-- Context: {0}({1}) Model: {2} Build: {3}", this.GetType().Name, this.Mode, this.services.Model.GetType().Name, "1.0 (placeholder)");
-				writer.WriteLine();
-			}
-		}
-
-		private void AssignParameters(DbCommand cmd, ReadOnlyCollection<SqlParameterInfo> parms, object[] userArguments, object lastResult)
-		{
-			if(parms != null)
-			{
-				foreach(SqlParameterInfo pi in parms)
+				else
 				{
-					DbParameter p = cmd.CreateParameter();
-					p.ParameterName = pi.Parameter.Name;
-					p.Direction = pi.Parameter.Direction;
-					if(pi.Parameter.Direction == ParameterDirection.Input ||
-						pi.Parameter.Direction == ParameterDirection.InputOutput)
-					{
-						object value = pi.Value;
-						switch(pi.Type)
-						{
-							case SqlParameterType.UserArgument:
-								try
-								{
-									value = pi.Accessor.DynamicInvoke(new object[] { userArguments });
-								}
-								catch(System.Reflection.TargetInvocationException e)
-								{
-									throw e.InnerException;
-								}
-								break;
-							case SqlParameterType.PreviousResult:
-								value = lastResult;
-								break;
-						}
-						this.typeProvider.InitializeParameter(pi.Parameter.SqlType, p, value);
-					}
-					else
-					{
-						this.typeProvider.InitializeParameter(pi.Parameter.SqlType, p, null);
-					}
-					cmd.Parameters.Add(p);
+					result = this.Execute(query, queryInfos[i], factory, null, userArguments, subQueries, lastResult);
+				}
+				if(queryInfos[i].ResultShape == ResultShape.Return)
+				{
+					lastResult = result.ReturnValue;
 				}
 			}
+			return result;
 		}
-
-		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-		IEnumerable IProvider.Translate(Type elementType, DbDataReader reader)
-		{
-			this.CheckDispose();
-			this.CheckInitialized();
-			this.InitializeProviderMode();
-			if(elementType == null)
-			{
-				throw Error.ArgumentNull("elementType");
-			}
-			if(reader == null)
-			{
-				throw Error.ArgumentNull("reader");
-			}
-			MetaType rowType = services.Model.GetMetaType(elementType);
-			IObjectReaderFactory factory = this.GetDefaultFactory(rowType);
-			IEnumerator e = factory.Create(reader, true, this, null, null, null);
-			Type enumerableType = typeof(OneTimeEnumerable<>).MakeGenericType(elementType);
-			return (IEnumerable)Activator.CreateInstance(enumerableType, BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { e }, null);
-		}
-
-		IMultipleResults IProvider.Translate(DbDataReader reader)
-		{
-			this.CheckDispose();
-			this.CheckInitialized();
-			this.InitializeProviderMode();
-			if(reader == null)
-			{
-				throw Error.ArgumentNull("reader");
-			}
-			IObjectReaderSession session = this.readerCompiler.CreateSession(reader, this, null, null, null);
-			return new MultipleResults(this, null, session, null);
-		}
-
-		string IProvider.GetQueryText(Expression query)
-		{
-			this.CheckDispose();
-			this.CheckInitialized();
-			if(query == null)
-			{
-				throw Error.ArgumentNull("query");
-			}
-			this.InitializeProviderMode();
-			SqlNodeAnnotations annotations = new SqlNodeAnnotations();
-			QueryInfo[] qis = this.BuildQuery(query, annotations);
-
-			StringBuilder sb = new StringBuilder();
-			for(int i = 0, n = qis.Length; i < n; i++)
-			{
-				QueryInfo qi = qis[i];
-#if DEBUG
-				StringWriter writer = new StringWriter(System.Globalization.CultureInfo.InvariantCulture);
-				DbCommand cmd = this.conManager.Connection.CreateCommand();
-				cmd.CommandText = qi.CommandText;
-				AssignParameters(cmd, qi.Parameters, null, null);
-				LogCommand(writer, cmd);
-				sb.Append(writer.ToString());
-#else
-                sb.Append(qi.CommandText);
-                sb.AppendLine();
-#endif
-			}
-			return sb.ToString();
-		}
+		
 
 		DbCommand IProvider.GetCommand(Expression query)
 		{
@@ -1436,58 +1211,12 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			SqlNodeAnnotations annotations = new SqlNodeAnnotations();
 			QueryInfo[] qis = this.BuildQuery(query, annotations);
 			QueryInfo qi = qis[qis.Length - 1];
-			DbCommand cmd = this.conManager.Connection.CreateCommand();
+			DbCommand cmd = _conManager.Connection.CreateCommand();
 			cmd.CommandText = qi.CommandText;
-			cmd.Transaction = this.conManager.Transaction;
-			cmd.CommandTimeout = this.commandTimeout;
+			cmd.Transaction = _conManager.Transaction;
+			cmd.CommandTimeout = _commandTimeout;
 			AssignParameters(cmd, qi.Parameters, null, null);
 			return cmd;
-		}
-
-		internal class QueryInfo
-		{
-			SqlNode query;
-			string commandText;
-			ReadOnlyCollection<SqlParameterInfo> parameters;
-			ResultShape resultShape;
-			Type resultType;
-
-			internal QueryInfo(SqlNode query, string commandText, ReadOnlyCollection<SqlParameterInfo> parameters, ResultShape resultShape, Type resultType)
-			{
-				this.query = query;
-				this.commandText = commandText;
-				this.parameters = parameters;
-				this.resultShape = resultShape;
-				this.resultType = resultType;
-			}
-			internal SqlNode Query
-			{
-				get { return this.query; }
-			}
-			internal string CommandText
-			{
-				get { return this.commandText; }
-			}
-			internal ReadOnlyCollection<SqlParameterInfo> Parameters
-			{
-				get { return this.parameters; }
-			}
-			internal ResultShape ResultShape
-			{
-				get { return this.resultShape; }
-			}
-			internal Type ResultType
-			{
-				get { return this.resultType; }
-			}
-		}
-
-		internal enum ResultShape
-		{
-			Return,
-			Singleton,
-			Sequence,
-			MultipleResults
 		}
 
 		private ResultShape GetResultShape(Expression query)
@@ -1508,7 +1237,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			}
 
 			bool isSequence = typeof(IEnumerable).IsAssignableFrom(query.Type);
-			ProviderType pt = this.typeProvider.From(query.Type);
+			ProviderType pt = _typeProvider.From(query.Type);
 			bool isScalar = !pt.IsRuntimeOnlyType && !pt.IsApplicationType;
 			bool isSingleton = isScalar || !isSequence;
 
@@ -1591,7 +1320,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			query = Funcletizer.Funcletize(query);
 
 			// convert query nodes into sql nodes
-			QueryConverter converter = new QueryConverter(this.services, this.typeProvider, this.translator, this.sqlFactory);
+			QueryConverter converter = new QueryConverter(_services, _typeProvider, _translator, _sqlFactory);
 			switch(this.Mode)
 			{
 				case SqlServerProviderMode.Sql2000:
@@ -1630,7 +1359,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			SqlSupersetValidator validator = new SqlSupersetValidator();
 
 			// These are the rules that apply to every SQL tree.
-			if(this.checkQueries)
+			if(_checkQueries)
 			{
 				validator.AddValidator(new ColumnTypeValidator()); /* Column CLR Type must agree with its Expressions CLR Type */
 				validator.AddValidator(new LiteralValidator()); /* Constrain literal Types */
@@ -1642,36 +1371,36 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 			// resolve member references
 			bool canUseOuterApply = (this.Mode == SqlServerProviderMode.Sql2005 || this.Mode == SqlServerProviderMode.Sql2008 || this.Mode == SqlServerProviderMode.SqlCE);
-			SqlBinder binder = new SqlBinder(this.translator, this.sqlFactory, this.services.Model, this.services.Context.LoadOptions, columnizer, canUseOuterApply);
-			binder.OptimizeLinkExpansions = (optimizationFlags & OptimizationFlags.OptimizeLinkExpansions) != 0;
-			binder.SimplifyCaseStatements = (optimizationFlags & OptimizationFlags.SimplifyCaseStatements) != 0;
+			SqlBinder binder = new SqlBinder(_translator, _sqlFactory, _services.Model, _services.Context.LoadOptions, columnizer, canUseOuterApply);
+			binder.OptimizeLinkExpansions = (_optimizationFlags & OptimizationFlags.OptimizeLinkExpansions) != 0;
+			binder.SimplifyCaseStatements = (_optimizationFlags & OptimizationFlags.SimplifyCaseStatements) != 0;
 			binder.PreBinder = delegate(SqlNode n)
 			{
 				// convert methods into known reversable operators
-				return PreBindDotNetConverter.Convert(n, this.sqlFactory, this.services.Model);
+				return PreBindDotNetConverter.Convert(n, _sqlFactory, _services.Model);
 			};
 			node = binder.Bind(node);
-			if(this.checkQueries)
+			if(_checkQueries)
 			{
 				validator.AddValidator(new ExpectNoAliasRefs());
 				validator.AddValidator(new ExpectNoSharedExpressions());
 			}
 			validator.Validate(node);
 
-			node = PostBindDotNetConverter.Convert(node, this.sqlFactory, this.Mode);
+			node = PostBindDotNetConverter.Convert(node, _sqlFactory, this.Mode);
 
 			// identify true flow of sql data types 
-			SqlRetyper retyper = new SqlRetyper(new SqlFactory(this.typeProvider, this.services.Model));
+			SqlRetyper retyper = new SqlRetyper(new SqlFactory(_typeProvider, _services.Model));
 			node = retyper.Retype(node);
 			validator.Validate(node);
 
 			// change CONVERT to special conversions like UNICODE,CHAR,...
-			SqlTypeConverter converter = new SqlTypeConverter(this.sqlFactory);
+			SqlTypeConverter converter = new SqlTypeConverter(_sqlFactory);
 			node = converter.Visit(node);
 			validator.Validate(node);
 
 			// transform type-sensitive methods such as LEN (to DATALENGTH), ...
-			SqlMethodTransformer methodTransformer = new SqlMethodTransformer(this.sqlFactory);
+			SqlMethodTransformer methodTransformer = new SqlMethodTransformer(_sqlFactory);
 			node = methodTransformer.Visit(node);
 			validator.Validate(node);
 
@@ -1680,18 +1409,18 @@ namespace System.Data.Linq.DbEngines.SqlServer
 											  this.Mode == SqlServerProviderMode.Sql2005 ||
 											  this.Mode == SqlServerProviderMode.SqlCE)
 				? SqlMultiplexerOptionType.EnableBigJoin : SqlMultiplexerOptionType.None;
-			SqlMultiplexer mux = new SqlMultiplexer(options, parentParameters, this.sqlFactory);
+			SqlMultiplexer mux = new SqlMultiplexer(options, parentParameters, _sqlFactory);
 			node = mux.Multiplex(node);
 			validator.Validate(node);
 
 			// convert object construction expressions into flat row projections
-			SqlFlattener flattener = new SqlFlattener(this.sqlFactory, columnizer);
+			SqlFlattener flattener = new SqlFlattener(_sqlFactory, columnizer);
 			node = flattener.Flatten(node);
 			validator.Validate(node);
 
-			if(this.mode == SqlServerProviderMode.SqlCE)
+			if(_mode == SqlServerProviderMode.SqlCE)
 			{
-				SqlRewriteScalarSubqueries rss = new SqlRewriteScalarSubqueries(this.sqlFactory);
+				SqlRewriteScalarSubqueries rss = new SqlRewriteScalarSubqueries(_sqlFactory);
 				node = rss.Rewrite(node);
 			}
 
@@ -1702,23 +1431,23 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			// predicate expressions.
 			// Doing this before reorderer because it may reduce some orders to constant nodes which should not
 			// be passed onto ROW_NUMBER.
-			node = SqlCaseSimplifier.Simplify(node, this.sqlFactory);
+			node = SqlCaseSimplifier.Simplify(node, _sqlFactory);
 
 			// Rewrite order-by clauses so that they only occur at the top-most select 
 			// or in selects with TOP
-			SqlReorderer reorderer = new SqlReorderer(this.typeProvider, this.sqlFactory);
+			SqlReorderer reorderer = new SqlReorderer(_typeProvider, _sqlFactory);
 			node = reorderer.Reorder(node);
 			validator.Validate(node);
 
 			// Inject code to turn predicates into bits, and bits into predicates where necessary
-			node = SqlBooleanizer.Rationalize(node, this.typeProvider, this.services.Model);
-			if(this.checkQueries)
+			node = SqlBooleanizer.Rationalize(node, _typeProvider, _services.Model);
+			if(_checkQueries)
 			{
 				validator.AddValidator(new ExpectRationalizedBooleans()); /* From now on all boolean expressions should remain rationalized. */
 			}
 			validator.Validate(node);
 
-			if(this.checkQueries)
+			if(_checkQueries)
 			{
 				validator.AddValidator(new ExpectNoFloatingColumns());
 			}
@@ -1734,10 +1463,10 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			validator.Validate(node);
 
 			// SQL2K enablers.
-			node = SqlLiftWhereClauses.Lift(node, new SqlFactory(this.typeProvider, this.services.Model));
+			node = SqlLiftWhereClauses.Lift(node, new SqlFactory(_typeProvider, _services.Model));
 			node = SqlLiftIndependentRowExpressions.Lift(node);
-			node = SqlOuterApplyReducer.Reduce(node, this.sqlFactory, annotations);
-			node = SqlTopReducer.Reduce(node, annotations, this.sqlFactory);
+			node = SqlOuterApplyReducer.Reduce(node, _sqlFactory, annotations);
+			node = SqlTopReducer.Reduce(node, annotations, _sqlFactory);
 
 			// resolve references to columns in other scopes by adding them
 			// to the intermediate selects
@@ -1772,7 +1501,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 			// Convert [N]Text,Image to [N]VarChar(MAX),VarBinary(MAX) where necessary.
 			// These new types do not exist on SQL2k, so add annotations.
-			LongTypeConverter longTypeConverter = new LongTypeConverter(this.sqlFactory);
+			LongTypeConverter longTypeConverter = new LongTypeConverter(_sqlFactory);
 			node = longTypeConverter.AddConversions(node, annotations);
 
 			// final validation            
@@ -1780,17 +1509,17 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			validator.AddValidator(new ValidateNoInvalidComparison());
 			validator.Validate(node);
 
-			SqlParameterizer parameterizer = new SqlParameterizer(this.typeProvider, annotations);
+			SqlParameterizer parameterizer = new SqlParameterizer(_typeProvider, annotations);
 			SqlFormatter formatter = new SqlFormatter();
-			if(this.mode == SqlServerProviderMode.SqlCE ||
-				this.mode == SqlServerProviderMode.Sql2005 ||
-				this.mode == SqlServerProviderMode.Sql2008)
+			if(_mode == SqlServerProviderMode.SqlCE ||
+				_mode == SqlServerProviderMode.Sql2005 ||
+				_mode == SqlServerProviderMode.Sql2008)
 			{
 				formatter.ParenthesizeTop = true;
 			}
 
 			SqlBlock block = node as SqlBlock;
-			if(block != null && this.mode == SqlServerProviderMode.SqlCE)
+			if(block != null && _mode == SqlServerProviderMode.SqlCE)
 			{
 				// SQLCE cannot batch multiple statements.
 				ReadOnlyCollection<ReadOnlyCollection<SqlParameterInfo>> parameters = parameterizer.ParameterizeBlock(block);
@@ -1857,11 +1586,11 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			IObjectReaderFactory factory;
 			if(projection != null)
 			{
-				factory = this.readerCompiler.Compile(projection, elemType);
+				factory = _readerCompiler.Compile(projection, elemType);
 			}
 			else
 			{
-				return this.GetDefaultFactory(services.Model.GetMetaType(elemType));
+				return this.GetDefaultFactory(_services.Model.GetMetaType(elemType));
 			}
 			return factory;
 		}
@@ -1879,437 +1608,219 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			{
 				// if the element type is a simple type (int, bool, etc.) we create
 				// a single column binding
-				SqlUserColumn col = new SqlUserColumn(rowType.Type, typeProvider.From(rowType.Type), suq, "", false, suq.SourceExpression);
+				SqlUserColumn col = new SqlUserColumn(rowType.Type, _typeProvider.From(rowType.Type), suq, "", false, suq.SourceExpression);
 				suq.Columns.Add(col);
 				suq.Projection = col;
 			}
 			else
 			{
 				// ... otherwise we generate a default projection
-				SqlUserRow rowExp = new SqlUserRow(rowType.InheritanceRoot, this.typeProvider.GetApplicationType((int)ConverterSpecialTypes.Row), suq, tmp);
-				suq.Projection = this.translator.BuildProjection(rowExp, rowType, true, null, tmp);
+				SqlUserRow rowExp = new SqlUserRow(rowType.InheritanceRoot, _typeProvider.GetApplicationType((int)ConverterSpecialTypes.Row), suq, tmp);
+				suq.Projection = _translator.BuildProjection(rowExp, rowType, true, null, tmp);
 			}
 			Type resultType = TypeSystem.GetSequenceType(rowType.Type);
 			QueryInfo[] qis = this.BuildQuery(ResultShape.Sequence, resultType, suq, null, annotations);
 			return this.GetReaderFactory(qis[qis.Length - 1].Query, rowType.Type);
 		}
 
-		class CompiledQuery : ICompiledQuery
+
+		private void SetProviderMode(Enum value)
 		{
-			DataLoadOptions originalShape;
-			Expression query;
-			QueryInfo[] queryInfos;
-			IObjectReaderFactory factory;
-			ICompiledSubQuery[] subQueries;
-
-			internal CompiledQuery(SqlProvider provider, Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, ICompiledSubQuery[] subQueries)
+			if(value == null)
 			{
-				this.originalShape = provider.services.Context.LoadOptions;
-				this.query = query;
-				this.queryInfos = queryInfos;
-				this.factory = factory;
-				this.subQueries = subQueries;
+				return;
 			}
-
-			public IExecuteResult Execute(IProvider provider, object[] arguments)
+			if(!(value is SqlServerProviderMode))
 			{
-				if(provider == null)
-				{
-					throw Error.ArgumentNull("provider");
-				}
-
-				SqlProvider sqlProvider = provider as SqlProvider;
-				if(sqlProvider == null)
-				{
-					throw Error.ArgumentTypeMismatch("provider");
-				}
-
-				// verify shape is compatibile with original.
-				if(!AreEquivalentShapes(this.originalShape, sqlProvider.services.Context.LoadOptions))
-				{
-					throw Error.CompiledQueryAgainstMultipleShapesNotSupported();
-				}
-
-				// execute query (only last query produces results)
-				return sqlProvider.ExecuteAll(this.query, this.queryInfos, this.factory, arguments, subQueries);
+				throw Error.ArgumentTypeMismatch("ProviderMode value");
 			}
-
-			private static bool AreEquivalentShapes(DataLoadOptions shape1, DataLoadOptions shape2)
+			if(!Enum.IsDefined(typeof(SqlServerProviderMode), value))
 			{
-				if(shape1 == shape2)
-				{
-					return true;
-				}
-				else if(shape1 == null)
-				{
-					return shape2.IsEmpty;
-				}
-				else if(shape2 == null)
-				{
-					return shape1.IsEmpty;
-				}
-				else if(shape1.IsEmpty && shape2.IsEmpty)
-				{
-					return true;
-				}
-				return false;
+				throw Error.ArgumentOutOfRange("ProviderMode");
 			}
+			_mode = (SqlServerProviderMode)value;
 		}
 
-		class CompiledSubQuery : ICompiledSubQuery
+
+		private void InitializeProviderMode()
 		{
-			QueryInfo queryInfo;
-			IObjectReaderFactory factory;
-			ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters;
-			ICompiledSubQuery[] subQueries;
-
-			internal CompiledSubQuery(QueryInfo queryInfo, IObjectReaderFactory factory, ReadOnlyCollection<System.Data.Linq.Provider.NodeTypes.SqlParameter> parameters, 
-										ICompiledSubQuery[] subQueries)
+			if(_typeProvider == null)
 			{
-				this.queryInfo = queryInfo;
-				this.factory = factory;
-				this.parameters = parameters;
-				this.subQueries = subQueries;
-			}
-
-			public IExecuteResult Execute(IProvider provider, object[] parentArgs, object[] userArgs)
-			{
-				if(parentArgs == null && !(this.parameters == null || this.parameters.Count == 0))
+				switch(_mode)
 				{
-					throw Error.ArgumentNull("arguments");
-				}
-
-				SqlProvider sqlProvider = provider as SqlProvider;
-				if(sqlProvider == null)
-				{
-					throw Error.ArgumentTypeMismatch("provider");
-				}
-
-				// construct new copy of query info
-				List<SqlParameterInfo> spis = new List<SqlParameterInfo>(this.queryInfo.Parameters);
-
-				// add call arguments
-				for(int i = 0, n = this.parameters.Count; i < n; i++)
-				{
-					spis.Add(new SqlParameterInfo(this.parameters[i], parentArgs[i]));
-				}
-
-				QueryInfo qi = new QueryInfo(
-					this.queryInfo.Query,
-					this.queryInfo.CommandText,
-					spis.AsReadOnly(),
-					this.queryInfo.ResultShape,
-					this.queryInfo.ResultType
-					);
-
-				// execute query
-				return sqlProvider.Execute(null, qi, this.factory, parentArgs, userArgs, subQueries, null);
-			}
-		}
-
-		class ExecuteResult : IExecuteResult, IDisposable
-		{
-			DbCommand command;
-			ReadOnlyCollection<SqlParameterInfo> parameters;
-			IObjectReaderSession session;
-			int iReturnParameter = -1;
-			object value;
-			[SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "[....]: used in an assert in ReturnValue.set")]
-			bool useReturnValue;
-			bool isDisposed;
-
-			internal ExecuteResult(DbCommand command, ReadOnlyCollection<SqlParameterInfo> parameters, IObjectReaderSession session, object value, bool useReturnValue)
-				: this(command, parameters, session)
-			{
-				this.value = value;
-				this.useReturnValue = useReturnValue;
-				if(this.command != null && this.parameters != null && useReturnValue)
-				{
-					iReturnParameter = GetParameterIndex("@RETURN_VALUE");
-				}
-			}
-
-			internal ExecuteResult(DbCommand command, ReadOnlyCollection<SqlParameterInfo> parameters, IObjectReaderSession session)
-			{
-				this.command = command;
-				this.parameters = parameters;
-				this.session = session;
-			}
-
-			internal ExecuteResult(DbCommand command, ReadOnlyCollection<SqlParameterInfo> parameters, IObjectReaderSession session, object value)
-				: this(command, parameters, session, value, false)
-			{
-			}
-
-			[SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "value", Justification = "FxCop Error -- False positive during code analysis")]
-			public object ReturnValue
-			{
-				get
-				{
-					if(this.iReturnParameter >= 0)
-					{
-						return this.GetParameterValue(this.iReturnParameter);
-					}
-					return this.value;
-				}
-				internal set
-				{
-					Debug.Assert(!useReturnValue);
-					this.value = value;
-				}
-			}
-
-			private int GetParameterIndex(string paramName)
-			{
-				int idx = -1;
-				for(int i = 0, n = this.parameters.Count; i < n; i++)
-				{
-					if(string.Compare(parameters[i].Parameter.Name, paramName, StringComparison.OrdinalIgnoreCase) == 0)
-					{
-						idx = i;
+					case SqlServerProviderMode.Sql2000:
+						_typeProvider = SqlTypeSystem.Create2000Provider();
 						break;
-					}
+					case SqlServerProviderMode.Sql2005:
+						_typeProvider = SqlTypeSystem.Create2005Provider();
+						break;
+					case SqlServerProviderMode.Sql2008:
+						_typeProvider = SqlTypeSystem.Create2008Provider();
+						break;
+					case SqlServerProviderMode.SqlCE:
+						_typeProvider = SqlTypeSystem.CreateCEProvider();
+						break;
+					default:
+						System.Diagnostics.Debug.Assert(false);
+						break;
 				}
-				return idx;
 			}
-
-			internal object GetParameterValue(string paramName)
+			if(_sqlFactory == null)
 			{
-				int idx = GetParameterIndex(paramName);
-				if(idx >= 0)
-				{
-					return GetParameterValue(idx);
-				}
-				return null;
-			}
-
-			public object GetParameterValue(int parameterIndex)
-			{
-				if(this.parameters == null || parameterIndex < 0 || parameterIndex > this.parameters.Count)
-				{
-					throw Error.ArgumentOutOfRange("parameterIndex");
-				}
-
-				// SQL server requires all results to be read before output parameters are visible
-				if(this.session != null && !this.session.IsBuffered)
-				{
-					this.session.Buffer();
-				}
-
-				SqlParameterInfo pi = this.parameters[parameterIndex];
-				object parameterValue = this.command.Parameters[parameterIndex].Value;
-				if(parameterValue == DBNull.Value) parameterValue = null;
-				if(parameterValue != null && parameterValue.GetType() != pi.Parameter.ClrType)
-				{
-					return DBConvert.ChangeType(parameterValue, pi.Parameter.ClrType);
-				}
-
-				return parameterValue;
-			}
-
-			public void Dispose()
-			{
-				if(!this.isDisposed)
-				{
-					// Technically, calling GC.SuppressFinalize is not required because the class does not
-					// have a finalizer, but it does no harm, protects against the case where a finalizer is added
-					// in the future, and prevents an FxCop warning.
-					GC.SuppressFinalize(this);
-					this.isDisposed = true;
-					if(this.session != null)
-					{
-						this.session.Dispose();
-					}
-				}
+				_sqlFactory = new SqlFactory(_typeProvider, _services.Model);
+				_translator = new Translator(_services, _sqlFactory, _typeProvider);
 			}
 		}
 
-		class SequenceOfOne<T> : IEnumerable<T>, IEnumerable
+		#region Class Property Declarations
+		internal SqlServerProviderMode Mode
 		{
-			T[] sequence;
-			internal SequenceOfOne(T value)
+			get
 			{
-				this.sequence = new T[] { value };
-			}
-			public IEnumerator<T> GetEnumerator()
-			{
-				return ((IEnumerable<T>)this.sequence).GetEnumerator();
-			}
-
-			IEnumerator IEnumerable.GetEnumerator()
-			{
-				return this.GetEnumerator();
+				this.CheckDispose();
+				this.CheckInitialized();
+				this.InitializeProviderMode();
+				return _mode;
 			}
 		}
 
-		class OneTimeEnumerable<T> : IEnumerable<T>, IEnumerable
+		Enum IProvider.ProviderMode
 		{
-			IEnumerator<T> enumerator;
+			get { return _mode; }
+			set { SetProviderMode(value); }
+		}
 
-			internal OneTimeEnumerable(IEnumerator<T> enumerator)
+		DbConnection IProvider.Connection
+		{
+			get
 			{
-				System.Diagnostics.Debug.Assert(enumerator != null);
-				this.enumerator = enumerator;
+				this.CheckDispose();
+				this.CheckInitialized();
+				return _conManager.Connection;
 			}
+		}
 
-			public IEnumerator<T> GetEnumerator()
+		TextWriter IProvider.Log
+		{
+			get
 			{
-				if(this.enumerator == null)
-				{
-					throw Error.CannotEnumerateResultsMoreThanOnce();
-				}
-				IEnumerator<T> e = this.enumerator;
-				this.enumerator = null;
-				return e;
+				this.CheckDispose();
+				this.CheckInitialized();
+				return _log;
 			}
-
-			IEnumerator IEnumerable.GetEnumerator()
+			set
 			{
-				return this.GetEnumerator();
+				this.CheckDispose();
+				this.CheckInitialized();
+				_log = value;
+			}
+		}
+
+		DbTransaction IProvider.Transaction
+		{
+			get
+			{
+				this.CheckDispose();
+				this.CheckInitialized();
+				return _conManager.Transaction;
+			}
+			set
+			{
+				this.CheckDispose();
+				this.CheckInitialized();
+				_conManager.Transaction = value;
+			}
+		}
+
+		int IProvider.CommandTimeout
+		{
+			get
+			{
+				this.CheckDispose();
+				return _commandTimeout;
+			}
+			set
+			{
+				this.CheckDispose();
+				_commandTimeout = value;
 			}
 		}
 
 		/// <summary>
-		/// Result type for single rowset returning stored procedures.
+		/// Expose a test hook which controls which SQL optimizations are executed.
 		/// </summary>
-		class SingleResult<T> : ISingleResult<T>, IDisposable, IListSource
+		internal OptimizationFlags OptimizationFlags
 		{
-			private IEnumerable<T> enumerable;
-			private ExecuteResult executeResult;
-			private DataContext context;
-			private IBindingList cachedList;
-
-			internal SingleResult(IEnumerable<T> enumerable, ExecuteResult executeResult, DataContext context)
+			get
 			{
-				System.Diagnostics.Debug.Assert(enumerable != null);
-				System.Diagnostics.Debug.Assert(executeResult != null);
-				this.enumerable = enumerable;
-				this.executeResult = executeResult;
-				this.context = context;
+				CheckDispose();
+				return _optimizationFlags;
 			}
-
-			public IEnumerator<T> GetEnumerator()
+			set
 			{
-				return enumerable.GetEnumerator();
-			}
-
-			IEnumerator IEnumerable.GetEnumerator()
-			{
-				return this.GetEnumerator();
-			}
-
-			public object ReturnValue
-			{
-				get
-				{
-					return executeResult.GetParameterValue("@RETURN_VALUE");
-				}
-			}
-
-			public void Dispose()
-			{
-				// Technically, calling GC.SuppressFinalize is not required because the class does not
-				// have a finalizer, but it does no harm, protects against the case where a finalizer is added
-				// in the future, and prevents an FxCop warning.
-				GC.SuppressFinalize(this);
-				this.executeResult.Dispose();
-			}
-
-			IList IListSource.GetList()
-			{
-				if(this.cachedList == null)
-				{
-					this.cachedList = BindingList.Create<T>(this.context, this);
-				}
-				return this.cachedList;
-			}
-
-			bool IListSource.ContainsListCollection
-			{
-				get { return false; }
+				CheckDispose();
+				_optimizationFlags = value;
 			}
 		}
 
-		class MultipleResults : IMultipleResults, IDisposable
+		/// <summary>
+		/// Validate queries as they are generated.
+		/// </summary>
+		internal bool CheckQueries
 		{
-			SqlProvider provider;
-			MetaFunction function;
-			IObjectReaderSession session;
-			bool isDisposed;
-			private ExecuteResult executeResult;
-
-			internal MultipleResults(SqlProvider provider, MetaFunction function, IObjectReaderSession session, ExecuteResult executeResult)
+			get
 			{
-				this.provider = provider;
-				this.function = function;
-				this.session = session;
-				this.executeResult = executeResult;
+				CheckDispose();
+				return _checkQueries;
 			}
-
-			public IEnumerable<T> GetResult<T>()
+			set
 			{
-				MetaType metaType = null;
-				// Check the inheritance hierarchy of each mapped result row type
-				// for the function.
-				if(this.function != null)
-				{
-					foreach(MetaType mt in function.ResultRowTypes)
-					{
-						metaType = mt.InheritanceTypes.SingleOrDefault(it => it.Type == typeof(T));
-						if(metaType != null)
-						{
-							break;
-						}
-					}
-				}
-				if(metaType == null)
-				{
-					metaType = this.provider.services.Model.GetMetaType(typeof(T));
-				}
-				IObjectReaderFactory factory = this.provider.GetDefaultFactory(metaType);
-				IObjectReader objReader = factory.GetNextResult(this.session, false);
-				if(objReader == null)
-				{
-					this.Dispose();
-					return null;
-				}
-				return new SingleResult<T>(new OneTimeEnumerable<T>((IEnumerator<T>)objReader), this.executeResult, this.provider.services.Context);
-			}
-
-			public void Dispose()
-			{
-				if(!this.isDisposed)
-				{
-					// Technically, calling GC.SuppressFinalize is not required because the class does not
-					// have a finalizer, but it does no harm, protects against the case where a finalizer is added
-					// in the future, and prevents an FxCop warning.
-					GC.SuppressFinalize(this);
-					this.isDisposed = true;
-					if(this.executeResult != null)
-					{
-						this.executeResult.Dispose();
-					}
-					else
-					{
-						this.session.Dispose();
-					}
-				}
-			}
-
-			public object ReturnValue
-			{
-				get
-				{
-					if(this.executeResult != null)
-					{
-						return executeResult.GetParameterValue("@RETURN_VALUE");
-					}
-					else
-					{
-						return null;
-					}
-				}
+				CheckDispose();
+				_checkQueries = value;
 			}
 		}
+
+		internal bool EnableCacheLookup
+		{
+			get
+			{
+				CheckDispose();
+				return _enableCacheLookup;
+			}
+			set
+			{
+				CheckDispose();
+				_enableCacheLookup = value;
+			}
+		}
+
+		internal int QueryCount
+		{
+			get
+			{
+				CheckDispose();
+				return _queryCount;
+			}
+		}
+
+		internal int MaxUsers
+		{
+			get
+			{
+				CheckDispose();
+				return _conManager.MaxUsers;
+			}
+		}
+
+		IDataServices IReaderProvider.Services
+		{
+			get { return _services; }
+		}
+
+		IConnectionManager IReaderProvider.ConnectionManager
+		{
+			get { return _conManager; }
+		}
+		#endregion
 	}
 }

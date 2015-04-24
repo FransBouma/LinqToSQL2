@@ -7,6 +7,25 @@ using System.Threading.Tasks;
 namespace System.Data.Linq
 {
 	/// <summary>
+	/// Enum which defines the mode in which the Sql Server provider has to be set when creating queries. 
+	/// </summary>
+	/// <remarks>Use the DataContext class to set the mode of the provider. For Sql Server, Sql2008 is the default.</remarks>
+	public enum SqlServerProviderMode
+	{
+		Sql2000,
+		Sql2005,
+		/// <summary>
+		/// Default.
+		/// </summary>
+		Sql2008,
+		SqlCE,
+		Sql2012,
+		Sql2014,
+		// Add more here.
+	}
+
+
+	/// <summary>
 	/// Describes the type of change the entity will undergo when submitted to the database.
 	/// </summary>
 	public enum ChangeAction
@@ -27,6 +46,15 @@ namespace System.Data.Linq
 		/// The entity will be updated.
 		/// </summary>
 		Update
+	}
+
+
+	internal enum ResultShape
+	{
+		Return,
+		Singleton,
+		Sequence,
+		MultipleResults
 	}
 
 
