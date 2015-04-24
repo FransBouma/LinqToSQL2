@@ -1628,6 +1628,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		{
 			if(value == null)
 			{
+				// use default.
 				return;
 			}
 			if(!(value is SqlServerProviderMode))

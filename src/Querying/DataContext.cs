@@ -49,7 +49,7 @@ namespace System.Data.Linq
 		/// <summary>
 		/// General provider mode for all DataContext instances. Set this static member to have all instances use the same value. 
 		/// </summary>
-		public static Enum ProviderMode = SqlServerProviderMode.Sql2008;
+		public static Enum ProviderMode;
 		#endregion
 
 		/// <summary>
