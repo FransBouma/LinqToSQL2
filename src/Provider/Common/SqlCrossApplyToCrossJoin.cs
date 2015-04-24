@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Data.Linq.Provider.Common;
 using System.Data.Linq.Provider.NodeTypes;
 using System.Data.Linq.Provider.Visitors;
 
-namespace System.Data.Linq.DbEngines.SqlServer
+namespace System.Data.Linq.Provider.Common
 {
 	/// <summary>
 	/// Turn CROSS APPLY into CROSS JOIN when the right side 
@@ -15,10 +14,19 @@ namespace System.Data.Linq.DbEngines.SqlServer
 	/// </summary>
 	internal class SqlCrossApplyToCrossJoin
 	{
+	
 		#region Private Classes
 		private class Reducer : SqlVisitor
 		{
+			private Enum[] _providerModesWithIncompatibilities;
+
 			internal SqlNodeAnnotations Annotations;
+			
+			internal Reducer(Enum[] providerModesWithIncompatibilities)
+			{
+				_providerModesWithIncompatibilities = providerModesWithIncompatibilities;
+			}
+
 
 			internal override SqlSource VisitJoin(SqlJoin join)
 			{
@@ -31,8 +39,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					// Look at each consumed alias and see if they are mentioned in produced.
 					if(p.Overlaps(c))
 					{
-#warning [FB] REFACTOR Could be made generic for all DBs, as not many support Cross Apply.
-						Annotations.Add(join, new SqlServerCompatibilityAnnotation(Strings.SourceExpressionAnnotation(join.SourceExpression), SqlServerProviderMode.Sql2000));
+						Annotations.Add(join, new CompatibilityAnnotation(Strings.SourceExpressionAnnotation(join.SourceExpression), _providerModesWithIncompatibilities));
 						// Can't reduce because this consumed alias is produced on the left.
 						return base.VisitJoin(join);
 					}
@@ -47,10 +54,9 @@ namespace System.Data.Linq.DbEngines.SqlServer
 		#endregion
 
 
-		internal static SqlNode Reduce(SqlNode node, SqlNodeAnnotations annotations)
+		internal static SqlNode Reduce(SqlNode node, SqlNodeAnnotations annotations, Enum[] providerModesWithIncompatibilities)
 		{
-			Reducer r = new Reducer();
-			r.Annotations = annotations;
+			Reducer r = new Reducer(providerModesWithIncompatibilities) {Annotations = annotations};
 			return r.Visit(node);
 		}
 

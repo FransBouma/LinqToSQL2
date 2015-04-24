@@ -90,7 +90,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					ConvertColumnsToMax(select, out changed, out containsLongExpressions);
 					if(containsLongExpressions)
 					{
-						this.annotations.Add(select, new SqlServerCompatibilityAnnotation(
+						this.annotations.Add(select, new CompatibilityAnnotation(
 											 Strings.TextNTextAndImageCannotOccurInDistinct(select.SourceExpression), SqlServerProviderMode.Sql2000, SqlServerProviderMode.SqlCE));
 					}
 
@@ -118,7 +118,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				{
 					// unless the UNION is 'ALL', the server will perform a DISTINCT operation,
 					// which isn't valid for large types (text, ntext, image)
-					this.annotations.Add(su, new SqlServerCompatibilityAnnotation(
+					this.annotations.Add(su, new CompatibilityAnnotation(
 						Strings.TextNTextAndImageCannotOccurInUnion(su.SourceExpression), SqlServerProviderMode.Sql2000, SqlServerProviderMode.SqlCE));
 				}
 				return base.VisitUnion(su);
@@ -132,7 +132,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					fc.Arguments[0] = ConvertToMax(fc.Arguments[0], out changed);
 					if(fc.Arguments[0].SqlType.IsLargeType)
 					{
-						this.annotations.Add(fc, new SqlServerCompatibilityAnnotation(
+						this.annotations.Add(fc, new CompatibilityAnnotation(
 												   Strings.LenOfTextOrNTextNotSupported(fc.SourceExpression), SqlServerProviderMode.Sql2000));
 					}
 				}

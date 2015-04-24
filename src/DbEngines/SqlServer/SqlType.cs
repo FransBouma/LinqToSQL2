@@ -6,6 +6,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 {
 	internal class SqlType : ProviderType
 	{
+#warning REFACTORING CANDIDATE FOR #23
 		protected SqlDbType sqlDbType;
 
 		internal SqlType(SqlDbType type)

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Data.Linq.Provider.Common;
 using System.Data.Linq.Provider.NodeTypes;
 using System.Data.Linq.Provider.Visitors;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace System.Data.Linq.DbEngines.SqlServer
+namespace System.Data.Linq.Provider.Common
 {
 
 	/// <summary>
@@ -63,6 +62,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 						}
 						else
 						{
+#warning [FB] REFACTOR: SQL SERVER SPECIFIC: MOVE TO A CTOR PROVIDED SET OF INCOMPATIBLE MODES.
 							this.AnnotateSqlIncompatibility(join, SqlServerProviderMode.Sql2000);
 						}
 					}
@@ -119,6 +119,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 							}
 							else
 							{
+#warning [FB] REFACTOR: SQL SERVER SPECIFIC: MOVE TO A CTOR PROVIDED SET OF INCOMPATIBLE MODES.
 								this.AnnotateSqlIncompatibility(join, SqlServerProviderMode.Sql2000);
 							}
 						}
@@ -160,9 +161,9 @@ namespace System.Data.Linq.DbEngines.SqlServer
 				return source;
 			}
 
-			private void AnnotateSqlIncompatibility(SqlNode node, params SqlServerProviderMode[] providers)
+			private void AnnotateSqlIncompatibility(SqlNode node, params Enum[] providers)
 			{
-				this.annotations.Add(node, new SqlServerCompatibilityAnnotation(Strings.SourceExpressionAnnotation(node.SourceExpression), providers));
+				this.annotations.Add(node, new CompatibilityAnnotation(Strings.SourceExpressionAnnotation(node.SourceExpression), providers));
 			}
 
 			[SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Unknown reason.")]

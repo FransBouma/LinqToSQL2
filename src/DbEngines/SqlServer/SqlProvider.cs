@@ -30,6 +30,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 	[SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Unknown reason.")]
 	public class SqlProvider : IReaderProvider, IConnectionUser
 	{
+#warning REFACTORING CANDIDATE FOR #23
 		#region Class Members
 		private IDataServices _services;
 		private ConnectionManager _conManager;
@@ -723,7 +724,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			{
 				for(int i = 0, n = queries.Length; i < n; i++)
 				{
-					SqlServerCompatibilityCheck.ThrowIfUnsupported(queries[i].Query, annotations, this.Mode);
+					CompatibilityCheck.ThrowIfUnsupported(queries[i].Query, annotations, this.Mode);
 				}
 			}
 		}
@@ -1492,7 +1493,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			// Positioning after deflator because it may remove unnecessary columns
 			// from SELECT projection lists and allow more CROSS APPLYs to be reduced
 			// to CROSS JOINs.
-			node = SqlCrossApplyToCrossJoin.Reduce(node, annotations);
+			node = SqlCrossApplyToCrossJoin.Reduce(node, annotations, new Enum[] { SqlServerProviderMode.Sql2000 });
 
 			// fixup names for aliases, columns, locals, etc..
 			SqlNamer namer = new SqlNamer();

@@ -53,8 +53,11 @@
   <ItemGroup>
     <Compile Include="ChangeManagement\ReadOnlyChangeTracker.cs" />
     <Compile Include="ChangeManagement\StandardChangeTracker.cs" />
-    <Compile Include="DbEngines\SqlServer\ColumnNominator.cs" />
     <Compile Include="DbEngines\SqlServer\CommandTextProducer.cs" />
+    <Compile Include="DbEngines\SqlServer\SqlHelpers.cs" />
+    <Compile Include="Provider\Common\ColumnNominator.cs" />
+    <Compile Include="Provider\Common\CompatibilityAnnotation.cs" />
+    <Compile Include="Provider\Common\CompatibilityCheck.cs" />
     <Compile Include="Provider\Common\ExecuteResult.cs" />
     <Compile Include="Provider\Common\CompiledQuery.cs" />
     <Compile Include="Provider\Common\CompiledSubQuery.cs" />
@@ -68,9 +71,7 @@
     <Compile Include="DbEngines\SqlServer\SqlBuilder.cs" />
     <Compile Include="DbEngines\SqlServer\SqlCEProvider.cs" />
     <Compile Include="DbEngines\SqlServer\SqlConnectionManager.cs" />
-    <Compile Include="DbEngines\SqlServer\SqlCrossApplyToCrossJoin.cs" />
     <Compile Include="DbEngines\SqlServer\SqlFormatter.cs" />
-    <Compile Include="DbEngines\SqlServer\SqlOuterApplyReducer.cs" />
     <Compile Include="DbEngines\SqlServer\SqlParameterInfoProducer.cs" />
     <Compile Include="DbEngines\SqlServer\SqlParameterizer.cs" />
     <Compile Include="DbEngines\SqlServer\SqlServerProviderBase.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Provider\Common\SqlAliasesReferenced.cs" />
     <Compile Include="Provider\Common\SqlCaseSimplifier.cs" />
     <Compile Include="Provider\Common\SqlComparer.cs" />
+    <Compile Include="Provider\Common\SqlCrossApplyToCrossJoin.cs" />
     <Compile Include="Provider\Common\SqlDeflator.cs" />
     <Compile Include="Provider\Common\SqlExpander.cs" />
     <Compile Include="Provider\Common\SqlFlattener.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Provider\Common\SqlLiftWhereClauses.cs" />
     <Compile Include="Provider\Common\SqlMultiplexer.cs" />
     <Compile Include="Provider\Common\SqlNamer.cs" />
+    <Compile Include="Provider\Common\SqlOuterApplyReducer.cs" />
     <Compile Include="Provider\Common\SqlParameterInfo.cs" />
     <Compile Include="Provider\Common\SqlPredicateLifter.cs" />
     <Compile Include="Provider\Common\SqlProjectionComparer.cs" />
@@ -382,8 +385,6 @@
     <Compile Include="Provider\Common\SqlNodeAnnotation.cs" />
     <Compile Include="Provider\Common\SqlNodeAnnotations.cs" />
     <Compile Include="Provider\Common\SqlNodeTypeOperators.cs" />
-    <Compile Include="DbEngines\SqlServer\SqlServer2KCompatibilityAnnotation.cs" />
-    <Compile Include="DbEngines\SqlServer\SqlServer2KCompatibilityCheck.cs" />
     <Compile Include="Provider\Visitors\SqlVisitor.cs" />
     <Compile Include="Provider\Common\TypeSystem.cs" />
     <Compile Include="Provider\Common\TypeSystemProvider.cs" />

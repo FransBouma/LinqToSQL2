@@ -11,6 +11,8 @@ namespace System.Data.Linq.DbEngines.SqlServer
 {
 	internal class SqlConnectionManager : ConnectionManager
 	{
+
+#warning REFACTORING CANDIDATE FOR #23
 		#region Member Declarations
 		private SqlInfoMessageEventHandler infoMessagehandler;
 		#endregion

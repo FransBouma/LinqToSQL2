@@ -38,7 +38,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 					else
 					{
 						// cannot be converted to literal value. note that this select is not SQL2K compatible
-						this.annotations.Add(select.Top, new SqlServerCompatibilityAnnotation(Strings.SourceExpressionAnnotation(select.Top.SourceExpression), SqlServerProviderMode.Sql2000));
+						this.annotations.Add(select.Top, new CompatibilityAnnotation(Strings.SourceExpressionAnnotation(select.Top.SourceExpression), SqlServerProviderMode.Sql2000));
 					}
 				}
 				return select;

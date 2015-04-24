@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Data.Linq.DbEngines.SqlServer;
 using System.Data.Linq.Provider.NodeTypes;
 using System.Data.Linq.Provider.Visitors;
 using System.Diagnostics.CodeAnalysis;
 
-namespace System.Data.Linq.DbEngines.SqlServer
+namespace System.Data.Linq.Provider.Common
 {
 	internal class ColumnNominator : SqlVisitor {
 		bool isBlocked;

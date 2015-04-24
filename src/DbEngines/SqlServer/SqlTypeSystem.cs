@@ -7,7 +7,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 
 	internal static class SqlTypeSystem
 	{
-
+#warning REFACTORING CANDIDATE FOR #23
 		internal static TypeSystemProvider Create2000Provider()
 		{
 			return new Sql2000Provider();

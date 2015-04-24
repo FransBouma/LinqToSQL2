@@ -13,6 +13,7 @@ using System.Data.Linq.Mapping;
 using SD.Tools.OrmProfiler.Interceptor;
 using System.Data.Common;
 using System.Configuration;
+using System.IO;
 
 namespace ReadWriteTests.SqlServer
 {
@@ -436,6 +437,8 @@ namespace ReadWriteTests.SqlServer
 		{
 			using(var ctx = GetContext())
 			{
+				var writer = new StringWriter();
+				ctx.Log = writer;
 				var q = ctx.Customers.Skip(11).Take(10);
 				int count = 0;
 
@@ -444,15 +447,29 @@ namespace ReadWriteTests.SqlServer
 					count++;
 				}
 				Assert.AreEqual(10, count);
+
+				// check query contents. Uses default (which is 2008)
+				var queryText = writer.ToString();
+				queryText = queryText.Substring(0, queryText.IndexOf("--"));
+				Assert.AreEqual(@"SELECT [t1].[AccountNumber], [t1].[CustomerID] AS [CustomerId], [t1].[ModifiedDate], [t1].[PersonID] AS [PersonId], [t1].[rowguid] AS [Rowguid], [t1].[StoreID] AS [StoreId], [t1].[TerritoryID] AS [TerritoryId]
+FROM (
+    SELECT ROW_NUMBER() OVER (ORDER BY [t0].[AccountNumber], [t0].[CustomerID], [t0].[ModifiedDate], [t0].[PersonID], [t0].[rowguid], [t0].[StoreID], [t0].[TerritoryID]) AS [ROW_NUMBER], [t0].[AccountNumber], [t0].[CustomerID], [t0].[ModifiedDate], [t0].[PersonID], [t0].[rowguid], [t0].[StoreID], [t0].[TerritoryID]
+    FROM [Sales].[Customer] AS [t0]
+    ) AS [t1]
+WHERE [t1].[ROW_NUMBER] BETWEEN @p0 + 1 AND @p0 + @p1
+ORDER BY [t1].[ROW_NUMBER]
+", queryText);
 			}
 		}
 
 
 		[Test]
-		public void FetchingSecondPageUsingSkipTakeUsingSql2000Pagin()
+		public void FetchingSecondPageUsingSkipTakeUsingSql2000Paging()
 		{
 			using(var ctx = GetContext())
 			{
+				var writer = new StringWriter();
+				ctx.Log = writer;
 				ctx.PerInstanceProviderMode = SqlServerProviderMode.Sql2000;
 				var q = ctx.Customers.Skip(11).Take(10);
 				int count = 0;
@@ -462,6 +479,20 @@ namespace ReadWriteTests.SqlServer
 					count++;
 				}
 				Assert.AreEqual(10, count);
+				// check query contents.
+				var queryText = writer.ToString();
+				queryText = queryText.Substring(0, queryText.IndexOf("--"));
+				Assert.AreEqual(@"SELECT TOP 10 [t0].[AccountNumber], [t0].[CustomerID] AS [CustomerId], [t0].[ModifiedDate], [t0].[PersonID] AS [PersonId], [t0].[rowguid] AS [Rowguid], [t0].[StoreID] AS [StoreId], [t0].[TerritoryID] AS [TerritoryId]
+FROM [Sales].[Customer] AS [t0]
+WHERE NOT (EXISTS(
+    SELECT NULL AS [EMPTY]
+    FROM (
+        SELECT TOP 11 [t1].[CustomerID]
+        FROM [Sales].[Customer] AS [t1]
+        ) AS [t2]
+    WHERE [t0].[CustomerID] = [t2].[CustomerID]
+    ))
+", queryText);
 			}
 		}
 

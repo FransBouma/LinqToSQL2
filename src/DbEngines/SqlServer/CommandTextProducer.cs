@@ -6,7 +6,6 @@ using System.Data.Linq.Provider.Visitors;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
-using SqlParameter = System.Data.SqlClient.SqlParameter;
 
 namespace System.Data.Linq.DbEngines.SqlServer
 {

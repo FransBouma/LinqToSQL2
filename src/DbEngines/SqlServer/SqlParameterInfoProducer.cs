@@ -9,6 +9,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 {
 	internal class SqlParameterInfoProducer : SqlVisitor
 	{
+#warning REFACTORING CANDIDATE FOR #23, even though it's not SqlClient tied, it has to move to make it generic code for re-use.
 		private SqlParameterizer parameterizer;
 		private Dictionary<object, SqlParameterInfo> map;
 		private List<SqlParameterInfo> currentParams;
@@ -165,7 +166,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 			// retyped, we need to annotate
 			this.parameterizer.Annotations.Add(
 											   node,
-				new SqlServerCompatibilityAnnotation(
+				new CompatibilityAnnotation(
 					Strings.MaxSizeNotSupported(node.SourceExpression), SqlServerProviderMode.Sql2000));
 			return false;
 		}

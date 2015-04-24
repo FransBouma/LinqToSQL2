@@ -5,10 +5,12 @@ using System.Data.Linq.Provider.NodeTypes;
 namespace System.Data.Linq.DbEngines.SqlServer
 {
 	/// <summary>
-	/// Class which produces SQL Server specific SQL fragments for SqlNode instances.
+	/// Class which produces SQL fragments for SqlNode instances.
 	/// </summary>
 	internal class SqlFormatter : DbFormatter
 	{
+#warning REFACTOR. Introduce interface for CommandTextProducer to make it not tied to a specific DB.
+
 		#region Member Declarations
 		private CommandTextProducer _commandTextProducer;
 		#endregion

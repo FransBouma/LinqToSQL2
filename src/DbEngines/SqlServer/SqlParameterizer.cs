@@ -7,6 +7,7 @@ namespace System.Data.Linq.DbEngines.SqlServer
 {
 	internal class SqlParameterizer
 	{
+#warning REFACTORING CANDIDATE FOR #23
 		#region Member Declarations
 		private TypeSystemProvider _typeProvider;
 		private SqlNodeAnnotations _annotations;
