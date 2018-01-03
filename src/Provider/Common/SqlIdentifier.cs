@@ -26,6 +26,7 @@ namespace System.Data.Linq.Provider.Common
 
 	internal static class SqlIdentifier
 	{
+#warning Refactor into not using SqlCommandBuilder, as it's solely used to quote identifiers with '[]' using a very inefficient system. This code now blocks porting to netstandard2.0
 		private static SqlCommandBuilder builder = new SqlCommandBuilder();
 
 		const string ParameterPrefix = "@";
